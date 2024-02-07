@@ -1,6 +1,6 @@
 import React from 'react';
 
-function createFeed() {
+function CreateFeed() {
   return (
     <>
       <div>헤더</div>
@@ -10,10 +10,10 @@ function createFeed() {
           새글작성
           <button>사진첨부하기</button>
         </div>
-        <textare>내용</textare>
+        <textarea></textarea>
       </div>
     </>
   );
 }
 
-export default createFeed;
+export default CreateFeed;
