@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { app } from './firebase';
-import Main from 'pages/Main';
+import Router from 'shared/Router';
 
 function App() {
   useEffect(() => {
@@ -8,8 +8,7 @@ function App() {
   });
   return (
     <div>
-      App
-      <Main />
+      <Router />
     </div>
   );
 }

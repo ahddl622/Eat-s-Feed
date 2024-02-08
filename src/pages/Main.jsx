@@ -1,5 +1,4 @@
 import CreateFeed from 'components/CreateFeed';
-import React from 'react';
 
 function Main() {
   return (
