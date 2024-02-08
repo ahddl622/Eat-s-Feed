@@ -1,5 +1,4 @@
 import Main from 'pages/Main';
-import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 function Router() {

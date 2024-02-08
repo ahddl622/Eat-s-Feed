@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import { app } from './firebase';
+import { auth } from './firebase';
 import Main from 'pages/Main';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
 
 function App() {
   useEffect(() => {
-    console.log('firebase에서 app 잘 가져와지나요?', app);
-  });
+    createUserWithEmailAndPassword(auth, 'test4@gmail.com', '12341234');
+  }, []);
+
   return (
     <div>
       App
