@@ -1,5 +1,3 @@
-import React from 'react';
-
 function LoginNout() {
   return <div>LoginNout</div>;
 }
