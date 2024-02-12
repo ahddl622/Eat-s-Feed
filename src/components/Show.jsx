@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { getformattedDate } from 'common/date';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { editContentHandeler } from '../redux/modules/editedContentReducer';
 import { changeEditDone, makeNewFeed } from '../redux/modules/feedListReducer';
@@ -20,6 +20,14 @@ function Show() {
 
     const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
     dispatch(makeNewFeed([...restList, editDoneFeed]));
+  };
+
+  const deleteFeed = async (feedId) => {
+    const foundFeed = feedList.find((feed) => feed.id === feedId);
+    const feedRef = doc(db, 'feedList', foundFeed.id);
+    await deleteDoc(feedRef);
+    const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
+    dispatch(makeNewFeed(restList));
   };
 
   return (
@@ -58,7 +66,7 @@ function Show() {
                 ></textarea>
               </>
             )}
-            <button>삭제하기</button>
+            <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
             <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
           </div>
         </div>
