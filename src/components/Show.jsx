@@ -13,7 +13,6 @@ function Show() {
   const editFeed = async (feedId) => {
     const foundFeed = feedList.find((feed) => feed.id === feedId);
     const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
-
     const feedRef = doc(db, 'feedList', foundFeed.id);
     await updateDoc(feedRef, editDoneFeed);
 
@@ -25,6 +24,7 @@ function Show() {
     const foundFeed = feedList.find((feed) => feed.id === feedId);
     const feedRef = doc(db, 'feedList', foundFeed.id);
     await deleteDoc(feedRef);
+
     const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
     dispatch(makeNewFeed(restList));
   };
