@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CreateFeed from 'components/CreateFeed';
-import Show from './Show';
+import Show from '../components/Show';
 import { useEffect } from 'react';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';

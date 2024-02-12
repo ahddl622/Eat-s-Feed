@@ -9,21 +9,16 @@ import { changeEditDone, makeNewFeed } from '../redux/modules/feedListReducer';
 function Show() {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
-  console.log(feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
 
   const editFeed = async (feedId) => {
     const foundFeed = feedList.find((feed) => feed.id === feedId);
-    console.log(foundFeed);
-
     const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
-    console.log(editDoneFeed);
 
     const feedRef = doc(db, 'feedList', foundFeed.id);
     await updateDoc(feedRef, editDoneFeed);
 
     const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
-    console.log(restList);
     dispatch(makeNewFeed([...restList, editDoneFeed]));
   };
 
