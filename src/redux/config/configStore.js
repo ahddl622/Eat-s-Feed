@@ -1,6 +1,15 @@
 import { createStore, combineReducers } from 'redux';
+import { feedListReducer } from '../modules/feedListReducer';
+import { titleReducer } from '../modules/titleReducer';
+import { contentReducer } from '../modules/contentReducer';
+import { editedContentReducer } from '../modules/editedContentReducer';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  feedListReducer,
+  titleReducer,
+  contentReducer,
+  editedContentReducer
+});
 
 const store = createStore(rootReducer);
 
