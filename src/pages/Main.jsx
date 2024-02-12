@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import CreateFeed from 'components/CreateFeed';
 import Show from '../components/Show';
-import { useEffect } from 'react';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import CreateFeed from 'components/CreateFeed';
 import { makeNewFeed } from '../redux/modules/feedListReducer';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 
 function Main() {
   const [newFeed, setnewFeed] = useState(false);

@@ -1,10 +1,9 @@
-import React from 'react';
-import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { makeNewFeed } from '../redux/modules/feedListReducer';
+import { useDispatch, useSelector } from 'react-redux';
 import { myTitle } from '../redux/modules/titleReducer';
 import { myContent } from '../redux/modules/contentReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { makeNewFeed } from '../redux/modules/feedListReducer';
+import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 
 function CreateFeed() {
   const title = useSelector((state) => state.titleReducer.title);
