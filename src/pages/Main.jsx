@@ -6,10 +6,10 @@ function Main() {
   const [newFeed, setnewFeed] = useState(false);
   const newFeedArea = useRef(null);
 
+  // Add: 모달창 끄기(x 버튼 or 새 글 등록하기 버튼 or 모달창 이외의 구역 클릭 시)
   const goBack = (e) => {
     return !newFeedArea.current.contains(e.target) ? setnewFeed(false) : null;
   };
-
   useEffect(() => {
     document.addEventListener('click', goBack);
     return () => {
