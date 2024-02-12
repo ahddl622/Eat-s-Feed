@@ -22,6 +22,8 @@ function CreateFeed({ setnewFeed }) {
     });
   };
 
+  // 새 feed를 추가하려면 새 feed를 db에 추가한 뒤, 추가가 완료된 feedList를 db에서 가져와서 store에도 넣어줘야
+  // -> db와 store 둘 다에 모두 추가가능
   const addFeed = async (event) => {
     event.preventDefault();
     if (title && content) {

@@ -13,6 +13,8 @@ function Show() {
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
 
+  // 페이지가 mount 되자마자 db에 저장되어 있는 feedList 가져와서 자동생성된 id 부여하여 store에 저장
+  // -> 그래야 store에 저장된 feedList대로 화면에 뿌릴 수 있음
   useEffect(() => {
     const fetchFeedData = async () => {
       const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
@@ -28,6 +30,8 @@ function Show() {
     fetchFeedData();
   }, [dispatch]);
 
+  // myPage에서 수정 및 삭제 가능하지만 MainPage에서도 나열되어있는 피드 각각을 수정 및 삭제 가능하도록 함
+  // 로그인 데이터 공유되면 내 id의 feed만 수정 및 삭제 가능하도록 할 예정
   const editFeed = async (feedId) => {
     const foundFeed = feedList.find((feed) => feed.id === feedId);
     const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
