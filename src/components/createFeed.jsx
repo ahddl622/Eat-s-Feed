@@ -5,12 +5,12 @@ import { myContent } from '../redux/modules/contentReducer';
 import { makeNewFeed } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 
-function CreateFeed() {
+function CreateFeed({ setnewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const dispatch = useDispatch();
 
-  const fetchFeedId = async () => {
+  const fetchFeedData = async () => {
     const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
 
@@ -29,7 +29,7 @@ function CreateFeed() {
       const collectionRef = collection(db, 'feedList');
       await addDoc(collectionRef, newFeed);
       // **
-      await fetchFeedId();
+      await fetchFeedData();
       dispatch(myTitle(''));
       dispatch(myContent(''));
     }
@@ -43,14 +43,14 @@ function CreateFeed() {
 
   return (
     <>
-      <div>헤더</div>
       <div>
+        <button onClick={() => setnewFeed(false)}>x</button>
         <div>User사진</div>
         <div>
           여러분의 이야기를 들려주세요!
           <button>사진첨부하기</button>
         </div>
-        제목: <input value={title} onChange={(e) => dispatch(myTitle(e.target.value))}></input>
+        제목: <input value={title} onChange={(e) => dispatch(myTitle(e.target.value))}></input> <br />
         내용: <textarea value={content} onChange={(e) => dispatch(myContent(e.target.value))}></textarea>
         <button
           onClick={(event) => {

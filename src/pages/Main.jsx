@@ -1,36 +1,47 @@
 import Show from '../components/Show';
-import { db } from '../firebaseConfig';
-import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import CreateFeed from 'components/CreateFeed';
-import { makeNewFeed } from '../redux/modules/feedListReducer';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 
 function Main() {
   const [newFeed, setnewFeed] = useState(false);
-  const dispatch = useDispatch();
+  const newFeedArea = useRef(null);
+
+  const goBack = (e) => {
+    return !newFeedArea.current.contains(e.target) ? setnewFeed(false) : null;
+  };
 
   useEffect(() => {
-    const fetchFeedData = async () => {
-      const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
-      const querySnapshot = await getDocs(q);
-
-      const newFeedArr = [];
-      querySnapshot.forEach((doc) => {
-        const feed = { id: doc.id, ...doc.data() };
-        newFeedArr.push(feed);
-        dispatch(makeNewFeed(newFeedArr));
-      });
+    document.addEventListener('click', goBack);
+    return () => {
+      document.removeEventListener('click', goBack);
     };
-    fetchFeedData();
-  }, [dispatch]);
+  });
 
   return (
     <div>
-      Main
-      <button onClick={() => setnewFeed(!newFeed)}>새 글 작성하기</button>
-      {newFeed ? <CreateFeed /> : null}
-      <Show />
+      <header style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <p>새로운 소식을 빠르게!</p>
+          <p>여러분의 이야기를 들려주세요!</p>
+        </div>
+        <div>New Speed</div>
+      </header>
+      <main style={{ display: 'flex', padding: '40px' }}>
+        <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
+          <div>
+            공지글
+            {/* <Notice /> 들어갈 예정 - fakeData 생기면 */}
+          </div>
+          <div ref={newFeedArea}>
+            <button onClick={() => setnewFeed(!newFeed)}>새 글 작성하기</button>
+            {newFeed ? <CreateFeed setnewFeed={setnewFeed} /> : null}
+          </div>
+        </div>
+        <div>
+          <div>검색기능</div>
+          <Show />
+        </div>
+      </main>
     </div>
   );
 }
