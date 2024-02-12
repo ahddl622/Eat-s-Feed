@@ -8,22 +8,22 @@ const StWrap = styled.div`
   margin: 50px auto;
   display: grid;
   grid-template-columns: 30% 70%;
-  /* gap: 30px; */
+  gap: 30px;
 
   text-align: center;
 `;
 
 const StArticle = styled.article`
   display: grid;
-  grid-template-rows: 90% 10%;
-  /* gap: 30px; */
+  grid-template-rows: 60% 10%;
+  gap: 30px;
 `;
 
 const StText = styled.div`
   padding: 10px;
 
   border: 2px solid #fff;
-  box-shadow: 3px 5px 12px 5px #ffe5e5;
+  box-shadow: 3px 5px 12px 3px #ffe5e5;
   border-radius: 35px;
 `;
 
