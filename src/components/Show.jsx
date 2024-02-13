@@ -26,26 +26,26 @@ function Show() {
   //   }
   // };
   // xhr.send('');
-  const [data, setData] = useState(null);
-  const url = 'http://openapi.seoul.go.kr:8088/sample/json/CardSubwayStatsNew/1/5/20220301';
+  // const [data, setData] = useState(null);
+  // const url = 'http://openapi.seoul.go.kr:8088/sample/json/CardSubwayStatsNew/1/5/20220301';
 
-  useEffect(() => {
-    const fetchSeoulFoodData = async () => {
-      try {
-        const response = await fetch(url);
-        if (!response) {
-          console.error('데이터를 불러올 수 없습니다.');
-          return;
-        }
-        const jsonResponse = response.json;
-        setData(jsonResponse);
-      } catch (error) {
-        console.error('데이터를 불러오지 못했습니다.', error.message);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchSeoulFoodData = async () => {
+  //     try {
+  //       const response = await fetch(url);
+  //       if (!response) {
+  //         console.error('데이터를 불러올 수 없습니다.');
+  //         return;
+  //       }
+  //       const jsonResponse = response.json;
+  //       setData(jsonResponse);
+  //     } catch (error) {
+  //       console.error('데이터를 불러오지 못했습니다.', error.message);
+  //     }
+  //   };
 
-    fetchSeoulFoodData();
-  }, []);
+  //   fetchSeoulFoodData();
+  // }, []);
 
   // 페이지가 mount 되자마자 db에 저장되어 있는 feedList 가져와서 자동생성된 id 부여하여 store에 저장
   // -> 그래야 store에 저장된 feedList대로 화면에 뿌릴 수 있음
