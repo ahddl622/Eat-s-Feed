@@ -49,9 +49,14 @@ function Profile() {
   // 현재 로그인한 유저의 이메일을 가져옵니다.
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setLoginUser(user.email);
+      if (user) {
+        setLoginUser(user.email);
+      } else {
+        alert('로그인 후 이용해주세요');
+        setLoginUser(null);
+      }
     });
-  });
+  }, []);
 
   // 현재 로그인한 유저의 프로필을 가져옵니다.
   useEffect(() => {
@@ -89,9 +94,11 @@ function Profile() {
           '프로필을 완성해 주세요!'
         )}
       </StInfoDiv>
-      <Link to={`/myinfo`}>
-        <button>수정하기</button>
-      </Link>
+      {loginUser ? (
+        <Link to={`/myinfo`}>
+          <button>수정하기</button>
+        </Link>
+      ) : null}
     </StSection>
   );
 }

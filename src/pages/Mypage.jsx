@@ -29,7 +29,7 @@ const StText = styled.div`
 `;
 
 function Mypage() {
-const feedList = useSelector((state) => state.feedListReducer.feedList)
+  const feedList = useSelector((state) => state.feedListReducer.feedList);
 
   return (
     <StWrap>
