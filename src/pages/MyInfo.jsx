@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
-import { setUserEmail } from 'store/modules/userEmailReducer';
+
+
+
 
 
 const StWrap = styled.div`
