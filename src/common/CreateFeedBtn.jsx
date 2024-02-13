@@ -16,11 +16,15 @@ function CreateFeedBtn() {
     };
   });
 
+  console.log(auth.currentUser);
+  // console.log(auth.currentUser.uid);
+  // console.log(auth.currentUser.email);
+
   return (
     <div ref={newFeedArea}>
       <button
         onClick={() => {
-          if (!auth.currentUser) {
+          if (auth.currentUser === null) {
             alert('로그인 후 이용해주세요');
             return;
           } else {

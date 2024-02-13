@@ -1,4 +1,4 @@
-import { db } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { myTitle } from 'store/modules/titleReducer';
 import { myContent } from 'store/modules/contentReducer';
@@ -19,6 +19,7 @@ function CreateFeed({ setNewFeed }) {
 
       const newFeedArr = [];
       querySnapshot.forEach((doc) => {
+        console.log(doc.id);
         const feed = { id: doc.id, ...doc.data() };
         newFeedArr.push(feed);
       });
@@ -34,7 +35,15 @@ function CreateFeed({ setNewFeed }) {
     event.preventDefault();
     try {
       if (title && content) {
-        const newFeed = { title, content, imgURL, feedCount: 0, createdAt: String(new Date()), editDone: true };
+        const newFeed = {
+          email: auth.currentUser.email,
+          title,
+          content,
+          imgURL,
+          feedCount: 0,
+          createdAt: String(new Date()),
+          editDone: true
+        };
         const collectionRef = collection(db, 'feedList');
         await addDoc(collectionRef, newFeed);
         // **
@@ -75,8 +84,8 @@ function CreateFeed({ setNewFeed }) {
         onChange={(e) => dispatch(myContent(e.target.value))}
       ></textarea>
       <button
-        onClick={(event) => {
-          addFeed(event);
+        onClick={(e) => {
+          addFeed(e);
         }}
       >
         저장하기
