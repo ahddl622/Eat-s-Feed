@@ -1,11 +1,13 @@
 const SET_NICKNAME = 'SET_NICKNAME';
 
-export const setNickname = (nickname) => ({
-  type: SET_NICKNAME,
-  payload: nickname,
-});
+export const setNickname = (nickname) => {
+  return {
+    type: SET_NICKNAME,
+    payload: nickname,
+  }
+};
 
-const initialState = '';
+const initialState = "";
 
 const userNicknameReducer = (state = initialState, action) => {
   switch (action.type) {

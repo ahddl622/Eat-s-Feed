@@ -35,15 +35,6 @@ const LoginForm = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'feed'));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-      });
-    };
-    fetchData();
-  }, []);
 
   const onChange = (event) => {
     const {
@@ -67,7 +58,7 @@ const LoginForm = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
-      await addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, 'profile'), {
         uid,
         email,
         nickname
