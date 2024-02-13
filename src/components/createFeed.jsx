@@ -61,8 +61,20 @@ function CreateFeed({ setNewFeed }) {
         여러분의 맛집을 소개해주세요!
         <FileUpload />
       </div>
-      제목: <input value={title} onChange={(e) => dispatch(myTitle(e.target.value))}></input> <br />
-      내용: <textarea value={content} onChange={(e) => dispatch(myContent(e.target.value))}></textarea>
+      제목:{' '}
+      <input
+        value={title}
+        placeholder="맛집의 지역과 상호명을 기재해주세요"
+        onChange={(e) => dispatch(myTitle(e.target.value))}
+      ></input>{' '}
+      <br />
+      내용:{' '}
+      <textarea
+        value={content}
+        placeholder="어떤 점이 좋았나요? 
+      당신의 최애 메뉴는?"
+        onChange={(e) => dispatch(myContent(e.target.value))}
+      ></textarea>
       <button
         onClick={(event) => {
           addFeed(event);
