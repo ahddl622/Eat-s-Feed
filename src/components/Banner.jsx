@@ -1,22 +1,18 @@
 import styled from "styled-components";
-
-const Grid = styled.div`
-  display : grid;
-  grid-template-columns:1fr max-content;
-`;
+import "../style/BannerStyle.css"
 
 function Banner() {
   return (
-    <Grid>
+    <div className="my-container">
       <div>
-        <h3>새로운 소식을 빠르게</h3>
-        <h6>여러분의 이야기를 들려주세요!</h6>
+        <h1 className="title">Eat;s peed</h1>
       </div>
       <div>
-        <h1>Eat's peed</h1>
+        <h3 className="sub">새로운 소식을 빠르게</h3>
+        <h6 className="sub">여러분의 이야기를 들려주세요!</h6>
       </div>
-    </Grid>
+    </div>
   )
 }
 
-export default Banner
+export default Banner;
