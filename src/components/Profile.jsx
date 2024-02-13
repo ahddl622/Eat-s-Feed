@@ -66,7 +66,7 @@ function Profile() {
   }, [loginEmail, dispatch]);
 
   console.log('profile', profileInfo);
-  console.log('email', loginUserNickname);
+  console.log('email', loginEmail);
 
   return (
     <StSection>
@@ -75,9 +75,9 @@ function Profile() {
         <StFigure>
           <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
         </StFigure>
+        <h3>{loginEmail}</h3>
         {intro ? (
           <>
-            <h3>{loginEmail}</h3>
             <h3>{intro}</h3>
             <ul>
               {taste.map((item) => (

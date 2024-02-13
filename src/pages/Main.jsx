@@ -1,42 +1,28 @@
 import Show from 'components/Show';
-import { useRef, useState, useEffect } from 'react';
 import Banner from 'components/Banner';
-import CreateFeed from '../components/CeateFeed';
 import { kindOfMenu } from 'shared/data';
+import CreateFeedBtn from 'common/CreateFeedBtn';
+import Search from 'components/Search';
+import Ranking from 'components/Ranking';
 
 function Main() {
-  const [newFeed, setnewFeed] = useState(false);
-  const newFeedArea = useRef(null);
-
-  // Add: 모달창 끄기(x 버튼 or 새 글 등록하기 버튼 or 모달창 이외의 구역 클릭 시)
-  const goBack = (e) => {
-    return !newFeedArea.current.contains(e.target) ? setnewFeed(false) : null;
-  };
-  useEffect(() => {
-    document.addEventListener('click', goBack);
-    return () => {
-      document.removeEventListener('click', goBack);
-    };
-  });
-
   return (
     <div>
       <header style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Banner />
+        <div>
+          <p>새로운 맛집을 빠르게!</p>
+          <p>숨은 맛집을 공유해주세요!</p>
+        </div>
+        <div>New Speed</div>
       </header>
       <main style={{ display: 'flex', padding: '40px' }}>
         <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
-          <div>
-            공지글
-            {/* <Notice /> 들어갈 예정 - fakeData 생기면 */}
-          </div>
-          <div ref={newFeedArea}>
-            <button onClick={() => setnewFeed(!newFeed)}>새 글 작성하기</button>
-            {newFeed ? <CreateFeed setnewFeed={setnewFeed} /> : null}
-          </div>
+          <Ranking />
+          <CreateFeedBtn />
         </div>
         <div>
-          <div>검색기능</div>
+          <Search />
           <div
             style={{
               display: 'flex',

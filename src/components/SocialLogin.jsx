@@ -27,24 +27,26 @@ const SocialLogin = () => {
     }
   };
 
-  // const handleGithubLogin = async () => {
-  //   const provider = new GithubAuthProvider()
+  const handleGithubLogin = async () => {
+    const provider = new GithubAuthProvider()
 
-  //   try {
-  //     const data = await signInWithPopup(auth, provider)
-  //     setUserData(data.user);
-  //     console.log(data);
-  //     alert('로그인 되었습니다.');
-  //     navigate('/');
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+    try {
+      const data = await signInWithPopup(auth, provider)
+      setUserData(data.user);
+      dispatch(setUserEmail(data.user.email))
+      dispatch(setNickname(data.user.displayName))
+      console.log(data);
+      alert('로그인 되었습니다.');
+      navigate('/');
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div>
       <button onClick={handleGoogleLogin}>구글 로그인</button>
-      {/* <button onClick={handleGithubLogin}>Github 로그인</button> */}
+      <button onClick={handleGithubLogin}>Github 로그인</button>
     </div>
   );
 };
