@@ -1,7 +1,8 @@
 import Show from '../components/Show';
 import { kindOfMenu } from 'shared/data';
 import CreateFeedBtn from 'common/CreateFeedBtn';
-import Notice from 'components/Notice';
+import Search from 'components/Search';
+import Ranking from 'components/Ranking';
 
 function Main() {
   return (
@@ -15,11 +16,11 @@ function Main() {
       </header>
       <main style={{ display: 'flex', padding: '40px' }}>
         <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
-          <Notice />
+          <Ranking />
           <CreateFeedBtn />
         </div>
         <div>
-          <div>검색기능</div>
+          <Search />
           <div
             style={{
               display: 'flex',

@@ -85,14 +85,16 @@ function Show() {
   };
 
   const deleteFeed = async (feedId) => {
-    try {
-      const foundFeed = feedList.find((feed) => feed.id === feedId);
-      const feedRef = doc(db, 'feedList', foundFeed.id);
-      await deleteDoc(feedRef);
-      const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
-      dispatch(makeNewFeed(restList));
-    } catch (error) {
-      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    if (window.confirm("Eat's feed를 삭제하시겠습니까?")) {
+      try {
+        const foundFeed = feedList.find((feed) => feed.id === feedId);
+        const feedRef = doc(db, 'feedList', foundFeed.id);
+        await deleteDoc(feedRef);
+        const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
+        dispatch(makeNewFeed(restList));
+      } catch (error) {
+        alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+      }
     }
   };
 

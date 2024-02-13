@@ -24,6 +24,7 @@ function FileUpload() {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
       console.error('파일 저장 실패');
     }
+    setSelectedFile(null);
   };
 
   return (
