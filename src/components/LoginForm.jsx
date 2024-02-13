@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import { setUserEmail } from 'store/modules/userEmailReducer';
 import { useDispatch } from 'react-redux';

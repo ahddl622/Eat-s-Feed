@@ -1,9 +1,9 @@
 const SET_USER_UID = "SET_USER_UID"
 
-export const setUserUid = (uid) => {
+export const setUserUid = (payload) => {
   return {
     type: SET_USER_UID,
-    payload: uid
+    payload
   }
 }
 
