@@ -2,7 +2,6 @@ import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import CreateFeed from 'components/CreateFeed';
 import CreateFeedBtn from 'common/CreateFeedBtn';
 
 const StWrap = styled.div`

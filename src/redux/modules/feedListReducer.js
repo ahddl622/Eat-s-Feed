@@ -1,5 +1,6 @@
 const FEEDLIST = 'feedList/FEEDLIST';
 const CHANGE_EDITDONE = 'editDone/CHANGE_EDITDONE';
+const PLUS_FEEDCOUNT = 'feedCount/ PLUS_FEEDCOUNT';
 
 export const makeNewFeed = (payload) => {
   return {
@@ -15,12 +16,24 @@ export const changeEditDone = (payload) => {
   };
 };
 
+export const plusFeedCount = (payload) => {
+  return {
+    type: PLUS_FEEDCOUNT,
+    payload
+  };
+};
+
 const initialstate = {
   feedList: []
 };
 
 export const feedListReducer = (state = initialstate, action) => {
   switch (action.type) {
+    case FEEDLIST:
+      return {
+        ...state,
+        feedList: action.payload
+      };
     case CHANGE_EDITDONE:
       const foundFeed = state.feedList.find((feed) => feed.id === action.payload);
       const restList = state.feedList.filter((feed) => feed.id !== foundFeed.id);
@@ -28,10 +41,11 @@ export const feedListReducer = (state = initialstate, action) => {
         ...state,
         feedList: [...restList, { ...foundFeed, editDone: !foundFeed.editDone }]
       };
-    case FEEDLIST:
+    case PLUS_FEEDCOUNT:
+      const plusFoundFeed = state.feedList.find((feed) => feed.id === action.payload);
       return {
         ...state,
-        feedList: action.payload
+        feedList: [...state.feedList, { ...plusFoundFeed, feedCount: plusFoundFeed.feedCount + 1 }]
       };
 
     default:

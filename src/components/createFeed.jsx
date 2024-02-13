@@ -10,6 +10,7 @@ function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const imgURL = useSelector((state) => state.imgURLReducer);
+  // const count = useSelector((state) => state.countReducer);
   const dispatch = useDispatch();
 
   const fetchFeedData = async () => {
@@ -34,7 +35,7 @@ function CreateFeed({ setNewFeed }) {
     event.preventDefault();
     try {
       if (title && content) {
-        const newFeed = { title, content, imgURL, createdAt: String(new Date()), editDone: true };
+        const newFeed = { title, content, imgURL, feedCount: 0, createdAt: String(new Date()), editDone: true };
         const collectionRef = collection(db, 'feedList');
         await addDoc(collectionRef, newFeed);
         // **

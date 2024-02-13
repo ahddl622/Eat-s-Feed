@@ -1,18 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { editContentHandeler } from '../redux/modules/editedContentReducer';
-import { changeEditDone, makeNewFeed } from '../redux/modules/feedListReducer';
+import { changeEditDone, makeNewFeed, plusFeedCount } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+// import { plusCount, minusCount } from '../redux/modules/countReducer';
 // import seoulFoodData from "../"
 
 function Show() {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
+  // const count = useSelector((state) => state.countReducer);
 
   // var xhr = new XMLHttpRequest();
   // var url = 'http://openapi.seoul.go.kr:8088/sample/json/CardSubwayStatsNew/1/5/20220301'; /* JSON URL */
@@ -135,6 +136,11 @@ function Show() {
               </>
             )}
             <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
+            <div>
+              <button onClick={() => dispatch(plusFeedCount(feed.id))}>추천</button>
+              {/* <button onClick={() => dispatch(minusCount())}>비추천</button> */}
+              {feed.count}
+            </div>
             <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
           </div>
         </div>

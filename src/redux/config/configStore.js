@@ -4,6 +4,7 @@ import { titleReducer } from '../modules/titleReducer';
 import { contentReducer } from '../modules/contentReducer';
 import { editedContentReducer } from '../modules/editedContentReducer';
 import { imgURLReducer } from '../modules/imgURLReducer';
+// import { countReducer } from '../modules/countReducer';
 
 const rootReducer = combineReducers({
   feedListReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   contentReducer,
   editedContentReducer,
   imgURLReducer
+  // countReducer
 });
 
 const store = createStore(rootReducer);
