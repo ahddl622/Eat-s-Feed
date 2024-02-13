@@ -1,12 +1,14 @@
 // App.js
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { auth, db } from 'firebaseConfig';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.email);
+  const password = useSelector((state) => state.password);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -21,7 +23,7 @@ const LoginForm = () => {
         console.log(`${doc.id} => ${doc.data()}`);
       });
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const onChange = (event) => {
@@ -29,10 +31,10 @@ const LoginForm = () => {
       target: { name, value }
     } = event;
     if (name === 'email') {
-      setEmail(value);
+      dispatch(value);
     }
     if (name === 'password') {
-      setPassword(value);
+      dispatch(value);
     }
   };
 
