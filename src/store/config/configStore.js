@@ -4,6 +4,7 @@ import { feedListReducer } from '../modules/feedListReducer';
 import { titleReducer } from '../modules/titleReducer';
 import { contentReducer } from '../modules/contentReducer';
 import { editedContentReducer } from '../modules/editedContentReducer';
+import { imgURLReducer } from '../modules/imgURLReducer';
 import userNicknameReducer from 'store/modules/userNicknameReducer';
 import userEmailReducer from 'store/modules/userEmailReducer';
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   titleReducer,
   contentReducer,
   editedContentReducer,
+  imgURLReducer,
   userUidReducer,
   userNicknameReducer,
   userEmailReducer
