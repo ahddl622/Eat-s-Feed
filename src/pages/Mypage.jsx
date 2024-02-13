@@ -2,6 +2,8 @@ import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import CreateFeed from 'components/CreateFeed';
+import CreateFeedBtn from 'common/CreateFeedBtn';
 
 const StWrap = styled.div`
   height: 80vh;
@@ -29,13 +31,15 @@ const StText = styled.div`
 `;
 
 function Mypage() {
-const feedList = useSelector((state) => state.feedListReducer.feedList)
+  const feedList = useSelector((state) => state.feedListReducer.feedList);
 
   return (
     <StWrap>
       <StArticle>
         <Profile />
-        <StText>~ button ~</StText>
+        <StText>
+          <CreateFeedBtn />
+        </StText>
       </StArticle>
       <MyFeed />
     </StWrap>

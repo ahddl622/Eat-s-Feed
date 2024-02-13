@@ -103,6 +103,9 @@ function Show() {
             <p style={{ fontSize: '20px', fontWeight: '600' }}>feed</p>
             <p>제목: {feed.title}</p> <br />
             <p>내용: {feed.content}</p>
+            <div>
+              <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
+            </div>
             {feed.editDone ? (
               <>
                 <button

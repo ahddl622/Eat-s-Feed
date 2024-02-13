@@ -4,11 +4,12 @@ import { myTitle } from '../redux/modules/titleReducer';
 import { myContent } from '../redux/modules/contentReducer';
 import { makeNewFeed } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
-// import FileUpload from '../components/FileUpload';
+import FileUpload from './FileUpload';
 
 function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
+  const imgURL = useSelector((state) => state.imgURLReducer);
   const dispatch = useDispatch();
 
   const fetchFeedData = async () => {
@@ -33,7 +34,7 @@ function CreateFeed({ setNewFeed }) {
     event.preventDefault();
     try {
       if (title && content) {
-        const newFeed = { title, content, createdAt: String(new Date()), editDone: true };
+        const newFeed = { title, content, imgURL, createdAt: String(new Date()), editDone: true };
         const collectionRef = collection(db, 'feedList');
         await addDoc(collectionRef, newFeed);
         // **
@@ -53,25 +54,23 @@ function CreateFeed({ setNewFeed }) {
   };
 
   return (
-    <>
+    <div>
+      <button onClick={() => setNewFeed(false)}>x</button>
+      <div>User사진</div>
       <div>
-        <button onClick={() => setNewFeed(false)}>x</button>
-        <div>User사진</div>
-        <div>
-          여러분의 이야기를 들려주세요!
-          {/* <FileUpload /> */}
-        </div>
-        제목: <input value={title} onChange={(e) => dispatch(myTitle(e.target.value))}></input> <br />
-        내용: <textarea value={content} onChange={(e) => dispatch(myContent(e.target.value))}></textarea>
-        <button
-          onClick={(event) => {
-            addFeed(event);
-          }}
-        >
-          저장하기
-        </button>
+        여러분의 맛집을 소개해주세요!
+        <FileUpload />
       </div>
-    </>
+      제목: <input value={title} onChange={(e) => dispatch(myTitle(e.target.value))}></input> <br />
+      내용: <textarea value={content} onChange={(e) => dispatch(myContent(e.target.value))}></textarea>
+      <button
+        onClick={(event) => {
+          addFeed(event);
+        }}
+      >
+        저장하기
+      </button>
+    </div>
   );
 }
 
