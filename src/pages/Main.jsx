@@ -1,7 +1,6 @@
 import Show from 'components/Show';
 import { useRef, useState, useEffect } from 'react';
 import Banner from 'components/Banner';
-import CreateFeed from '../components/CreateFeed';
 import { kindOfMenu } from 'shared/data';
 import CreateFeedBtn from 'common/CreateFeedBtn';
 import Search from 'components/Search';

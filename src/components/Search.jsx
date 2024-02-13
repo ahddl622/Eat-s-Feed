@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeNewFeed } from '../redux/modules/feedListReducer';
+import { makeNewFeed } from 'store/modules/feedListReducer';
 
 function Search() {
   const [searchItem, setSearchItem] = useState('');

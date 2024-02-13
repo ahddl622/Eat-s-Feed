@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { editContentHandeler } from '../redux/modules/editedContentReducer';
-import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from '../redux/modules/feedListReducer';
+import { editContentHandeler } from 'store/modules/editedContentReducer';
+import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 
 function Show() {
