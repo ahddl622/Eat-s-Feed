@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { auth, db } from 'firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+import { db } from 'firebaseConfig';
 import { Link } from 'react-router-dom';
 import profile from 'assets/profile.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNickname } from 'store/modules/userNicknameReducer';
 
 const StSection = styled.section`
   padding: 20px 0;
@@ -41,22 +42,12 @@ const StH3 = styled.h3`
 `;
 
 function Profile() {
-  const [loginUser, setLoginUser] = useState('');
   const [profileInfo, setProfileInfo] = useState([]);
+  const loginEmail = useSelector((state) => state.userEmailReducer);
+  const loginUserNickname = useSelector((state) => state.userNicknameReducer);
+  const dispatch = useDispatch();
 
-  const { nickname, email, taste, intro, img } = profileInfo;
-
-  // 현재 로그인한 유저의 이메일을 가져옵니다.
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoginUser(user.email);
-      } else {
-        alert('로그인 후 이용해주세요');
-        setLoginUser(null);
-      }
-    });
-  }, []);
+  const { taste, intro, img } = profileInfo;
 
   // 현재 로그인한 유저의 프로필을 가져옵니다.
   useEffect(() => {
@@ -64,25 +55,29 @@ function Profile() {
       const querySnapshot = await getDocs(collection(db, 'profile'));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.email === loginUser) setProfileInfo(data);
+        if (data.email === loginEmail) {
+          setProfileInfo(data);
+          dispatch(setNickname(data.nickname));
+        }
       });
     };
 
     fetchUserData();
-  }, [loginUser]);
+  }, [loginEmail, dispatch]);
 
   console.log('profile', profileInfo);
+  console.log('email', loginUserNickname);
 
   return (
     <StSection>
       <StInfoDiv>
-        <StH3>"{nickname ? nickname : 'hello'}"</StH3>
+        <StH3>"{loginUserNickname ? loginUserNickname : 'hello'}"</StH3>
         <StFigure>
           <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
         </StFigure>
-        {nickname ? (
+        {intro ? (
           <>
-            <h3>{email}</h3>
+            <h3>{loginEmail}</h3>
             <h3>{intro}</h3>
             <ul>
               {taste.map((item) => (
@@ -94,11 +89,9 @@ function Profile() {
           '프로필을 완성해 주세요!'
         )}
       </StInfoDiv>
-      {loginUser ? (
-        <Link to={`/myinfo`}>
-          <button>수정하기</button>
-        </Link>
-      ) : null}
+      <Link to={`/myinfo`}>
+        <button>수정하기</button>
+      </Link>
     </StSection>
   );
 }

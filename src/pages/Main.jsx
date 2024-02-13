@@ -1,5 +1,6 @@
 import Show from 'components/Show';
 import { useRef, useState, useEffect } from 'react';
+import Banner from 'components/Banner';
 import CreateFeed from '../components/CreateFeed';
 import { kindOfMenu } from 'shared/data';
 
@@ -21,11 +22,7 @@ function Main() {
   return (
     <div>
       <header style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
-          <p>새로운 소식을 빠르게!</p>
-          <p>여러분의 이야기를 들려주세요!</p>
-        </div>
-        <div>New Speed</div>
+        <Banner/>
       </header>
       <main style={{ display: 'flex', padding: '40px' }}>
         <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>

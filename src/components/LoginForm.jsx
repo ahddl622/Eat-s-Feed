@@ -1,40 +1,17 @@
-import { useEffect, useState } from 'react';
-import { auth, db } from 'firebaseConfig';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import SocialLogin from './SocialLogin';
+import { setUserEmail } from 'store/modules/userEmailReducer';
+import { useDispatch } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
-import { setUserUid } from 'store/modules/userUidReducer';
-import { useDispatch, useSelector } from 'react-redux';
 
 const LoginForm = () => {
+  const auth = getAuth();
   const dispatch = useDispatch();
-  const nickname = useSelector((state) => state.userNicknameReducer);
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
-      if (user) {
-        // 로그인 된 상태일 경우
-        setIsLoggedIn(true);
-      } else {
-        // 로그아웃 된 상태일 경우
-        setIsLoggedIn(false);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'feed'));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-      });
-    };
-    fetchData();
-  }, []);
 
   const onChange = (event) => {
     const {
@@ -46,29 +23,6 @@ const LoginForm = () => {
     if (name === 'password') {
       setPassword(value);
     }
-    if (name === 'nickname') {
-      dispatch(setNickname(value));
-    }
-  };
-
-  // 회원가입
-  const signUp = async (event) => {
-    event.preventDefault();
-    try {
-      // 초기 회원정보를 따로 cloude db에 저장합니다.
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const uid = userCredential.user.uid;
-      const newProfile = { uid, password, email, nickname, taste: [], img: '', intro: '' };
-      await addDoc(collection(db, 'profile'), newProfile);
-
-      dispatch(setUserUid(uid));
-      alert('회원가입이 완료 되었습니다.');
-      console.log('user singUp', userCredential);
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('error with singUp', errorCode, errorMessage);
-    }
   };
 
   // 로그인
@@ -77,6 +31,9 @@ const LoginForm = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('user with signIn', userCredential.user);
+      dispatch(setUserEmail(email));
+      alert('로그인 되었습니다.');
+      navigate('/');
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -89,6 +46,14 @@ const LoginForm = () => {
     event.preventDefault();
     await signOut(auth);
     alert('로그아웃 되었습니다.');
+    dispatch(setUserEmail(''));
+    dispatch(setNickname(''));
+  };
+
+  // 회원가입 페이지로 이동
+  const goToRegister = (e) => {
+    e.preventDefault();
+    navigate('/register');
   };
 
   return (
@@ -103,13 +68,10 @@ const LoginForm = () => {
           <label>비밀번호 : </label>
           <input type="password" value={password} name="password" onChange={onChange} required></input>
         </div>
-        <div>
-          <label>닉네임 : </label>
-          <input type="text" value={nickname} name="nickname" onChange={onChange} required></input>
-        </div>
-        <button onClick={signUp}>회원가입</button>
+        <button onClick={goToRegister}>회원가입</button>
         <button onClick={signIn}>로그인</button>
         <button onClick={logOut}>로그아웃</button>
+        <SocialLogin />
       </form>
     </div>
   );
