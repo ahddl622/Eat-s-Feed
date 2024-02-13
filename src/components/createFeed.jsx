@@ -67,9 +67,9 @@ function CreateFeed({ setNewFeed }) {
         value={title}
         placeholder="맛집의 지역과 상호명을 기재해주세요"
         onChange={(e) => dispatch(myTitle(e.target.value))}
-      ></input>{' '}
+      ></input>
       <br />
-      내용:{' '}
+      내용:
       <textarea
         value={content}
         placeholder="어떤 점이 좋았나요? 

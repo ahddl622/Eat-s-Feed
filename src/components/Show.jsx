@@ -4,7 +4,7 @@ import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { editContentHandeler } from '../redux/modules/editedContentReducer';
-import { changeEditDone, makeNewFeed, plusFeedCount } from '../redux/modules/feedListReducer';
+import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 // import { plusCount, minusCount } from '../redux/modules/countReducer';
 // import seoulFoodData from "../"
@@ -138,8 +138,8 @@ function Show() {
             <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
             <div>
               <button onClick={() => dispatch(plusFeedCount(feed.id))}>추천</button>
-              {/* <button onClick={() => dispatch(minusCount())}>비추천</button> */}
-              {feed.count}
+              <button onClick={() => dispatch(minusFeedCount(feed.id))}>비추천</button>
+              {feed.feedCount}
             </div>
             <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
           </div>
