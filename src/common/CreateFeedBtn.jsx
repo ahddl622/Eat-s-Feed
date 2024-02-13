@@ -20,7 +20,7 @@ function CreateFeedBtn() {
     <div ref={newFeedArea}>
       <button
         onClick={() => {
-          if (!auth.currentUser) {
+          if (auth.currentUser === null) {
             alert('로그인 후 이용해주세요');
             return;
           } else {
