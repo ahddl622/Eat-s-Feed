@@ -6,49 +6,11 @@ import { db } from '../firebaseConfig';
 import { editContentHandeler } from '../redux/modules/editedContentReducer';
 import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
-// import { plusCount, minusCount } from '../redux/modules/countReducer';
-// import seoulFoodData from "../"
 
 function Show() {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
-  // const count = useSelector((state) => state.countReducer);
-
-  // var xhr = new XMLHttpRequest();
-  // var url = 'http://openapi.seoul.go.kr:8088/sample/json/CardSubwayStatsNew/1/5/20220301'; /* JSON URL */
-  // xhr.open('GET', url);
-
-  // xhr.onreadystatechange = function () {
-  //   if (this.readyState === xhr.DONE) {
-  //     if (xhr.status === 200 || xhr.status === 201) {
-  //       var jsonResponse = JSON.parse(xhr.responseText);
-  //       console.log(jsonResponse); // 여기서 jsonResponse를 활용하여 데이터 처리
-  //     }
-  //   }
-  // };
-  // xhr.send('');
-  // const [data, setData] = useState(null);
-  // const url = 'http://openapi.seoul.go.kr:8088/sample/json/CardSubwayStatsNew/1/5/20220301';
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await seoulFood.json();
-  //       if (!response.ok) {
-  //         console.error('데이터를 불러올 수 없습니다.');
-  //         return;
-  //       }
-  //       const jsonResponse = await response.json();
-  //       console.log(jsonResponse);
-  //       setData(jsonResponse);
-  //     } catch (error) {
-  //       console.error('데이터를 불러오지 못했습니다.', error.message);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   // 페이지가 mount 되자마자 db에 저장되어 있는 feedList 가져와서 자동생성된 id 부여하여 store에 저장
   // -> 그래야 store에 저장된 feedList대로 화면에 뿌릴 수 있음

@@ -1,8 +1,8 @@
 import { db } from '../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
-import { myTitle } from '../redux/modules/titleReducer';
-import { myContent } from '../redux/modules/contentReducer';
-import { makeNewFeed } from '../redux/modules/feedListReducer';
+import { myTitle } from 'store/modules/titleReducer';
+import { myContent } from 'store/modules/contentReducer';
+import { makeNewFeed } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 import FileUpload from './FileUpload';
 
@@ -10,7 +10,6 @@ function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const imgURL = useSelector((state) => state.imgURLReducer);
-  // const count = useSelector((state) => state.countReducer);
   const dispatch = useDispatch();
 
   const fetchFeedData = async () => {
@@ -53,7 +52,6 @@ function CreateFeed({ setNewFeed }) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
   };
-
   return (
     <div>
       <button onClick={() => setNewFeed(false)}>x</button>
