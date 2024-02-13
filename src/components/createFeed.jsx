@@ -4,6 +4,7 @@ import { myTitle } from '../redux/modules/titleReducer';
 import { myContent } from '../redux/modules/contentReducer';
 import { makeNewFeed } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
+// import FileUpload from '../components/FileUpload';
 
 function CreateFeed({ setnewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
@@ -50,7 +51,7 @@ function CreateFeed({ setnewFeed }) {
         <div>User사진</div>
         <div>
           여러분의 이야기를 들려주세요!
-          <button>사진첨부하기</button>
+          {/* <FileUpload /> */}
         </div>
         제목: <input value={title} onChange={(e) => dispatch(myTitle(e.target.value))}></input> <br />
         내용: <textarea value={content} onChange={(e) => dispatch(myContent(e.target.value))}></textarea>

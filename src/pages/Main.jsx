@@ -1,6 +1,7 @@
 import Show from '../components/Show';
 import { useRef, useState, useEffect } from 'react';
 import CreateFeed from 'components/CreateFeed';
+import { kindOfMenu } from 'shared/data';
 
 function Main() {
   const [newFeed, setnewFeed] = useState(false);
@@ -39,6 +40,18 @@ function Main() {
         </div>
         <div>
           <div>검색기능</div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '10px 5px',
+              backgroundColor: '#E0AED0'
+            }}
+          >
+            {kindOfMenu.map((menu) => {
+              return <button>{menu}</button>;
+            })}
+          </div>
           <Show />
         </div>
       </main>
