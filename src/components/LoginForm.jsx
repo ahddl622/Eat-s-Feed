@@ -1,18 +1,8 @@
-// App.js
 import { useEffect, useState } from 'react';
 import { db } from 'firebaseConfig';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut
-} from 'firebase/auth';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
-import { setNickname } from 'store/modules/userNicknameReducer';
-import { setUserUid } from 'store/modules/userUidReducer';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { collection, getDocs } from 'firebase/firestore';
 
 const LoginForm = () => {
   const auth = getAuth();
@@ -20,7 +10,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -35,6 +24,15 @@ const LoginForm = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'feed'));
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+      });
+    };
+    fetchData();
+  }, []);
 
   const onChange = (event) => {
     const {
@@ -47,8 +45,6 @@ const LoginForm = () => {
       setPassword(value);
     }
   };
-
-  
 
   // 로그인
   const signIn = async (event) => {
@@ -70,7 +66,8 @@ const LoginForm = () => {
     alert('로그아웃 되었습니다.');
   };
 
-  const goToRegister = () => {
+  const goToRegister = (e) => {
+    e.preventDefault();
     navigate("/register")
   }
 

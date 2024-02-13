@@ -10,7 +10,7 @@ import { db } from 'firebaseConfig';
 const RegisterForm = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const nickname = useSelector((state) => state.userNicknameReducer);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,20 +34,17 @@ const RegisterForm = () => {
   const signUp = async (event) => {
     event.preventDefault();
     try {
+      // 초기 회원정보를 따로 cloude db에 저장합니다.
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-
-      await addDoc(collection(db, 'profile'), {
-        uid,
-        email,
-        nickname
-      });
+      const newProfile = { uid, password, email, nickname, taste: [], img: '', intro: '' };
+      await addDoc(collection(db, 'profile'), newProfile);
 
       dispatch(setUserUid(uid));
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
-
-      navigate("/login")
+      navigate('/login');
+      
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
