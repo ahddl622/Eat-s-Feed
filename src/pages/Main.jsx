@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import CreateFeed from 'components/CreateFeed';
 import { kindOfMenu } from 'shared/data';
 
+
 function Main() {
   const [newFeed, setnewFeed] = useState(false);
   const newFeedArea = useRef(null);
