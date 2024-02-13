@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import { setUserEmail } from 'store/modules/userEmailReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
+import { setLoginStatus } from 'store/modules/userLoginStatus';
 
 const LoginForm = () => {
   const auth = getAuth();
@@ -12,6 +13,25 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isLogin = useSelector((state) => state.userLoginStatus)
+
+
+  useEffect(() => {
+    const userLoginStatusChange = onAuthStateChanged(auth, (user) => {
+      if(user) {
+        // 사용자가 로그인 상태인 경우
+        dispatch(setLoginStatus(true));
+        console.log('로그인:', user);
+      } else {
+        // 사용자가 로그아웃 상태인 경우
+        dispatch(setLoginStatus(false));
+        console.log('로그아웃');
+      }
+    })
+
+    return () => userLoginStatusChange();
+  },[auth, dispatch])
+  
 
   const onChange = (event) => {
     const {
@@ -32,6 +52,7 @@ const LoginForm = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('user with signIn', userCredential.user);
       dispatch(setUserEmail(email));
+      dispatch(setLoginStatus(true))
       alert('로그인 되었습니다.');
       navigate('/');
     } catch (error) {
