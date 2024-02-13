@@ -1,26 +1,17 @@
-// App.js
 import { useEffect, useState } from 'react';
-import { db } from 'firebaseConfig';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut
-} from 'firebase/auth';
+import { auth, db } from 'firebaseConfig';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { setNickname } from 'store/modules/userNicknameReducer';
 import { setUserUid } from 'store/modules/userUidReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 const LoginForm = () => {
-  const auth = getAuth();
   const dispatch = useDispatch();
-  const nickname = useSelector((state) => state.userNicknameReducer)
+  const nickname = useSelector((state) => state.userNicknameReducer);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -35,6 +26,15 @@ const LoginForm = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'feed'));
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+      });
+    };
+    fetchData();
+  }, []);
 
   const onChange = (event) => {
     const {
@@ -46,8 +46,8 @@ const LoginForm = () => {
     if (name === 'password') {
       setPassword(value);
     }
-    if (name === "nickname") {
-      dispatch(setNickname(value))
+    if (name === 'nickname') {
+      dispatch(setNickname(value));
     }
   };
 
@@ -67,6 +67,10 @@ const LoginForm = () => {
       dispatch(setUserUid(uid));
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
+
+      // 초기 회원정보를 따로 cloude db에 저장합니다.
+      const newProfile = { id: email, taste: [], img: '', nickName: '', intro: '' };
+      await addDoc(collection(db, 'profile'), newProfile);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
