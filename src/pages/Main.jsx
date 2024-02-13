@@ -1,6 +1,6 @@
 import Show from '../components/Show';
 import { useRef, useState, useEffect } from 'react';
-import CreateFeed from '../components/createFeed.jsx';
+import CreateFeed from '../components/CreateFeed.jsx';
 import Banner from 'components/Banner';
 import { kindOfMenu } from 'shared/data';
 
