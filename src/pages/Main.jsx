@@ -1,7 +1,7 @@
 import Show from 'components/Show';
 import { useRef, useState, useEffect } from 'react';
 import Banner from 'components/Banner';
-import CreateFeed from '../components/CreateFeed';
+import CreateFeed from '../components/CeateFeed';
 import { kindOfMenu } from 'shared/data';
 
 function Main() {
@@ -22,7 +22,7 @@ function Main() {
   return (
     <div>
       <header style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Banner/>
+        <Banner />
       </header>
       <main style={{ display: 'flex', padding: '40px' }}>
         <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
