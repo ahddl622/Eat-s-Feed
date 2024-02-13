@@ -1,8 +1,8 @@
 import { db } from '../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
-import { myTitle } from '../redux/modules/titleReducer';
-import { myContent } from '../redux/modules/contentReducer';
-import { makeNewFeed } from '../redux/modules/feedListReducer';
+import { myTitle } from 'store/modules/titleReducer';
+import { myContent } from 'store/modules/contentReducer';
+import { makeNewFeed } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 // import FileUpload from '../components/FileUpload';
 

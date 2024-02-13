@@ -1,16 +1,26 @@
-// App.js
 import { useEffect, useState } from 'react';
-import { auth, db } from 'firebaseConfig';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { db } from 'firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
 
 const LoginForm = () => {
+  const auth = getAuth();
+  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       console.log('user', user);
+      if (user) {
+        // 로그인 된 상태일 경우
+        setIsLoggedIn(true);
+      } else {
+        // 로그아웃 된 상태일 경우
+        setIsLoggedIn(false);
+      }
     });
   }, []);
 
@@ -21,7 +31,7 @@ const LoginForm = () => {
         console.log(`${doc.id} => ${doc.data()}`);
       });
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const onChange = (event) => {
@@ -33,19 +43,6 @@ const LoginForm = () => {
     }
     if (name === 'password') {
       setPassword(value);
-    }
-  };
-
-  // 회원가입
-  const signUp = async (event) => {
-    event.preventDefault();
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('user singUp', userCredential);
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('error with singUp', errorCode, errorMessage);
     }
   };
 
@@ -61,10 +58,18 @@ const LoginForm = () => {
       console.log('error with singIn', errorCode, errorMessage);
     }
   };
+
+  // 로그아웃
   const logOut = async (event) => {
     event.preventDefault();
     await signOut(auth);
+    alert('로그아웃 되었습니다.');
   };
+
+  const goToRegister = (e) => {
+    e.preventDefault();
+    navigate("/register")
+  }
 
   return (
     <div className="login-form">
@@ -78,7 +83,7 @@ const LoginForm = () => {
           <label>비밀번호 : </label>
           <input type="password" value={password} name="password" onChange={onChange} required></input>
         </div>
-        <button onClick={signUp}>회원가입</button>
+        <button onClick={goToRegister}>회원가입</button>
         <button onClick={signIn}>로그인</button>
         <button onClick={logOut}>로그아웃</button>
       </form>
