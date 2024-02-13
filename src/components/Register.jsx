@@ -1,8 +1,10 @@
-import { auth } from 'firebase';
+import { auth } from 'firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useEffect } from 'react';
 
 function Register() {
+
+  
   useEffect(() => {
     createUserWithEmailAndPassword(auth, 'test4@gmail.com', '12341234');
   }, []);
