@@ -135,6 +135,8 @@ const EmailInputBox = styled.div`
     border-radius: 15px;
     margin-top: 10px;
     border: 1px solid #e0aed0;
+    padding-left: 15px;
+    font-size: 16px;
   }
 `;
 const PasswordInputBox = styled.div`
@@ -147,6 +149,8 @@ const PasswordInputBox = styled.div`
     border-radius: 15px;
     margin-top: 10px;
     border: 1px solid #e0aed0;
+    padding-left: 15px;
+    font-size: 20px;
   }
 `;
 
@@ -171,7 +175,7 @@ const RegisterBtn = styled.button`
   font-size: 22px;
   background-color: white;
   border: 1px solid #e0aed0;
-  color: #756AB6;
+  color: #756ab6;
   cursor: pointer;
 `;
 
@@ -181,22 +185,22 @@ const SocialLoginBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 const SocialLoginText = styled.span`
   font-size: 18px;
   font-weight: bold;
-  color: #AC87C5;
+  color: #ac87c5;
   padding: 0 1rem;
-`
+`;
 
 const LineContainer = styled.div`
-   display: flex;
-   align-items: center;
-   padding-bottom: 4rem;
-`
+  display: flex;
+  align-items: center;
+  padding-bottom: 4rem;
+`;
 const Line = styled.hr`
   width: 17rem;
   height: 1px;
-  background-color: #E0AED0;
-  border: 0 
-`
+  background-color: #e0aed0;
+  border: 0;
+`;
