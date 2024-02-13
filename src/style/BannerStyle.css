@@ -1,0 +1,42 @@
+:root {
+  --text-stroke-color-light: #e7e4ff;
+  --text-stroke-color-dark: #756AB6;
+  --text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 21px #AC87C5, 0 0 40px #AC87C5, 0 0 50px #AC87C5, 0 0 60px #AC87C5, 0 0 100px #AC87C5;
+}
+
+@font-face {
+  font-family: 'TTHakgyoansimKkwabaegiR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimKkwabaegiR.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.my-container {
+  width: 100vw;
+  height: 300px;
+  background-image: url('../assets/Firefly81793-1.jpg');
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.title {
+  font-family: 'TTHakgyoansimKkwabaegiR';
+  color: whitesmoke;
+  margin-top: 180px;
+  margin-left: 10px;
+  font-size: 80px;
+  vertical-align: text-bottom;
+  -webkit-text-stroke: 1px var(--text-stroke-color-light);
+  text-shadow: var(--text-shadow);
+}
+
+.sub {
+  font-family: 'TTHakgyoansimKkwabaegiR';
+  color: whitesmoke;
+  font-size: 36px;
+  -webkit-text-stroke: 1px var(--text-stroke-color-dark);
+  margin-right: 10px;
+  text-align: right;
+}
