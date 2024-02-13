@@ -1,6 +1,7 @@
 import Show from '../components/Show';
 import { kindOfMenu } from 'shared/data';
 import CreateFeedBtn from 'common/CreateFeedBtn';
+import Notice from 'components/Notice';
 
 function Main() {
   return (
@@ -14,10 +15,7 @@ function Main() {
       </header>
       <main style={{ display: 'flex', padding: '40px' }}>
         <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
-          <div>
-            공지글
-            {/* <Notice /> 들어갈 예정 - fakeData 생기면 */}
-          </div>
+          <Notice />
           <CreateFeedBtn />
         </div>
         <div>

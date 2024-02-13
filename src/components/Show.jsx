@@ -61,8 +61,8 @@ function Show() {
       querySnapshot.forEach((doc) => {
         const feed = { id: doc.id, ...doc.data() };
         newFeedArr.push(feed);
-        dispatch(makeNewFeed(newFeedArr));
       });
+      dispatch(makeNewFeed(newFeedArr));
     };
     fetchFeedData();
   }, [dispatch]);
@@ -77,8 +77,8 @@ function Show() {
       const feedRef = doc(db, 'feedList', foundFeed.id);
       await updateDoc(feedRef, editDoneFeed);
 
-      const restList = feedList.map((feed) => (feed.id === foundFeed.id ? editDoneFeed : feed));
-      dispatch(makeNewFeed(restList));
+      const editDoneList = feedList.map((feed) => (feed.id === foundFeed.id ? editDoneFeed : feed));
+      dispatch(makeNewFeed(editDoneList));
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
@@ -94,6 +94,30 @@ function Show() {
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
+  };
+
+  const plusCountFeed = async (feedId) => {
+    try {
+      const foundFeed = feedList.find((feed) => feed.id === feedId);
+      const plusCountFeed = { ...foundFeed, feedCount: foundFeed.feedCount + 1 };
+
+      const feedRef = doc(db, 'feedList', feedId);
+      await updateDoc(feedRef, plusCountFeed);
+      dispatch(plusFeedCount(feedId));
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
+  };
+
+  const minusCountFeed = async (feedId) => {
+    try {
+      const foundFeed = feedList.find((feed) => feed.id === feedId);
+      const minusCountFeed = { ...foundFeed, feedCount: foundFeed.feedCount - 1 };
+
+      const feedRef = doc(db, 'feedList', feedId);
+      await updateDoc(feedRef, minusCountFeed);
+      dispatch(minusFeedCount(feedId));
+    } catch (error) {}
   };
 
   return (
@@ -137,8 +161,8 @@ function Show() {
             )}
             <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
             <div>
-              <button onClick={() => dispatch(plusFeedCount(feed.id))}>추천</button>
-              <button onClick={() => dispatch(minusFeedCount(feed.id))}>비추천</button>
+              <button onClick={() => plusCountFeed(feed.id)}>추천</button>
+              <button onClick={() => minusCountFeed(feed.id)}>비추천</button>
               {feed.feedCount}
             </div>
             <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>

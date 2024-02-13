@@ -22,8 +22,8 @@ function CreateFeed({ setNewFeed }) {
       querySnapshot.forEach((doc) => {
         const feed = { id: doc.id, ...doc.data() };
         newFeedArr.push(feed);
-        dispatch(makeNewFeed(newFeedArr));
       });
+      dispatch(makeNewFeed(newFeedArr));
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
