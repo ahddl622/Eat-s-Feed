@@ -2,12 +2,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 
-function Show() {
+function Show({ menu }) {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
@@ -86,53 +86,135 @@ function Show() {
 
   return (
     <>
-      {feedList.map((feed) => (
-        <div key={feed.id} style={{ width: '620px' }}>
-          <div style={{ border: '1px solid black', margin: '10px' }}>
-            <p style={{ fontSize: '20px', fontWeight: '600' }}>feed</p>
-            <p>제목: {feed.title}</p> <br />
-            <p>내용: {feed.content}</p>
-            <div>
-              <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
-            </div>
-            {feed.editDone ? (
-              <>
+      {menu === '전체' || menu.length === 0
+        ? feedList.map((feed) => (
+            <div key={feed.id} style={{ width: '620px' }}>
+              <div style={{ border: '1px solid black', margin: '10px' }}>
+                <p style={{ fontSize: '20px', fontWeight: '600' }}>feed</p>
+                <p>제목: {feed.title}</p> <br />
+                <p>내용: {feed.content}</p>
+                <div>
+                  <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
+                </div>
+                {feed.editDone ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        if (auth.currentUser.email === feed.email) {
+                          dispatch(editContentHandeler(feed.content));
+                          dispatch(changeEditDone(feed.id));
+                        } else {
+                          alert('본인의 게시글만 수정할 수 있습니다.');
+                          return;
+                        }
+                      }}
+                    >
+                      수정하기
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        editFeed(feed.id);
+                      }}
+                    >
+                      수정완료
+                    </button>
+                    <textarea
+                      value={editedContent}
+                      onChange={(e) => {
+                        dispatch(editContentHandeler(e.target.value));
+                      }}
+                    ></textarea>
+                  </>
+                )}
                 <button
                   onClick={() => {
-                    dispatch(editContentHandeler(feed.content));
-                    dispatch(changeEditDone(feed.id));
+                    if (auth.currentUser.email === feed.email) {
+                      deleteFeed(feed.id);
+                    } else {
+                      alert('본인의 게시글만 삭제할 수 있습니다.');
+                      return;
+                    }
                   }}
                 >
-                  수정하기
+                  삭제하기
                 </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => {
-                    editFeed(feed.id);
-                  }}
-                >
-                  수정완료
-                </button>
-                <textarea
-                  value={editedContent}
-                  onChange={(e) => {
-                    dispatch(editContentHandeler(e.target.value));
-                  }}
-                ></textarea>
-              </>
-            )}
-            <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
-            <div>
-              <button onClick={() => plusCountFeed(feed.id)}>추천</button>
-              <button onClick={() => minusCountFeed(feed.id)}>비추천</button>
-              {feed.feedCount}
+                <div>
+                  <button onClick={() => plusCountFeed(feed.id)}>추천</button>
+                  <button onClick={() => minusCountFeed(feed.id)}>비추천</button>
+                  {feed.feedCount}
+                </div>
+                <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
+              </div>
             </div>
-            <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
-          </div>
-        </div>
-      ))}
+          ))
+        : feedList
+            .filter((feed) => feed.category === menu)
+            .map((feed) => (
+              <div key={feed.id} style={{ width: '620px' }}>
+                <div style={{ border: '1px solid black', margin: '10px' }}>
+                  <p style={{ fontSize: '20px', fontWeight: '600' }}>feed</p>
+                  <p>제목: {feed.title}</p> <br />
+                  <p>내용: {feed.content}</p>
+                  <div>
+                    <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
+                  </div>
+                  {feed.editDone ? (
+                    <>
+                      <button
+                        onClick={() => {
+                          if (auth.currentUser.email === feed.email) {
+                            dispatch(editContentHandeler(feed.content));
+                            dispatch(changeEditDone(feed.id));
+                          } else {
+                            alert('본인의 게시글만 수정할 수 있습니다.');
+                            return;
+                          }
+                        }}
+                      >
+                        수정하기
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => {
+                          editFeed(feed.id);
+                        }}
+                      >
+                        수정완료
+                      </button>
+                      <textarea
+                        value={editedContent}
+                        onChange={(e) => {
+                          dispatch(editContentHandeler(e.target.value));
+                        }}
+                      ></textarea>
+                    </>
+                  )}
+                  <button
+                    onClick={() => {
+                      if (auth.currentUser.email === feed.email) {
+                        deleteFeed(feed.id);
+                      } else {
+                        alert('본인의 게시글만 삭제할 수 있습니다.');
+                        return;
+                      }
+                    }}
+                  >
+                    삭제하기
+                  </button>
+                  <div>
+                    <button onClick={() => plusCountFeed(feed.id)}>추천</button>
+                    <button onClick={() => minusCountFeed(feed.id)}>비추천</button>
+                    {feed.feedCount}
+                  </div>
+                  <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
+                </div>
+              </div>
+            ))}
     </>
   );
 }
