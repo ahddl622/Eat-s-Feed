@@ -1,9 +1,9 @@
 const SET_NICKNAME = 'SET_NICKNAME';
 
-export const setNickname = (nickname) => {
+export const setNickname = (payload) => {
   return {
     type: SET_NICKNAME,
-    payload: nickname,
+    payload
   }
 };
 
