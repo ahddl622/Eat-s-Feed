@@ -1,6 +1,7 @@
 import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const StWrap = styled.div`
   height: 80vh;
@@ -28,6 +29,8 @@ const StText = styled.div`
 `;
 
 function Mypage() {
+const feedList = useSelector((state) => state.feedListReducer.feedList)
+
   return (
     <StWrap>
       <StArticle>
