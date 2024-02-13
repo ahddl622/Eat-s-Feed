@@ -44,6 +44,10 @@ function CreateFeed({ setnewFeed }) {
     }
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9d3eee27a66e5ff68139c20fb357d15abb12dd5
   return (
     <>
       <div>
