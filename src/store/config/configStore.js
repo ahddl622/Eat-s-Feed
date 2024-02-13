@@ -5,6 +5,7 @@ import { titleReducer } from '../modules/titleReducer';
 import { contentReducer } from '../modules/contentReducer';
 import { editedContentReducer } from '../modules/editedContentReducer';
 import userNicknameReducer from 'store/modules/userNicknameReducer';
+import userEmailReducer from 'store/modules/userEmailReducer';
 
 const rootReducer = combineReducers({
   feedListReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   contentReducer,
   editedContentReducer,
   userUidReducer,
-  userNicknameReducer
+  userNicknameReducer,
+  userEmailReducer
 });
 
 const store = createStore(rootReducer);

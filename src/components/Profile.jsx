@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { auth, db } from 'firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+import { db } from 'firebaseConfig';
 import { Link } from 'react-router-dom';
 import profile from 'assets/profile.png';
+import { useSelector } from 'react-redux';
 
 const StSection = styled.section`
   padding: 20px 0;
@@ -41,17 +41,18 @@ const StH3 = styled.h3`
 `;
 
 function Profile() {
-  const [loginUser, setLoginUser] = useState('');
   const [profileInfo, setProfileInfo] = useState([]);
+  const loginEmail = useSelector((state) => state.userEmailReducer);
+  const nickName = useSelector((state) => state.userNicknameReducer);
 
-  const { nickname, email, taste, intro, img } = profileInfo;
+  const { nickname, taste, intro, img } = profileInfo;
 
   // 현재 로그인한 유저의 이메일을 가져옵니다.
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setLoginUser(user.email);
-    });
-  });
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     setLoginUser(user.email);
+  //   });
+  // });
 
   // 현재 로그인한 유저의 프로필을 가져옵니다.
   useEffect(() => {
@@ -59,31 +60,32 @@ function Profile() {
       const querySnapshot = await getDocs(collection(db, 'profile'));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.email === loginUser) setProfileInfo(data);
+        if (data.email === loginEmail) setProfileInfo(data);
       });
     };
 
     fetchUserData();
-  }, [loginUser]);
+  }, [loginEmail]);
 
   console.log('profile', profileInfo);
+  console.log('email', nickName);
 
   return (
     <StSection>
       <StInfoDiv>
-        <StH3>"{nickname ? nickname : 'hello'}"</StH3>
+        <StH3>"{nickName ? nickName : 'hello'}"</StH3>
         <StFigure>
           <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
         </StFigure>
-        {nickname ? (
+        {nickName ? (
           <>
-            <h3>{email}</h3>
+            <h3>{loginEmail}</h3>
             <h3>{intro}</h3>
-            <ul>
+            {/* <ul>
               {taste.map((item) => (
                 <li key={item}>{item}</li>
               ))}
-            </ul>
+            </ul> */}
           </>
         ) : (
           '프로필을 완성해 주세요!'
