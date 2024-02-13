@@ -12,11 +12,6 @@ function Main() {
     <div>
       <header style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Banner />
-        <div>
-          <p>새로운 맛집을 빠르게!</p>
-          <p>숨은 맛집을 공유해주세요!</p>
-        </div>
-        <div>New Speed</div>
       </header>
       <main style={{ display: 'flex', padding: '40px' }}>
         <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
