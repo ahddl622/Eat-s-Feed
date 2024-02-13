@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { collection, getDocs } from 'firebase/firestore';
+import { useEffect } from 'react';
+import { db } from '../firebase';
 
 const StSection = styled.section`
   padding: 10px;
@@ -9,6 +12,18 @@ const StSection = styled.section`
 `;
 
 function Profile() {
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'profile'));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        console.log(`${doc.id} => ${doc.data()}`);
+        console.log(data);
+      });
+    };
+
+    fetchUserData();
+  }, []);
   return <StSection>Profile</StSection>;
 }
 

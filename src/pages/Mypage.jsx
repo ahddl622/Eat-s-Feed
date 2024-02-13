@@ -1,6 +1,5 @@
 import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
-import { auth } from '../firebase';
 import styled from 'styled-components';
 
 const StWrap = styled.div`
@@ -29,7 +28,6 @@ const StText = styled.div`
 `;
 
 function Mypage() {
-  console.log(auth.currentUser);
   return (
     <StWrap>
       <StArticle>
