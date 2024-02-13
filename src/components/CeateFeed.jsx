@@ -5,11 +5,13 @@ import { myContent } from 'store/modules/contentReducer';
 import { makeNewFeed } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 import FileUpload from './FileUpload';
+import { useState } from 'react';
 
 function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const imgURL = useSelector((state) => state.imgURLReducer);
+  const [category, setCategory] = useState('');
   const dispatch = useDispatch();
 
   const fetchFeedData = async () => {
@@ -42,7 +44,8 @@ function CreateFeed({ setNewFeed }) {
           imgURL,
           feedCount: 0,
           createdAt: String(new Date()),
-          editDone: true
+          editDone: true,
+          category
         };
         const collectionRef = collection(db, 'feedList');
         await addDoc(collectionRef, newFeed);
@@ -83,6 +86,17 @@ function CreateFeed({ setNewFeed }) {
       당신의 최애 메뉴는?"
         onChange={(e) => dispatch(myContent(e.target.value))}
       ></textarea>
+      <div>
+        <label>음식의 카테고리를 선택해주세요</label>
+        <select onChange={(e) => setCategory(e.target.options[e.target.options.selectedIndex].value)}>
+          <option defaultValue>메뉴</option>
+          <option value="일식">일식</option>
+          <option value="중식">중식</option>
+          <option value="양식">양식</option>
+          <option value="아시안">아시안</option>
+          <option value="디저트">디저트</option>
+        </select>
+      </div>
       <button
         onClick={(e) => {
           addFeed(e);
