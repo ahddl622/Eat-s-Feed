@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import { setUserEmail } from 'store/modules/userEmailReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
+import styled from 'styled-components';
 
 const LoginForm = () => {
   const auth = getAuth();
@@ -13,12 +14,11 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isLogin = useSelector((state) => state.userLoginStatus)
-
+  const isLogin = useSelector((state) => state.userLoginStatus);
 
   useEffect(() => {
     const userLoginStatusChange = onAuthStateChanged(auth, (user) => {
-      if(user) {
+      if (user) {
         // 사용자가 로그인 상태인 경우
         dispatch(setLoginStatus(true));
         console.log('로그인:', user);
@@ -27,11 +27,10 @@ const LoginForm = () => {
         dispatch(setLoginStatus(false));
         console.log('로그아웃');
       }
-    })
+    });
 
     return () => userLoginStatusChange();
-  },[auth, dispatch])
-  
+  }, [auth, dispatch]);
 
   const onChange = (event) => {
     const {
@@ -52,7 +51,7 @@ const LoginForm = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('user with signIn', userCredential.user);
       dispatch(setUserEmail(email));
-      dispatch(setLoginStatus(true))
+      dispatch(setLoginStatus(true));
       alert('로그인 되었습니다.');
       navigate('/');
     } catch (error) {
@@ -63,13 +62,6 @@ const LoginForm = () => {
   };
 
   // 로그아웃
-  const logOut = async (event) => {
-    event.preventDefault();
-    await signOut(auth);
-    alert('로그아웃 되었습니다.');
-    dispatch(setUserEmail(''));
-    dispatch(setNickname(''));
-  };
 
   // 회원가입 페이지로 이동
   const goToRegister = (e) => {
@@ -78,24 +70,133 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="login-form">
-      <h2>로그인 페이지</h2>
-      <form>
-        <div>
-          <label>이메일 : </label>
+    <Container>
+      <LoginTitle>Login</LoginTitle>
+      <LoginContainer>
+        <EmailInputBox>
+          <label>Email </label>
           <input type="email" value={email} name="email" onChange={onChange} required></input>
-        </div>
-        <div>
-          <label>비밀번호 : </label>
+        </EmailInputBox>
+        <PasswordInputBox>
+          <label>Password </label>
           <input type="password" value={password} name="password" onChange={onChange} required></input>
-        </div>
-        <button onClick={goToRegister}>회원가입</button>
-        <button onClick={signIn}>로그인</button>
-        <button onClick={logOut}>로그아웃</button>
+        </PasswordInputBox>
+        <LoginNRegisterBox>
+          <LoginBtn onClick={signIn}>로그인</LoginBtn>
+          <RegisterBtn onClick={goToRegister}>회원가입</RegisterBtn>
+        </LoginNRegisterBox>
+      </LoginContainer>
+      <SocialLoginBox>
+        <LineContainer>
+          <Line />
+          <SocialLoginText>간편 로그인</SocialLoginText>
+          <Line />
+        </LineContainer>
         <SocialLogin />
-      </form>
-    </div>
+      </SocialLoginBox>
+    </Container>
   );
 };
 
 export default LoginForm;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoginTitle = styled.h2`
+  font-size: 35px;
+  font-weight: bold;
+  padding: 3rem;
+  color: #ac87c5;
+`;
+
+const LoginContainer = styled.form`
+  padding: 2rem;
+  border: 1px solid #ffe5e5;
+  box-shadow: 0 0 15px #ffe5e5;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  border-radius: 25px;
+  color: #503178;
+`;
+
+const EmailInputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.5rem;
+  & input {
+    width: 22rem;
+    height: 40px;
+    border-radius: 15px;
+    margin-top: 10px;
+    border: 1px solid #e0aed0;
+  }
+`;
+const PasswordInputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.5rem;
+  & input {
+    width: 22rem;
+    height: 40px;
+    border-radius: 15px;
+    margin-top: 10px;
+    border: 1px solid #e0aed0;
+  }
+`;
+
+const LoginNRegisterBox = styled.div`
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const LoginBtn = styled.button`
+  height: 50px;
+  border-radius: 15px;
+  font-size: 22px;
+  background-color: #e0aed0;
+  border: 1px solid #e0aed0;
+  color: white;
+  cursor: pointer;
+`;
+const RegisterBtn = styled.button`
+  height: 50px;
+  border-radius: 15px;
+  font-size: 22px;
+  background-color: white;
+  border: 1px solid #e0aed0;
+  color: #756AB6;
+  cursor: pointer;
+`;
+
+const SocialLoginBox = styled.div`
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+const SocialLoginText = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+  color: #AC87C5;
+  padding: 0 1rem;
+`
+
+const LineContainer = styled.div`
+   display: flex;
+   align-items: center;
+   padding-bottom: 4rem;
+`
+const Line = styled.hr`
+  width: 17rem;
+  height: 1px;
+  background-color: #E0AED0;
+  border: 0 
+`

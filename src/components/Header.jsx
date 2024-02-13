@@ -43,7 +43,7 @@ function Header() {
   return (
     <StHeader>
       <StLink to="/">
-        <StH1>New Speed</StH1>
+        <StH1>Eat's peed</StH1>
       </StLink>
       <nav>
         <StUl>
