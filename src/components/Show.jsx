@@ -77,8 +77,8 @@ function Show() {
       const feedRef = doc(db, 'feedList', foundFeed.id);
       await updateDoc(feedRef, editDoneFeed);
 
-      const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
-      dispatch(makeNewFeed([...restList, editDoneFeed]));
+      const restList = feedList.map((feed) => (feed.id === foundFeed.id ? editDoneFeed : feed));
+      dispatch(makeNewFeed(restList));
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }

@@ -46,7 +46,7 @@ export const feedListReducer = (state = initialstate, action) => {
       return {
         ...state,
         feedList: state.feedList.map((feed) =>
-          feed.id === action.payload ? { ...feed, editDone: feed.editDone } : feed
+          feed.id === action.payload ? { ...feed, editDone: !feed.editDone } : feed
         )
       };
     case PLUS_FEEDCOUNT:
