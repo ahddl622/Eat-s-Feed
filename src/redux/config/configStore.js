@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   feedListReducer,
   titleReducer,
   contentReducer,
-  editedContentReduce
+  editedContentReducer
 });
 
 const store = createStore(rootReducer);

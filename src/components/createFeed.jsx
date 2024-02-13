@@ -43,11 +43,6 @@ function CreateFeed({ setnewFeed }) {
       alert('내용을 입력해주세요');
     }
   };
-
-<<<<<<< HEAD
-=======
-
->>>>>>> c9d3eee27a66e5ff68139c20fb357d15abb12dd5
   return (
     <>
       <div>
