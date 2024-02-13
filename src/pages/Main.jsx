@@ -1,8 +1,7 @@
 import Show from '../components/Show';
 import { useRef, useState, useEffect } from 'react';
-import CreateFeed from 'components/CreateFeed';
+import CreateFeed from 'components/createFeed';
 import { kindOfMenu } from 'shared/data';
-
 
 function Main() {
   const [newFeed, setnewFeed] = useState(false);
@@ -49,8 +48,8 @@ function Main() {
               backgroundColor: '#E0AED0'
             }}
           >
-            {kindOfMenu.map((menu) => {
-              return <button>{menu}</button>;
+            {kindOfMenu.map((menu, idx) => {
+              return <button key={idx}>{menu}</button>;
             })}
           </div>
           <Show />
