@@ -1,11 +1,12 @@
-import { onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import { auth, db } from 'firebaseConfig';
+import { db } from 'firebaseConfig';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
+import { setUserEmail } from 'store/modules/userEmailReducer';
+
 
 const StWrap = styled.div`
   text-align: center;
@@ -91,20 +92,21 @@ const StBtn = styled.button`
 `;
 
 function MyInfo() {
-  const [loginUser, setLoginUser] = useState('');
   const [userId, setUserId] = useState('');
   const nickname = useSelector((state) => state.userNicknameReducer);
+  const loginEmail = useSelector((state) => state.userEmailReducer)
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   console.log(taste);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setLoginUser(user.email);
-    });
-  }, []);
+  console.log(loginEmail)
+
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     setLoginUser(user.email);
+  //   });
+  // }, []);
 
   // 로그인한 회원의 profile ID를 저장합니다.
   useEffect(() => {
@@ -113,12 +115,12 @@ function MyInfo() {
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         console.log(doc.data());
-        if (data.email === loginUser) setUserId(doc.id);
+        if (data.email === loginEmail) setUserId(doc.id);
       });
     };
 
     fetchUserData();
-  }, [loginUser]);
+  }, [loginEmail]);
 
   // 저장했던 profile ID와 일치하는 profile 정보를 수정합니다.
   const editProfile = async (e) => {
@@ -136,7 +138,7 @@ function MyInfo() {
         <StFigure>
           <img src="" alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
         </StFigure>
-        <StP>{loginUser}</StP>
+        <StP>{loginEmail}</StP>
         <StForm onSubmit={editProfile}>
           <StInput
             value={nickname}
