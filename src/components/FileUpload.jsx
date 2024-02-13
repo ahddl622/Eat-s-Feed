@@ -2,7 +2,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, storage } from 'firebaseConfig';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addUrl } from '../redux/modules/imgURLReducer';
+import { addUrl } from 'store/modules/imgURLReducer';
 
 function FileUpload() {
   const [selectedFile, setSelectedFile] = useState(null);
