@@ -1,8 +1,7 @@
-// App.js
 import { useEffect, useState } from 'react';
 import { auth, db } from 'firebaseConfig';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +20,7 @@ const LoginForm = () => {
         console.log(`${doc.id} => ${doc.data()}`);
       });
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const onChange = (event) => {
@@ -42,6 +41,10 @@ const LoginForm = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log('user singUp', userCredential);
+
+      // 초기 회원정보를 따로 cloude db에 저장합니다.
+      const newProfile = { id: email, taste: [], img: '', nickName: '', intro: '' };
+      await addDoc(collection(db, 'profile'), newProfile);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
