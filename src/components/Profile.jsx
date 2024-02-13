@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { collection, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
-import { db } from '../firebaseConfig';
+import { db } from 'firebaseConfig';
 
 const StSection = styled.section`
   padding: 10px;
