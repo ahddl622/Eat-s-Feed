@@ -7,6 +7,7 @@ import { db } from '../firebaseConfig';
 import { editContentHandeler } from '../redux/modules/editedContentReducer';
 import { changeEditDone, makeNewFeed } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+// import seoulFoodData from "../"
 
 function Show() {
   const dispatch = useDispatch();
@@ -30,21 +31,22 @@ function Show() {
   // const url = 'http://openapi.seoul.go.kr:8088/sample/json/CardSubwayStatsNew/1/5/20220301';
 
   // useEffect(() => {
-  //   const fetchSeoulFoodData = async () => {
+  //   const fetchData = async () => {
   //     try {
-  //       const response = await fetch(url);
-  //       if (!response) {
+  //       const response = await seoulFood.json();
+  //       if (!response.ok) {
   //         console.error('데이터를 불러올 수 없습니다.');
   //         return;
   //       }
-  //       const jsonResponse = response.json;
+  //       const jsonResponse = await response.json();
+  //       console.log(jsonResponse);
   //       setData(jsonResponse);
   //     } catch (error) {
   //       console.error('데이터를 불러오지 못했습니다.', error.message);
   //     }
   //   };
 
-  //   fetchSeoulFoodData();
+  //   fetchData();
   // }, []);
 
   // 페이지가 mount 되자마자 db에 저장되어 있는 feedList 가져와서 자동생성된 id 부여하여 store에 저장
@@ -67,22 +69,30 @@ function Show() {
   // myPage에서 수정 및 삭제 가능하지만 MainPage에서도 나열되어있는 피드 각각을 수정 및 삭제 가능하도록 함
   // 로그인 데이터 공유되면 내 id의 feed만 수정 및 삭제 가능하도록 할 예정
   const editFeed = async (feedId) => {
-    const foundFeed = feedList.find((feed) => feed.id === feedId);
-    const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
+    try {
+      const foundFeed = feedList.find((feed) => feed.id === feedId);
+      const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
 
-    const feedRef = doc(db, 'feedList', foundFeed.id);
-    await updateDoc(feedRef, editDoneFeed);
+      const feedRef = doc(db, 'feedList', foundFeed.id);
+      await updateDoc(feedRef, editDoneFeed);
 
-    const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
-    dispatch(makeNewFeed([...restList, editDoneFeed]));
+      const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
+      dispatch(makeNewFeed([...restList, editDoneFeed]));
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
   };
 
   const deleteFeed = async (feedId) => {
-    const foundFeed = feedList.find((feed) => feed.id === feedId);
-    const feedRef = doc(db, 'feedList', foundFeed.id);
-    await deleteDoc(feedRef);
-    const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
-    dispatch(makeNewFeed(restList));
+    try {
+      const foundFeed = feedList.find((feed) => feed.id === feedId);
+      const feedRef = doc(db, 'feedList', foundFeed.id);
+      await deleteDoc(feedRef);
+      const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
+      dispatch(makeNewFeed(restList));
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
   };
 
   return (

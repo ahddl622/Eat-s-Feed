@@ -6,49 +6,56 @@ import { makeNewFeed } from '../redux/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 // import FileUpload from '../components/FileUpload';
 
-function CreateFeed({ setnewFeed }) {
+function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const dispatch = useDispatch();
 
   const fetchFeedData = async () => {
-    const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
-    const querySnapshot = await getDocs(q);
+    try {
+      const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
 
-    const newFeedArr = [];
-    querySnapshot.forEach((doc) => {
-      const feed = { id: doc.id, ...doc.data() };
-      newFeedArr.push(feed);
-      dispatch(makeNewFeed(newFeedArr));
-    });
+      const newFeedArr = [];
+      querySnapshot.forEach((doc) => {
+        const feed = { id: doc.id, ...doc.data() };
+        newFeedArr.push(feed);
+        dispatch(makeNewFeed(newFeedArr));
+      });
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
   };
 
   // 새 feed를 추가하려면 새 feed를 db에 추가한 뒤, 추가가 완료된 feedList를 db에서 가져와서 store에도 넣어줘야
   // -> db와 store 둘 다에 모두 추가가능
   const addFeed = async (event) => {
     event.preventDefault();
-    if (title && content) {
-      const newFeed = { title, content, createdAt: String(new Date()), editDone: true };
-      const collectionRef = collection(db, 'feedList');
-      await addDoc(collectionRef, newFeed);
-      // **
-      await fetchFeedData();
-      dispatch(myTitle(''));
-      dispatch(myContent(''));
-    }
-    if (!title) {
-      alert('제목을 입력해주세요');
-    }
-    if (!content) {
-      alert('내용을 입력해주세요');
+    try {
+      if (title && content) {
+        const newFeed = { title, content, createdAt: String(new Date()), editDone: true };
+        const collectionRef = collection(db, 'feedList');
+        await addDoc(collectionRef, newFeed);
+        // **
+        await fetchFeedData();
+        dispatch(myTitle(''));
+        dispatch(myContent(''));
+      }
+      if (!title) {
+        alert('제목을 입력해주세요');
+      }
+      if (!content) {
+        alert('내용을 입력해주세요');
+      }
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
   };
-
 
   return (
     <>
       <div>
-        <button onClick={() => setnewFeed(false)}>x</button>
+        <button onClick={() => setNewFeed(false)}>x</button>
         <div>User사진</div>
         <div>
           여러분의 이야기를 들려주세요!
