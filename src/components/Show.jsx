@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
@@ -34,13 +34,18 @@ function Show() {
   const editFeed = async (feedId) => {
     try {
       const foundFeed = feedList.find((feed) => feed.id === feedId);
-      const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
+      if (foundFeed.email === auth.currentUser.email) {
+        const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
 
-      const feedRef = doc(db, 'feedList', foundFeed.id);
-      await updateDoc(feedRef, editDoneFeed);
+        const feedRef = doc(db, 'feedList', foundFeed.id);
+        await updateDoc(feedRef, editDoneFeed);
 
-      const editDoneList = feedList.map((feed) => (feed.id === foundFeed.id ? editDoneFeed : feed));
-      dispatch(makeNewFeed(editDoneList));
+        const editDoneList = feedList.map((feed) => (feed.id === foundFeed.id ? editDoneFeed : feed));
+        dispatch(makeNewFeed(editDoneList));
+      } else {
+        alert('본인의 게시글만 수정할 수 있습니다.');
+        return;
+      }
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
@@ -50,10 +55,15 @@ function Show() {
     if (window.confirm("Eat's feed를 삭제하시겠습니까?")) {
       try {
         const foundFeed = feedList.find((feed) => feed.id === feedId);
-        const feedRef = doc(db, 'feedList', foundFeed.id);
-        await deleteDoc(feedRef);
-        const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
-        dispatch(makeNewFeed(restList));
+        if (foundFeed.email === auth.currentUser.email) {
+          const feedRef = doc(db, 'feedList', foundFeed.id);
+          await deleteDoc(feedRef);
+          const restList = feedList.filter((feed) => feed.id !== foundFeed.id);
+          dispatch(makeNewFeed(restList));
+        } else {
+          alert('본인의 게시글만 삭제할 수 있습니다.');
+          return;
+        }
       } catch (error) {
         alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
       }

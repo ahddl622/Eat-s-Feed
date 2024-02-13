@@ -17,8 +17,9 @@ function CreateFeedBtn() {
   });
 
   console.log(auth.currentUser);
-  // console.log(auth.currentUser.uid);
-  // console.log(auth.currentUser.email);
+  console.log(auth.currentUser.uid);
+  console.log(auth.currentUser.email);
+  console.log(auth.currentUser.password);
 
   return (
     <div ref={newFeedArea}>
