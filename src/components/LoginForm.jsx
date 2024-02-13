@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
@@ -12,20 +12,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
-      // if (user) {
-      //   // 로그인 된 상태일 경우
-      //   setIsLoggedIn(true);
-      // } else {
-      //   // 로그아웃 된 상태일 경우
-      //   setIsLoggedIn(false);
-      // }
-    });
-  }, []);
 
   const onChange = (event) => {
     const {

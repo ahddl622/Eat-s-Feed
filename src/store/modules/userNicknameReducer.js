@@ -4,10 +4,10 @@ export const setNickname = (payload) => {
   return {
     type: SET_NICKNAME,
     payload
-  }
+  };
 };
 
-const initialState = "";
+const initialState = '';
 
 const userNicknameReducer = (state = initialState, action) => {
   switch (action.type) {
