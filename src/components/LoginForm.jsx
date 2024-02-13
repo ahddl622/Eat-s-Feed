@@ -55,22 +55,15 @@ const LoginForm = () => {
   const signUp = async (event) => {
     event.preventDefault();
     try {
+      // 초기 회원정보를 따로 cloude db에 저장합니다.
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-
-      await addDoc(collection(db, 'profile'), {
-        uid,
-        email,
-        nickname
-      });
+      const newProfile = { uid, password, email, nickname, taste: [], img: '', intro: '' };
+      await addDoc(collection(db, 'profile'), newProfile);
 
       dispatch(setUserUid(uid));
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
-
-      // 초기 회원정보를 따로 cloude db에 저장합니다.
-      const newProfile = { id: email, taste: [], img: '', nickName: '', intro: '' };
-      await addDoc(collection(db, 'profile'), newProfile);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

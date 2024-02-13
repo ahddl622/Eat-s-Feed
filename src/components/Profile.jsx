@@ -43,7 +43,8 @@ const StH3 = styled.h3`
 function Profile() {
   const [loginUser, setLoginUser] = useState('');
   const [profileInfo, setProfileInfo] = useState([]);
-  const { nickName, id, taste, intro, img } = profileInfo;
+
+  const { nickname, email, taste, intro, img } = profileInfo;
 
   // 현재 로그인한 유저의 이메일을 가져옵니다.
   useEffect(() => {
@@ -58,7 +59,7 @@ function Profile() {
       const querySnapshot = await getDocs(collection(db, 'profile'));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.id === loginUser) setProfileInfo(data);
+        if (data.email === loginUser) setProfileInfo(data);
       });
     };
 
@@ -70,13 +71,13 @@ function Profile() {
   return (
     <StSection>
       <StInfoDiv>
-        <StH3>"{nickName ? nickName : 'hello'}"</StH3>
+        <StH3>"{nickname ? nickname : 'hello'}"</StH3>
         <StFigure>
           <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
         </StFigure>
-        {nickName ? (
+        {nickname ? (
           <>
-            <h3>{id}</h3>
+            <h3>{email}</h3>
             <h3>{intro}</h3>
             <ul>
               {taste.map((item) => (

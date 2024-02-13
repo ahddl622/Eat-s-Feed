@@ -4,6 +4,8 @@ import { auth, db } from 'firebaseConfig';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import profile from 'assets/profile.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNickname } from 'store/modules/userNicknameReducer';
 
 const StWrap = styled.div`
   text-align: center;
@@ -91,10 +93,11 @@ const StBtn = styled.button`
 function MyInfo() {
   const [loginUser, setLoginUser] = useState('');
   const [userId, setUserId] = useState('');
-
-  const [nickName, setNickName] = useState('');
+  const nickname = useSelector((state) => state.userNicknameReducer);
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
+
+  const dispatch = useDispatch();
 
   console.log(taste);
   useEffect(() => {
@@ -109,7 +112,8 @@ function MyInfo() {
       const querySnapshot = await getDocs(collection(db, 'profile'));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.id === loginUser) setUserId(doc.id);
+        console.log(doc.data());
+        if (data.email === loginUser) setUserId(doc.id);
       });
     };
 
@@ -121,7 +125,7 @@ function MyInfo() {
     e.preventDefault();
 
     const infoRef = doc(db, 'profile', userId);
-    await updateDoc(infoRef, { nickName, intro, taste });
+    await updateDoc(infoRef, { nickname, intro, taste });
   };
 
   return (
@@ -135,10 +139,8 @@ function MyInfo() {
         <StP>{loginUser}</StP>
         <StForm onSubmit={editProfile}>
           <StInput
-            valu={nickName}
-            onChange={(e) => {
-              setNickName(e.target.value);
-            }}
+            value={nickname}
+            onChange={(e) => dispatch(setNickname(e.target.value))}
             placeholder="닉네임을 입력해 주세요."
           />
           <StInput
