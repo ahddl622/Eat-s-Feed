@@ -25,7 +25,7 @@ const LoginForm = () => {
         dispatch(setLoginStatus(false));
         // console.log('로그아웃');
       }
-    });
+    }, []);
 
     return () => userLoginStatusChange();
   }, [auth, dispatch]);
