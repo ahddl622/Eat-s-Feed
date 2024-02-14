@@ -159,7 +159,6 @@ function Show({ menu }) {
     try {
       const foundFeed = feedList.find((feed) => feed.id === feedId);
       const plusCountFeed = { ...foundFeed, feedCount: foundFeed.feedCount + 1 };
-
       const feedRef = doc(db, 'feedList', feedId);
       await updateDoc(feedRef, plusCountFeed);
       dispatch(plusFeedCount(feedId));
@@ -172,11 +171,12 @@ function Show({ menu }) {
     try {
       const foundFeed = feedList.find((feed) => feed.id === feedId);
       const minusCountFeed = { ...foundFeed, feedCount: foundFeed.feedCount - 1 };
-
       const feedRef = doc(db, 'feedList', feedId);
       await updateDoc(feedRef, minusCountFeed);
       dispatch(minusFeedCount(feedId));
-    } catch (error) {}
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
   };
 
   return (
@@ -187,6 +187,7 @@ function Show({ menu }) {
           <FeedDiv key={feed.id}>
             <div>
               <FeedTitleP>{feed.title}</FeedTitleP>
+              <p></p>
               <FeedContentNImg>
                 <FeedContentDiv>
                   <p>{feed.content}</p>

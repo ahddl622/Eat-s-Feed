@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import User from './common/User';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '../firebaseConfig';
-import { setLoginStatus } from 'store/modules/userLoginStatus';
 
 const StHeader = styled.header`
   height: 50px;
@@ -41,20 +40,18 @@ const StLi = styled.li`
 `;
 
 function Header() {
-  // const [loggedIn, setLoggedIn] = useState(false);
-  const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.userLoginStatus.isLogin);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(setLoginStatus(true));
+        setLoggedIn(true);
       } else {
-        dispatch(setLoginStatus(false));
+        setLoggedIn(false);
       }
     });
     return unsubscribe;
-  }, [dispatch]);
+  }, []);
 
   const menus = [
     { id: 'about', info: '사이트 소개' },
@@ -62,6 +59,7 @@ function Header() {
     { id: 'mypage', info: '마이 페이지' }
   ];
 
+  const dispatch = useDispatch();
   const fetchFeedData = async () => {
     try {
       const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
@@ -87,7 +85,7 @@ function Header() {
       <nav>
         <StUl>
           {menus
-            .filter((menu) => (isLogin ? menu.id !== 'login' : menu.id !== 'mypage'))
+            .filter((menu) => (loggedIn ? menu.id !== 'login' : menu.id !== 'mypage'))
             .map((menu) => (
               <StLink to={`/${menu.id}`} key={menu.id}>
                 <StLi>{menu.info}</StLi>

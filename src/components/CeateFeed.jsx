@@ -5,7 +5,7 @@ import { myContent } from 'store/modules/contentReducer';
 import { makeNewFeed } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 import FileUpload from './FileUpload';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { renewUrl } from 'store/modules/imgURLReducer';
 
@@ -79,9 +79,9 @@ function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const imgURL = useSelector((state) => state.imgURLReducer);
-  const [category, setCategory] = useState('');
-  const dispatch = useDispatch();
   const imgUrl = useSelector((state) => state.imgURLReducer);
+  const dispatch = useDispatch();
+  const [category, setCategory] = useState('');
 
   const fetchFeedData = async () => {
     try {
@@ -99,6 +99,25 @@ function CreateFeed({ setNewFeed }) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
   };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'profile'));
+      const profileList = [];
+      querySnapshot.forEach((doc) => {
+        const profile = { email: doc.data().email, nickname: doc.data().nickname };
+        profileList.push(profile);
+      });
+      console.log(profileList);
+
+      const foundProfile = profileList.find((profile) => profile.email === auth.currentUser.email);
+      console.log(foundProfile);
+      if (foundProfile) {
+        console.log(foundProfile.nickname);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   // 새 feed를 추가하려면 새 feed를 db에 추가한 뒤, 추가가 완료된 feedList를 db에서 가져와서 store에도 넣어줘야
   // -> db와 store 둘 다에 모두 추가가능
