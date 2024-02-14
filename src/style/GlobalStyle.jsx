@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
 	body {
 		line-height: 1;
 		font-family: 'S-CoreDream-3Light';
-
+		
 	}
 	ol, ul {
 		list-style: none;
