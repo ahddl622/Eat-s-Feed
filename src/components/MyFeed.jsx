@@ -16,7 +16,10 @@ const StArticle = styled.article`
 `;
 
 const StSection = styled.section`
+  margin: 30px auto;
   padding: 10px;
+  border: 1px solid #ac87c5;
+  border-radius: 35px;
 `;
 
 function MyFeed() {
@@ -69,45 +72,42 @@ function MyFeed() {
           .filter((feed) => feed.email === auth.currentUser.email)
           .map((feed) => (
             <StSection key={feed.id} style={{ width: '620px' }}>
-              <div style={{ border: '1px solid black', margin: '10px' }}>
-                <p style={{ fontSize: '20px', fontWeight: '600' }}>feed</p>
-                <p>제목: {feed.title}</p> <br />
-                <p>내용: {feed.content}</p>
-                <div>
-                  <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
-                </div>
-                {feed.editDone ? (
-                  <>
-                    <button
-                      onClick={() => {
-                        dispatch(editContentHandeler(feed.content));
-                        dispatch(changeEditDone(feed.id));
-                      }}
-                    >
-                      수정하기
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => {
-                        editFeed(feed.id);
-                      }}
-                    >
-                      수정완료
-                    </button>
-                    <textarea
-                      value={editedContent}
-                      onChange={(e) => {
-                        dispatch(editContentHandeler(e.target.value));
-                      }}
-                    ></textarea>
-                  </>
-                )}
-                <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
-                <div>추천수: {feed.feedCount}</div>
-                <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
+              <p>제목: {feed.title}</p> <br />
+              <p>내용: {feed.content}</p>
+              <div>
+                <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
               </div>
+              {feed.editDone ? (
+                <>
+                  <button
+                    onClick={() => {
+                      dispatch(editContentHandeler(feed.content));
+                      dispatch(changeEditDone(feed.id));
+                    }}
+                  >
+                    수정하기
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      editFeed(feed.id);
+                    }}
+                  >
+                    수정완료
+                  </button>
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => {
+                      dispatch(editContentHandeler(e.target.value));
+                    }}
+                  ></textarea>
+                </>
+              )}
+              <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
+              <div>추천수: {feed.feedCount}</div>
+              <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
             </StSection>
           ))}
     </StArticle>
