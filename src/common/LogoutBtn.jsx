@@ -11,7 +11,8 @@ const StBtn = styled.button`
   padding-top: 10px;
   border: none;
   background-color: #fff;
-  color: #e0aed0;
+  color: #756AB6;
+  font-size: 20px;
 `;
 
 const LogoutBtn = () => {
