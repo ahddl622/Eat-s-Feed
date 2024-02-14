@@ -130,7 +130,7 @@ function MyInfo() {
       <StArticle>
         <StH3>Profile</StH3>
         <StFigure>
-          <img src="" alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
+          <img src={profile} alt="프로필 이미지" />
         </StFigure>
         <StP>{loginEmail}</StP>
         <StForm onSubmit={editProfile}>

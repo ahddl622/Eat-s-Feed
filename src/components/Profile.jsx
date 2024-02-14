@@ -83,7 +83,7 @@ function Profile() {
   const loginUserNickname = useSelector((state) => state.userNicknameReducer);
   const dispatch = useDispatch();
 
-  const { taste, intro, img } = profileInfo;
+  const { taste, intro } = profileInfo;
 
   // 현재 로그인한 유저의 프로필을 가져옵니다.
   useEffect(() => {
@@ -109,7 +109,7 @@ function Profile() {
       <StSection>
         <StH3>"{loginUserNickname ? loginUserNickname : 'hello'}"</StH3>
         <StFigure>
-          <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
+          <img src={profile} alt="프로필 이미지" />
         </StFigure>
         <StInfoDiv>
           <h3>{loginEmail}</h3>

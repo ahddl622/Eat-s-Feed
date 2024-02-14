@@ -43,7 +43,7 @@ const RegisterForm = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // await sendEmailVerification(auth.currentUser);
       const uid = userCredential.user.uid;
-      const newProfile = { uid, password, email, nickname, taste: [], img: '', intro: '' };
+      const newProfile = { uid, password, email, nickname, taste: [], intro: '' };
       await addDoc(collection(db, 'profile'), newProfile);
 
       dispatch(setUserUid(uid));
