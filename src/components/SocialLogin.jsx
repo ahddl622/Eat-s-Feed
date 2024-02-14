@@ -5,6 +5,10 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUserEmail } from 'store/modules/userEmailReducer';
 import { setNickname } from 'store/modules/userNicknameReducer';
+import googleLogin from "assets/googleLoginImg.png"
+import githubLogin from "assets/githubLoginImg.png"
+import styled from 'styled-components';
+
 
 const SocialLogin = () => {
   const navigate = useNavigate();
@@ -45,10 +49,25 @@ const SocialLogin = () => {
 
   return (
     <div>
-      <button onClick={handleGoogleLogin}>구글 로그인</button>
-      <button onClick={handleGithubLogin}>Github 로그인</button>
+      <LoginBtn onClick={handleGoogleLogin}>
+        <Image src={googleLogin} alt="googleLogin"/>
+      </LoginBtn>
+      <LoginBtn onClick={handleGithubLogin}>
+        <Image src={githubLogin} alt='githubLogin'/>
+      </LoginBtn>
     </div>
   );
 };
 
 export default SocialLogin;
+
+const LoginBtn = styled.button`
+  padding: 0 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+`
+const Image = styled.img`
+  width: 50px;
+  height: 50px;
+`

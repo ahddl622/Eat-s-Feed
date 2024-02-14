@@ -7,6 +7,7 @@ import { editedContentReducer } from '../modules/editedContentReducer';
 import { imgURLReducer } from '../modules/imgURLReducer';
 import userNicknameReducer from 'store/modules/userNicknameReducer';
 import userEmailReducer from 'store/modules/userEmailReducer';
+import userLoginStatus from 'store/modules/userLoginStatus';
 
 const rootReducer = combineReducers({
   feedListReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   imgURLReducer,
   userUidReducer,
   userNicknameReducer,
-  userEmailReducer
+  userEmailReducer,
+  userLoginStatus
 });
 
 const store = createStore(rootReducer);

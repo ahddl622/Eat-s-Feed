@@ -101,8 +101,9 @@ function CreateFeed({ setNewFeed }) {
   // -> db와 store 둘 다에 모두 추가가능
   const addFeed = async (event) => {
     event.preventDefault();
+    const user = auth.currentUser;
     try {
-      if (title && content) {
+      if (user && title && content) {
         const newFeed = {
           email: auth.currentUser.email,
           title,
@@ -111,6 +112,7 @@ function CreateFeed({ setNewFeed }) {
           feedCount: 0,
           createdAt: String(new Date()),
           editDone: true,
+          uid: user.uid,
           category
         };
         const collectionRef = collection(db, 'feedList');
@@ -125,6 +127,9 @@ function CreateFeed({ setNewFeed }) {
       }
       if (!content) {
         alert('내용을 입력해주세요');
+      }
+      if(!user) {
+        alert('글 작성을 위해 로그인 해주세요')
       }
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
