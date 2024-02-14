@@ -51,6 +51,7 @@ const MatjipContentTextArea = styled.textarea`
   height: ${({ title }) => (title ? '40px' : '80px')};
   border: 2px solid lightgray;
   border-radius: 5px;
+  resize: none;
 `;
 
 const SelectDiv = styled.div`
@@ -62,14 +63,14 @@ const SelectDiv = styled.div`
 const SelectBox = styled.select`
   width: 140px;
   height: 30px;
-  border-radius: 4px;
+  border-radius: px;
   border: 3px solid lightgray;
 `;
 
 const SubmitBtn = styled.button`
   width: 150px;
   height: 30px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: 3px solid lightgray;
   margin: 0 5px 0 auto;
 `;

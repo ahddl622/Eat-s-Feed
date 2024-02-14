@@ -1,12 +1,14 @@
 :root {
   --text-stroke-color-light: #e7e4ff;
-  --text-stroke-color-dark: #756AB6;
-  --text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 21px #AC87C5, 0 0 40px #AC87C5, 0 0 50px #AC87C5, 0 0 60px #AC87C5, 0 0 100px #AC87C5;
+  --text-stroke-color-dark: #756ab6;
+  --text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 21px #FFE5E5, 0 0 40px #ac87c5, 0 0 50px #ac87c5,
+    0 0 60px #FFE5E5, 0 0 100px #FFE5E5;
 }
 
 @font-face {
   font-family: 'TTHakgyoansimKkwabaegiR';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimKkwabaegiR.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimKkwabaegiR.woff2')
+    format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,9 +25,9 @@
 
 .title {
   font-family: 'TTHakgyoansimKkwabaegiR';
-  color: whitesmoke;
+  color: #3c245a;
   margin-top: 180px;
-  margin-left: 10px;
+  margin-left: 40px;
   font-size: 80px;
   vertical-align: text-bottom;
   -webkit-text-stroke: 1px var(--text-stroke-color-light);
@@ -37,6 +39,7 @@
   color: whitesmoke;
   font-size: 36px;
   -webkit-text-stroke: 1px var(--text-stroke-color-dark);
-  margin-right: 10px;
+  margin-top: 20px;
+  margin-right: 40px;
   text-align: right;
 }

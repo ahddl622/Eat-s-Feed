@@ -7,6 +7,7 @@ const SearchDiv = styled.div`
   background-color: #ac87c5;
   height: 40px;
   display: flex;
+  border-radius: 10px;
   align-items: center;
   padding: 0 5px;
 `;
@@ -15,7 +16,7 @@ const SearchInput = styled.input`
   height: 30px;
   width: 675px;
 
-  border-radius: 3px;
+  border-radius: 10px;
   border: solid 2px #503178;
 `;
 
@@ -27,6 +28,7 @@ const SearchBtn = styled.button`
   width: 63px;
   height: 30px;
   margin-left: 2px;
+  border-radius: 10px;
   cursor: pointer;
   &:hover {
     transform: scale(1.02);

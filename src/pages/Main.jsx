@@ -20,12 +20,15 @@ const SideDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: #ffe5e5;
+  background-color: white;
   border-radius: 8px;
+  border: 1px solid #FFE5E5;
+  box-shadow: 0 0 15px #ffe5e5;
 `;
 
 const MainFeedDiv = styled.div`
-  background-color: #ffe5e5;
+  background-color: white;
+  box-shadow: 0 0 20px #ffe5e5;
   border-radius: 8px;
   width: 750px;
 `;
@@ -57,6 +60,7 @@ const ShowDiv = styled.div`
   flex-direction: column;
   align-items: center;
   width: 720px;
+  border-radius: 15px;
 `;
 
 function Main() {
