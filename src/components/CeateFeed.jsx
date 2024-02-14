@@ -22,7 +22,7 @@ const CreateFeedDiv = styled.div`
   flex-direction: column;
   justify-content: space-around;
   border-radius: 15px;
-  border: 4px solid #e0aed0;
+  border: 4px solid #2f1a4b;
   padding: 10px 15px 20px 15px;
 `;
 
@@ -30,6 +30,9 @@ const XBtn = styled.button`
   width: 20px;
   height: 20px;
   margin: 0 5px 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const IntroUrMatJipP = styled.p`
@@ -40,9 +43,10 @@ const IntroUrMatJipP = styled.p`
 `;
 
 const MatjipContent = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-left: 6px;
 `;
 
 const MatjipContentTextArea = styled.textarea`
@@ -65,15 +69,23 @@ const SelectBox = styled.select`
   height: 30px;
   border-radius: px;
   border: 3px solid lightgray;
+  cursor: pointer;
 `;
 
 const SubmitBtn = styled.button`
   width: 150px;
   height: 30px;
+  background-color: #E0AED0;
   border-radius: 10px;
-  border: 3px solid lightgray;
+  border: 1px solid #AC87C5;
   margin: 0 5px 0 auto;
+  cursor: pointer;
 `;
+
+const FoodCategory = styled.label`
+  font-size: 14px;
+  margin-left: 8px;
+`
 
 function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
@@ -118,6 +130,7 @@ function CreateFeed({ setNewFeed }) {
           uid: user.uid,
           category
         };
+        setNewFeed(false);
         const collectionRef = collection(db, 'feedList');
         await addDoc(collectionRef, newFeed);
         // **
@@ -140,12 +153,12 @@ function CreateFeed({ setNewFeed }) {
   };
   return (
     <CreateFeedDiv>
-      <XBtn onClick={() => setNewFeed(false)}>x</XBtn>
+      <XBtn onClick={() => setNewFeed(false)}>X</XBtn>
 
       <IntroUrMatJipP>여러분의 맛집을 소개해주세요!</IntroUrMatJipP>
       <FileUpload />
 
-      <MatjipContent>맛집의 지역과 상호명을 기재해주세요</MatjipContent>
+      <MatjipContent>맛집의 지역과 상호명을 기재해주세요.</MatjipContent>
       <MatjipContentTextArea
         value={title}
         placeholder="맛집의 지역과 상호명을 기재해주세요"
@@ -159,7 +172,7 @@ function CreateFeed({ setNewFeed }) {
       ></MatjipContentTextArea>
 
       <SelectDiv>
-        <label>음식의 카테고리를 선택해주세요</label>
+        <FoodCategory>음식의 카테고리를 선택해주세요.</FoodCategory>
         <SelectBox onChange={(e) => setCategory(e.target.options[e.target.options.selectedIndex].value)}>
           <option defaultValue>메뉴</option>
           <option value="일식">일식</option>

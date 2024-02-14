@@ -55,6 +55,10 @@ const LoginForm = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log('error with singIn', errorCode, errorMessage);
+
+      if (errorCode === 'auth/invalid-credential') {
+        alert('잘못된 이메일 또는 비밀번호입니다. 다시 시도해주세요.');
+      }
     }
   };
 

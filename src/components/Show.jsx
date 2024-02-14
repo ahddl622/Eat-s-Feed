@@ -51,20 +51,7 @@ const FeedImg = styled.img`
 const BtnsDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
-`;
-
-const EditBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-  background-color: white;
-  border: solid 2px #ac87c5;
-  border-radius: 8px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
+  margin-bottom: 15px;
 `;
 
 const DeleteBtn = styled.button`
@@ -73,7 +60,7 @@ const DeleteBtn = styled.button`
   margin: 0 3px;
   color: white;
   background-color: #AC87C5;
-  border: solid 2px #ac87c5;
+  border: solid 1px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -90,7 +77,7 @@ const EditNDeleteBtn = styled.button`
   width: 80px;
   margin: 0 3px;
   background-color: white;
-  border: solid 2px #ac87c5;
+  border: solid 1px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -102,7 +89,7 @@ const GoodOrBadBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 2px #756ab6;
+  border: solid 1px #756ab6;
   border-radius: 8px;
   background-color: white;
   cursor: pointer;
@@ -113,6 +100,7 @@ const GoodOrBadBtn = styled.button`
 
 const LatestDateP = styled.p`
   text-align: end;
+  font-size: 14px;
 `;
 
 function Show({ menu }) {
@@ -264,7 +252,7 @@ function Show({ menu }) {
 
                   <div>
                     <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
-                    <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>♥ {feed.feedCount}
+                    <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>&nbsp;&nbsp;♥ {feed.feedCount}
                   </div>
                 </BtnsDiv>
                 <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>

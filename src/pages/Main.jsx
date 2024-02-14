@@ -22,13 +22,14 @@ const SideDiv = styled.div`
   justify-content: space-evenly;
   background-color: white;
   border-radius: 8px;
-  border: 1px solid #ffe5e5;
+  border: 2px solid #ffe5e5;
   box-shadow: 0 0 15px #ffe5e5;
 `;
 
 const MainFeedDiv = styled.div`
   background-color: white;
   box-shadow: 0 0 20px #ffe5e5;
+  border: 2px solid #ffe5e5;
   border-radius: 8px;
   width: 750px;
 `;
@@ -41,7 +42,7 @@ const CategoryBtnWrapperDiv = styled.div`
 
 const CategoryBtn = styled.button`
   border: solid 3px #503178;
-  border-radius: 3px;
+  border-radius: 10px;
   background-color: #503178;
   color: white;
   width: 120px;
