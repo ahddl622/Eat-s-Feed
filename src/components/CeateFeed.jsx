@@ -8,6 +8,7 @@ import FileUpload from './FileUpload';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { renewUrl } from 'store/modules/imgURLReducer';
+import { setNickname } from 'store/modules/userNicknameReducer';
 
 const CreateFeedDiv = styled.div`
   position: fixed;
@@ -79,9 +80,10 @@ function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const imgURL = useSelector((state) => state.imgURLReducer);
-  const imgUrl = useSelector((state) => state.imgURLReducer);
   const dispatch = useDispatch();
   const [category, setCategory] = useState('');
+  const nickname = useSelector((state) => state.userNicknameReducer);
+  console.log(nickname);
 
   const fetchFeedData = async () => {
     try {
@@ -100,25 +102,6 @@ function CreateFeed({ setNewFeed }) {
     }
   };
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'profile'));
-      const profileList = [];
-      querySnapshot.forEach((doc) => {
-        const profile = { email: doc.data().email, nickname: doc.data().nickname };
-        profileList.push(profile);
-      });
-      console.log(profileList);
-
-      const foundProfile = profileList.find((profile) => profile.email === auth.currentUser.email);
-      console.log(foundProfile);
-      if (foundProfile) {
-        console.log(foundProfile.nickname);
-      }
-    };
-    fetchUserData();
-  }, []);
-
   // 새 feed를 추가하려면 새 feed를 db에 추가한 뒤, 추가가 완료된 feedList를 db에서 가져와서 store에도 넣어줘야
   // -> db와 store 둘 다에 모두 추가가능
   const addFeed = async (event) => {
@@ -128,6 +111,7 @@ function CreateFeed({ setNewFeed }) {
       if (user && title && content) {
         const newFeed = {
           email: auth.currentUser.email,
+          nickname,
           title,
           content,
           imgURL,
@@ -191,7 +175,7 @@ function CreateFeed({ setNewFeed }) {
 
       <SubmitBtn
         onClick={(e) => {
-          if (imgUrl === '') {
+          if (imgURL === '') {
             alert('사진 첨부하기를 눌러주세요');
             return;
           } else {

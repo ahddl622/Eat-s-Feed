@@ -103,6 +103,7 @@ function Profile() {
 
   console.log('profile', profileInfo);
   console.log('email', loginEmail);
+  console.log('nickname', loginUserNickname);
 
   return (
     <StArticle>

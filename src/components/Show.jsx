@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
@@ -24,6 +24,10 @@ const FeedTitleP = styled.p`
   margin-bottom: 10px;
 `;
 
+const FeednicknameP = styled.p`
+  text-align: end;
+`;
+
 const FeedContentNImg = styled.div`
   display: flex;
   gap: 15px;
@@ -39,13 +43,13 @@ const FeedContentDiv = styled.div`
 
 const FeedImgDiv = styled.div`
   width: 300px;
-  height: 300px;
+  height: 280px;
 `;
 
 const FeedImg = styled.img`
   border-radius: 5px;
   width: 300px;
-  height: 300px;
+  height: 280px;
 `;
 
 const BtnsDiv = styled.div`
@@ -124,6 +128,19 @@ function Show({ menu }) {
     fetchFeedData();
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const querySnapshot = await getDocs(collection(db, 'profile'));
+  //     const profileList = [];
+  //     querySnapshot.forEach((doc) => {
+  //       const profile = { email: doc.data().email, nickname: doc.data().nickname };
+  //       profileList.push(profile);
+  //     });
+  //     const foundProfile = profileList.find((profile) => profile.eZmail === auth.currentUser.email);
+  //   };
+  //   fetchUserData();
+  // }, []);
+
   // myPage에서 수정 및 삭제 가능하지만 MainPage에서도 나열되어있는 피드 각각을 수정 및 삭제 가능하도록 함
   // 로그인 데이터 공유되면 내 id의 feed만 수정 및 삭제 가능하도록 할 예정
   const editFeed = async (feedId) => {
@@ -187,7 +204,7 @@ function Show({ menu }) {
           <FeedDiv key={feed.id}>
             <div>
               <FeedTitleP>{feed.title}</FeedTitleP>
-              <p></p>
+              <FeednicknameP>{feed.nickname}님이 알려주신 맛집</FeednicknameP>
               <FeedContentNImg>
                 <FeedContentDiv>
                   <p>{feed.content}</p>
