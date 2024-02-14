@@ -94,15 +94,14 @@ function Profile() {
         if (data.email === loginEmail) {
           setProfileInfo(data);
           dispatch(setNickname(data.nickname));
+
+          // console.log(data);
         }
       });
     };
 
     fetchUserData();
   }, [loginEmail, dispatch]);
-
-  console.log('profile', profileInfo);
-  console.log('email', loginEmail);
 
   return (
     <StArticle>
