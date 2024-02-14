@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
+import LogoutBtn from 'common/LogoutBtn';
+import CreateFeedBtn from 'common/CreateFeedBtn';
 
-const StSection = styled.section`
+const StArticle = styled.article`
   padding: 20px 0;
   display: flex;
   flex-direction: column;
@@ -29,16 +31,51 @@ const StFigure = styled.figure`
   }
 `;
 
-const StInfoDiv = styled.div`
-  height: 80%;
+const StSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+`;
+
+const StInfoDiv = styled.div`
+  font-family: 'SCoreDream';
+  height: 100px;
+
+  & h3 {
+    height: 30px;
+
+    color: #503178;
+  }
+  & ul {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+
+    color: #e0aed0;
+  }
 `;
 
 const StH3 = styled.h3`
   font-size: 40px;
   color: #503178;
+`;
+
+const StBtn = styled.button`
+  width: 250px;
+  height: 50px;
+  margin: 10px;
+
+  border: 1px solid #e0aed0;
+  background-color: #fff;
+  color: #ac87c5;
+  border-radius: 18px;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    border: none;
+    background-color: #e0aed0;
+    color: #fff;
+  }
 `;
 
 function Profile() {
@@ -69,30 +106,34 @@ function Profile() {
   console.log('email', loginEmail);
 
   return (
-    <StSection>
-      <StInfoDiv>
+    <StArticle>
+      <StSection>
         <StH3>"{loginUserNickname ? loginUserNickname : 'hello'}"</StH3>
         <StFigure>
           <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
         </StFigure>
-        <h3>{loginEmail}</h3>
-        {intro ? (
-          <>
-            <h3>{intro}</h3>
-            <ul>
-              {taste.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          '프로필을 완성해 주세요!'
-        )}
-      </StInfoDiv>
-      <Link to={`/myinfo`}>
-        <button>수정하기</button>
-      </Link>
-    </StSection>
+        <StInfoDiv>
+          <h3>{loginEmail}</h3>
+          {intro ? (
+            <>
+              <h3>{intro}</h3>
+              <ul>
+                {taste.map((item) => (
+                  <li key={item}>#{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            '프로필을 완성해 주세요!'
+          )}
+        </StInfoDiv>
+        <Link to={`/myinfo`}>
+          <StBtn>수정하기</StBtn>
+        </Link>
+        <CreateFeedBtn />
+      </StSection>
+      <LogoutBtn />
+    </StArticle>
   );
 }
 

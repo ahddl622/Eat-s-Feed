@@ -128,8 +128,8 @@ function CreateFeed({ setNewFeed }) {
       if (!content) {
         alert('내용을 입력해주세요');
       }
-      if(!user) {
-        alert('글 작성을 위해 로그인 해주세요')
+      if (!user) {
+        alert('글 작성을 위해 로그인 해주세요');
       }
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
