@@ -54,25 +54,12 @@ const BtnsDiv = styled.div`
   margin: 5px 0;
 `;
 
-const EditBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-  background-color: white;
-  border: solid 2px #ac87c5;
-  border-radius: 8px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
 const DeleteBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
   color: white;
-  background-color: #AC87C5;
+  background-color: #ac87c5;
   border: solid 2px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
