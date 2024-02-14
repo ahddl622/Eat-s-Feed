@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Show from './Show';
 
 const StSection = styled.section`
   padding: 10px;
@@ -9,7 +10,9 @@ const StSection = styled.section`
 `;
 
 function MyFeed() {
-  return <StSection>MyFeed</StSection>;
+  return <StSection>
+    <Show/>
+  </StSection>;
 }
 
 export default MyFeed;
