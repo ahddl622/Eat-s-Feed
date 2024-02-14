@@ -47,7 +47,8 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // console.log('user with signIn', userCredential.user);
+      console.log('user with signIn', userCredential.user);
+
       dispatch(setUserEmail(email));
       dispatch(setLoginStatus(true));
       navigate('/');
