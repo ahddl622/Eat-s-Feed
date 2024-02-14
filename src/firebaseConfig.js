@@ -7,12 +7,12 @@ import { getAuth } from '@firebase/auth';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD3Oz8EjEPYbubbwfHilVPhPFCjjqF3Rf0',
-  authDomain: 'new-speed-bdd49.firebaseapp.com',
-  projectId: 'new-speed-bdd49',
-  storageBucket: 'new-speed-bdd49.appspot.com',
-  messagingSenderId: '338185226699',
-  appId: '1:338185226699:web:6c7b3a287e89f1d40ece4e'
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOAMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDERID,
+  appId: process.env.REACT_APP_ID
 };
 
 // Initialize Firebase
