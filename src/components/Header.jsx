@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import User from './common/User';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
+import { useDispatch } from 'react-redux';
+import { makeNewFeed } from 'store/modules/feedListReducer';
 
 const StHeader = styled.header`
   height: 50px;
@@ -40,9 +44,27 @@ function Header() {
     { id: 'mypage', info: '마이 페이지' }
   ];
 
+  const dispatch = useDispatch();
+  const fetchFeedData = async () => {
+    try {
+      const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+
+      const newFeedArr = [];
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id);
+        const feed = { id: doc.id, ...doc.data() };
+        newFeedArr.push(feed);
+      });
+      dispatch(makeNewFeed(newFeedArr));
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
+  };
+
   return (
     <StHeader>
-      <StLink to="/">
+      <StLink to="/" onClick={() => fetchFeedData()}>
         <StH1>Eat's Feed</StH1>
       </StLink>
       <nav>
