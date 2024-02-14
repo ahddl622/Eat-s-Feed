@@ -7,6 +7,7 @@ import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore'
 import FileUpload from './FileUpload';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { renewUrl } from 'store/modules/imgURLReducer';
 
 const CreateFeedDiv = styled.div`
   position: fixed;
@@ -80,6 +81,7 @@ function CreateFeed({ setNewFeed }) {
   const imgURL = useSelector((state) => state.imgURLReducer);
   const [category, setCategory] = useState('');
   const dispatch = useDispatch();
+  const imgUrl = useSelector((state) => state.imgURLReducer);
 
   const fetchFeedData = async () => {
     try {
@@ -129,8 +131,8 @@ function CreateFeed({ setNewFeed }) {
       if (!content) {
         alert('내용을 입력해주세요');
       }
-      if(!user) {
-        alert('글 작성을 위해 로그인 해주세요')
+      if (!user) {
+        alert('글 작성을 위해 로그인 해주세요');
       }
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
@@ -170,7 +172,13 @@ function CreateFeed({ setNewFeed }) {
 
       <SubmitBtn
         onClick={(e) => {
-          addFeed(e);
+          if (imgUrl === '') {
+            alert('사진 첨부하기를 눌러주세요');
+            return;
+          } else {
+            addFeed(e);
+            dispatch(renewUrl());
+          }
         }}
       >
         저장하기

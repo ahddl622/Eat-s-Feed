@@ -6,12 +6,56 @@ import { changeEditDone, makeNewFeed } from 'store/modules/feedListReducer';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import styled from 'styled-components';
 
-const StSection = styled.section`
-  padding: 10px;
+const StArticle = styled.article`
+  height: 85vh;
 
   border: 2px solid #fff;
   box-shadow: 3px 5px 12px 3px #ffe5e5;
+  border-radius: 40px;
+  overflow: scroll;
+`;
+
+const StSection = styled.section`
+  width: 90%;
+  height: 200px;
+  margin: 30px auto;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 1px solid #ac87c5;
   border-radius: 35px;
+`;
+
+const StFigure = styled.figure`
+  width: 160px;
+  height: 160px;
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+  }
+`;
+
+const StDiv = styled.div`
+  width: 80%;
+
+  color: #503178;
+
+  & h1 {
+    font-size: 20px;
+  }
+`;
+
+const StBtn = styled.button`
+  width: 100px;
+  height: 30px;
+  margin: 10px 5px;
+
+  border: none;
+  background-color: #e0aed0;
+  border-radius: 10px;
 `;
 
 function MyFeed() {
@@ -58,39 +102,40 @@ function MyFeed() {
   };
 
   return (
-    <>
+    <StArticle>
       {auth.currentUser &&
         feedList
           .filter((feed) => feed.email === auth.currentUser.email)
           .map((feed) => (
-            <StSection key={feed.id} style={{ width: '620px' }}>
-              <div style={{ border: '1px solid black', margin: '10px' }}>
-                <p style={{ fontSize: '20px', fontWeight: '600' }}>feed</p>
-                <p>제목: {feed.title}</p> <br />
-                <p>내용: {feed.content}</p>
-                <div>
-                  <img src={feed.imgURL} alt="맛집소개사진" style={{ width: '500px', height: '500px' }}></img>
-                </div>
+            <StSection key={feed.id}>
+              <StFigure>
+                <img src={feed.imgURL} alt="맛집소개사진" />
+              </StFigure>
+
+              <StDiv>
+                <div>♥︎ {feed.feedCount}</div>
+                <h1>{feed.title}</h1> <br />
+                <p>{feed.content}</p>
                 {feed.editDone ? (
                   <>
-                    <button
+                    <StBtn
                       onClick={() => {
                         dispatch(editContentHandeler(feed.content));
                         dispatch(changeEditDone(feed.id));
                       }}
                     >
                       수정하기
-                    </button>
+                    </StBtn>
                   </>
                 ) : (
                   <>
-                    <button
+                    <StBtn
                       onClick={() => {
                         editFeed(feed.id);
                       }}
                     >
                       수정완료
-                    </button>
+                    </StBtn>
                     <textarea
                       value={editedContent}
                       onChange={(e) => {
@@ -99,13 +144,12 @@ function MyFeed() {
                     ></textarea>
                   </>
                 )}
-                <button onClick={() => deleteFeed(feed.id)}>삭제하기</button>
-                <div>추천수: {feed.feedCount}</div>
-                <p>최근 수정날짜: {getformattedDate(feed.createdAt)}</p>
-              </div>
+                <StBtn onClick={() => deleteFeed(feed.id)}>삭제하기</StBtn>
+                <p>{getformattedDate(feed.createdAt)}</p>
+              </StDiv>
             </StSection>
           ))}
-    </>
+    </StArticle>
   );
 }
 

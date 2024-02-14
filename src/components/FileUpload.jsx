@@ -37,7 +37,6 @@ function FileUpload() {
       console.log('URL 받기도 성공!', downloadURL);
       alert('이미지를 업로드 성공!');
       dispatch(addUrl(downloadURL));
-      setSelectedFile('');
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
       console.error('파일 저장 실패');

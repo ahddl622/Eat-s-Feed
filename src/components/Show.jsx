@@ -109,7 +109,7 @@ function Show({ menu }) {
   const editFeed = async (feedId) => {
     try {
       const foundFeed = feedList.find((feed) => feed.id === feedId);
-      const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true };
+      const editDoneFeed = { ...foundFeed, content: editedContent, editDone: true, createdAt: String(new Date()) };
 
       const feedRef = doc(db, 'feedList', foundFeed.id);
       await updateDoc(feedRef, editDoneFeed);

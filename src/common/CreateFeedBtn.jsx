@@ -3,24 +3,21 @@ import CreateFeed from 'components/CeateFeed';
 import { auth } from 'firebaseConfig';
 import styled from 'styled-components';
 
-const NewFeedBtnDiv = styled.div`
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
-`;
+const StBtn = styled.button`
+  width: 250px;
+  height: 50px;
 
-const NewFeedBtn = styled.button`
-  width: 230px;
-  height: 60px;
-  border: solid 4px #e0aed0;
-  border-radius: 8px;
+  border: 1px solid #e0aed0;
+  background-color: #fff;
+  color: #ac87c5;
+  border-radius: 18px;
   font-size: 20px;
-  font-weight: 550;
-  color: #503178;
-  background-color: #e0aed0;
   cursor: pointer;
+
   &:hover {
-    transform: scale(1.02);
+    border: none;
+    background-color: #e0aed0;
+    color: #fff;
   }
 `;
 
@@ -39,8 +36,8 @@ function CreateFeedBtn() {
   });
 
   return (
-    <NewFeedBtnDiv ref={newFeedArea}>
-      <NewFeedBtn
+    <div ref={newFeedArea}>
+      <StBtn
         onClick={() => {
           if (auth.currentUser === null) {
             alert('로그인 후 이용해주세요');
@@ -51,9 +48,9 @@ function CreateFeedBtn() {
         }}
       >
         새 글 작성하기
-      </NewFeedBtn>
+      </StBtn>
       {newFeed ? <CreateFeed setNewFeed={setNewFeed} /> : null}
-    </NewFeedBtnDiv>
+    </div>
   );
 }
 
