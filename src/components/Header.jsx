@@ -71,7 +71,7 @@ function Header() {
             ))}
         </StUl>
       </nav>
-      <User loggedIn={loggedIn} />
+      <User />
     </StHeader>
   );
 }
