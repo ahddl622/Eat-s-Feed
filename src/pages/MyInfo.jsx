@@ -5,10 +5,7 @@ import styled from 'styled-components';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
-
-
-
-
+import { Link } from 'react-router-dom';
 
 const StWrap = styled.div`
   text-align: center;
@@ -91,18 +88,21 @@ const StBtn = styled.button`
   border: none;
   background-color: #e0aed0;
   border-radius: 18px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
 `;
 
 function MyInfo() {
   const [userId, setUserId] = useState('');
   const nickname = useSelector((state) => state.userNicknameReducer);
-  const loginEmail = useSelector((state) => state.userEmailReducer)
+  const loginEmail = useSelector((state) => state.userEmailReducer);
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   console.log(taste);
-  console.log(loginEmail)
+  console.log(loginEmail);
 
   // useEffect(() => {
   //   onAuthStateChanged(auth, (user) => {
@@ -174,7 +174,9 @@ function MyInfo() {
             <option value="아시안">아시안</option>
             <option value="디저트">디저트</option>
           </StSelect>
-          <StBtn type="submit">click</StBtn>
+          <Link to="/mypage">
+            <StBtn type="submit">수정완료</StBtn>
+          </Link>
         </StForm>
       </StArticle>
     </StWrap>
