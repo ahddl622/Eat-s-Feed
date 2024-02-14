@@ -111,7 +111,7 @@ const LoginTitle = styled.h2`
   font-size: 35px;
   font-weight: bold;
   padding: 3rem;
-  color: #ac87c5;
+  color: #503178;
 `;
 
 const LoginContainer = styled.form`

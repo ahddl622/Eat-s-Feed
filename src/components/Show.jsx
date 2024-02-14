@@ -12,7 +12,7 @@ const FeedDiv = styled.div`
   width: 680px;
   margin: 10px;
   padding: 15px;
-  border: solid 3px #AC87C5;
+  border: solid 2px #AC87C5;
   display: flex;
   justify-content: center;
   border-radius: 15px;
@@ -31,7 +31,7 @@ const FeedContentNImg = styled.div`
 `;
 
 const FeedContentDiv = styled.div`
-  border: solid 3px #ac87c5;
+  border: solid 1px #ac87c5;
   border-radius: 8px;
   width: 300px;
   padding: 10px;
@@ -58,7 +58,8 @@ const EditNDeleteBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 3px #ac87c5;
+  background-color: white;
+  border: solid 2px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -70,8 +71,9 @@ const GoodOrBadBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 3px #756ab6;
+  border: solid 2px #756ab6;
   border-radius: 8px;
+  background-color: white;
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
