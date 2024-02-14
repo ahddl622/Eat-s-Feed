@@ -54,6 +54,37 @@ const BtnsDiv = styled.div`
   margin: 5px 0;
 `;
 
+const EditBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+  background-color: white;
+  border: solid 2px #ac87c5;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const DeleteBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+  color: white;
+  background-color: #AC87C5;
+  border: solid 2px #ac87c5;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const EditTextArea = styled.textarea`
+  resize: none;
+`;
+
 const EditNDeleteBtn = styled.button`
   height: 30px;
   width: 80px;
@@ -205,15 +236,15 @@ function Show({ menu }) {
                         >
                           수정완료
                         </EditNDeleteBtn>
-                        <textarea
+                        <EditTextArea
                           value={editedContent}
                           onChange={(e) => {
                             dispatch(editContentHandeler(e.target.value));
                           }}
-                        ></textarea>
+                        ></EditTextArea>
                       </>
                     )}
-                    <EditNDeleteBtn
+                    <DeleteBtn
                       onClick={() => {
                         if (auth.currentUser) {
                           if (auth.currentUser.email === feed.email) {
@@ -228,13 +259,12 @@ function Show({ menu }) {
                       }}
                     >
                       삭제하기
-                    </EditNDeleteBtn>
+                    </DeleteBtn>
                   </div>
 
                   <div>
                     <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
-                    <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                    ♥ {feed.feedCount}
+                    <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>♥ {feed.feedCount}
                   </div>
                 </BtnsDiv>
                 <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
@@ -304,8 +334,7 @@ function Show({ menu }) {
 
                     <div>
                       <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
-                      <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                      ♥ {feed.feedCount}
+                      <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>♥ {feed.feedCount}
                     </div>
                   </BtnsDiv>
                   <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
