@@ -7,8 +7,8 @@ function Banner() {
         <h1 className="title">Eat's peed</h1>
       </div>
       <div>
-        <h3 className="sub">새로운 소식을 빠르게</h3>
-        <h6 className="sub">여러분의 이야기를 들려주세요!</h6>
+        <h3 className="sub">새로운 맛집을 빠르게</h3>
+        <h6 className="sub">여러분의 맛집을 공유해 주세요!</h6>
       </div>
     </div>
   )
