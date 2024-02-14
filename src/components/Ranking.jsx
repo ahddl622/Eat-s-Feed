@@ -9,10 +9,11 @@ const RankDiv = styled.div`
 
 const RankPDiv = styled.div`
   font-size: 27px;
-  font-weight: 550;
+  font-weight: 600;
   text-align: center;
   margin-bottom: 10px;
   color: #503178;
+  padding: 10px 0 0 0;
 `;
 
 const RankListDiv = styled.div`
