@@ -223,7 +223,7 @@ function Show({ menu }) {
                   <div>
                     <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
                     <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                    {feed.feedCount}
+                    ♥︎ {feed.feedCount}
                   </div>
                 </BtnsDiv>
                 <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
@@ -294,7 +294,7 @@ function Show({ menu }) {
                     <div>
                       <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
                       <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                      {feed.feedCount}
+                      ♥︎ {feed.feedCount}
                     </div>
                   </BtnsDiv>
                   <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
