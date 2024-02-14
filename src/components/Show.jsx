@@ -12,7 +12,7 @@ const FeedDiv = styled.div`
   width: 680px;
   margin: 10px;
   padding: 15px;
-  border: solid 2px #AC87C5;
+  border: solid 2px #ac87c5;
   display: flex;
   justify-content: center;
   border-radius: 15px;
@@ -181,12 +181,16 @@ function Show({ menu }) {
                     {feed.editDone ? (
                       <EditNDeleteBtn
                         onClick={() => {
-                          if (auth.currentUser.email === feed.email) {
-                            dispatch(editContentHandeler(feed.content));
-                            dispatch(changeEditDone(feed.id));
+                          if (auth.currentUser) {
+                            if (auth.currentUser.email === feed.email) {
+                              dispatch(editContentHandeler(feed.content));
+                              dispatch(changeEditDone(feed.id));
+                            } else {
+                              alert('본인의 게시글만 수정할 수 있습니다.');
+                              return;
+                            }
                           } else {
-                            alert('본인의 게시글만 수정할 수 있습니다.');
-                            return;
+                            alert('로그인 후 이용해주세요');
                           }
                         }}
                       >
@@ -211,11 +215,15 @@ function Show({ menu }) {
                     )}
                     <EditNDeleteBtn
                       onClick={() => {
-                        if (auth.currentUser.email === feed.email) {
-                          deleteFeed(feed.id);
+                        if (auth.currentUser) {
+                          if (auth.currentUser.email === feed.email) {
+                            deleteFeed(feed.id);
+                          } else {
+                            alert('본인의 게시글만 삭제할 수 있습니다.');
+                            return;
+                          }
                         } else {
-                          alert('본인의 게시글만 삭제할 수 있습니다.');
-                          return;
+                          alert('로그인 후 이용해주세요');
                         }
                       }}
                     >

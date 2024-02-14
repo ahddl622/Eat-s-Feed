@@ -22,6 +22,9 @@ const RankListDiv = styled.div`
   margin: 10px 10px;
   padding: 8px;
   height: 80px;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 const RankMatJipTitle = styled.p`
