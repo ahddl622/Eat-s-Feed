@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import { setUserEmail } from 'store/modules/userEmailReducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { setNickname } from 'store/modules/userNicknameReducer';
+import { useDispatch } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import styled from 'styled-components';
 
@@ -14,7 +13,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isLogin = useSelector((state) => state.userLoginStatus);
 
   useEffect(() => {
     const userLoginStatusChange = onAuthStateChanged(auth, (user) => {
