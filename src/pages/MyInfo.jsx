@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNickname } from 'store/modules/userNicknameReducer';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { editedProfileMaker } from 'store/modules/loginProfileReducer';
 
 const StWrap = styled.div`
   text-align: center;
@@ -94,27 +94,27 @@ const StBtn = styled.button`
 `;
 
 function MyInfo() {
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
   const [userId, setUserId] = useState('');
-  const nickname = useSelector((state) => state.userNicknameReducer);
-  const loginEmail = useSelector((state) => state.userEmailReducer);
+  const [nickname, setNickname] = useState('');
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log(loginProfile);
 
-  console.log(taste);
-  console.log(loginEmail);
   useEffect(() => {
     const fetchUserData = async () => {
       const querySnapshot = await getDocs(collection(db, 'profile'));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        console.log(doc.data());
-        if (data.email === loginEmail) setUserId(doc.id);
+        console.log('data', doc.data());
+        if (data.email === loginProfile.email) setUserId(doc.id);
       });
     };
 
     fetchUserData();
-  }, [loginEmail]);
+  }, [loginProfile.email]);
 
   // 저장했던 profile ID와 일치하는 profile 정보를 수정합니다.
   const editProfile = async (e) => {
@@ -122,6 +122,10 @@ function MyInfo() {
 
     const infoRef = doc(db, 'profile', userId);
     await updateDoc(infoRef, { nickname, intro, taste });
+
+    dispatch(editedProfileMaker({ nickname, intro, taste }));
+    console.log(loginProfile);
+    navigate('/mypage');
   };
 
   return (
@@ -130,13 +134,13 @@ function MyInfo() {
       <StArticle>
         <StH3>Profile</StH3>
         <StFigure>
-          <img src="" alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
+          <img src={profile} alt="프로필 이미지" />
         </StFigure>
-        <StP>{loginEmail}</StP>
+        <StP>{loginProfile.email}</StP>
         <StForm onSubmit={editProfile}>
           <StInput
             value={nickname}
-            onChange={(e) => dispatch(setNickname(e.target.value))}
+            onChange={(e) => setNickname(e.target.value)}
             placeholder="닉네임을 입력해 주세요."
           />
           <StInput
@@ -160,15 +164,13 @@ function MyInfo() {
             }
           >
             <option value="base">choose your taste</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
             <option value="일식">일식</option>
+            <option value="중식">중식</option>
+            <option value="양식">양식</option>
             <option value="아시안">아시안</option>
             <option value="디저트">디저트</option>
           </StSelect>
-          <Link to="/mypage">
-            <StBtn type="submit">수정완료</StBtn>
-          </Link>
+          <StBtn type="submit">수정완료</StBtn>
         </StForm>
       </StArticle>
     </StWrap>

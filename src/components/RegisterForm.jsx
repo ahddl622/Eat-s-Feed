@@ -1,18 +1,14 @@
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserUid } from 'store/modules/userUidReducer';
-import { setNickname } from 'store/modules/userNicknameReducer';
 import { useNavigate } from 'react-router-dom';
 import { db } from 'firebaseConfig';
 import styled from 'styled-components';
 
 const RegisterForm = () => {
   const auth = getAuth();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const nickname = useSelector((state) => state.userNicknameReducer);
+  const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,7 +23,7 @@ const RegisterForm = () => {
       setPassword(value);
     }
     if (name === 'nickname') {
-      dispatch(setNickname(value));
+      setNickname(value);
     }
   };
 
@@ -43,11 +39,9 @@ const RegisterForm = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // await sendEmailVerification(auth.currentUser);
       const uid = userCredential.user.uid;
-      const newProfile = { uid, password, email, nickname, taste: [], img: '', intro: '' };
+      const newProfile = { uid, password, email, nickname, taste: [], intro: '' };
       await addDoc(collection(db, 'profile'), newProfile);
 
-      dispatch(setUserUid(uid));
-      dispatch(setNickname(nickname));
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
       navigate('/login');
@@ -117,6 +111,8 @@ const EmailInputBox = styled.div`
     border-radius: 15px;
     margin-top: 10px;
     border: 1px solid #e0aed0;
+    padding-left: 15px;
+    font-size: 16px;
   }
 `;
 

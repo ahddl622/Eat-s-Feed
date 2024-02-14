@@ -24,11 +24,11 @@ const UserFigure = styled.figure`
 `;
 
 function User() {
-  const loginUserNickname = useSelector((state) => state.userNicknameReducer);
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
 
   return (
     <Stsection>
-      <p>{loginUserNickname ? loginUserNickname : 'hello'}</p>
+      <p>{loginProfile.nickname ? loginProfile.nickname : 'hello'}</p>
       <UserFigure>
         <img src={profile} alt="프로필 이미지" />
       </UserFigure>

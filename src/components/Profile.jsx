@@ -1,11 +1,7 @@
 import styled from 'styled-components';
-import { collection, getDocs } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { db } from 'firebaseConfig';
 import { Link } from 'react-router-dom';
 import profile from 'assets/profile.png';
-import { useDispatch, useSelector } from 'react-redux';
-import { setNickname } from 'store/modules/userNicknameReducer';
+import { useSelector } from 'react-redux';
 import LogoutBtn from 'common/LogoutBtn';
 import CreateFeedBtn from 'common/CreateFeedBtn';
 
@@ -37,7 +33,6 @@ const StSection = styled.section`
 `;
 
 const StInfoDiv = styled.div`
-  font-family: 'SCoreDream';
   height: 100px;
 
   & h3 {
@@ -79,41 +74,47 @@ const StBtn = styled.button`
 `;
 
 function Profile() {
-  const [profileInfo, setProfileInfo] = useState([]);
-  const loginEmail = useSelector((state) => state.userEmailReducer);
-  const loginUserNickname = useSelector((state) => state.userNicknameReducer);
-  const dispatch = useDispatch();
+  // const [profileInfo, setProfileInfo] = useState([]);
+  // const loginEmail = useSelector((state) => state.userEmailReducer);
+  // const loginUserNickname = useSelector((state) => state.userNicknameReducer);
+  // const dispatch = useDispatch();
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
 
-  const { taste, intro, img } = profileInfo;
+  const { nickname, email, taste, intro } = loginProfile;
+  console.log(loginProfile);
+
+  // console.log(nickname, taste, intro);
 
   // 현재 로그인한 유저의 프로필을 가져옵니다.
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'profile'));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (data.email === loginEmail) {
-          setProfileInfo(data);
-          dispatch(setNickname(data.nickname));
-        }
-      });
-    };
-    fetchUserData();
-  }, [loginEmail, dispatch]);
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const querySnapshot = await getDocs(collection(db, 'profile'));
+  //     querySnapshot.forEach((doc) => {
+  //       const data = doc.data();
+  //       if (data.email === loginEmail) {
+  //         setProfileInfo(data);
+  //         dispatch(setNickname(data.nickname));
 
-  console.log('profile', profileInfo);
-  console.log('email', loginEmail);
-  console.log('nickname', loginUserNickname);
+  //         // console.log(data);
+  //       }
+  //     });
+  //   };
+  //   fetchUserData();
+  // }, [loginEmail, dispatch]);
+
+  // console.log('profile', profileInfo);
+  // console.log('email', loginEmail);
+  // console.log('nickname', loginUserNickname);
 
   return (
     <StArticle>
       <StSection>
-        <StH3>"{loginUserNickname ? loginUserNickname : 'hello'}"</StH3>
+        <StH3>"{nickname ? nickname : 'hello'}"</StH3>
         <StFigure>
-          <img src={img} alt="프로필 이미지" onError={(e) => (e.target.src = profile)} />
+          <img src={profile} alt="프로필 이미지" />
         </StFigure>
         <StInfoDiv>
-          <h3>{loginEmail}</h3>
+          <h3>{email}</h3>
           {intro ? (
             <>
               <h3>{intro}</h3>

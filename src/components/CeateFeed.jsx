@@ -5,10 +5,9 @@ import { myContent } from 'store/modules/contentReducer';
 import { makeNewFeed } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 import FileUpload from './FileUpload';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { renewUrl } from 'store/modules/imgURLReducer';
-import { setNickname } from 'store/modules/userNicknameReducer';
 
 const CreateFeedDiv = styled.div`
   position: fixed;
@@ -82,8 +81,7 @@ function CreateFeed({ setNewFeed }) {
   const imgURL = useSelector((state) => state.imgURLReducer);
   const dispatch = useDispatch();
   const [category, setCategory] = useState('');
-  const nickname = useSelector((state) => state.userNicknameReducer);
-  console.log(nickname);
+  // const loginProfile = useSelector((state) => state.loginProfileReducer);
 
   const fetchFeedData = async () => {
     try {
@@ -111,7 +109,7 @@ function CreateFeed({ setNewFeed }) {
       if (user && title && content) {
         const newFeed = {
           email: auth.currentUser.email,
-          nickname,
+          // nickname: loginProfile.nickname,
           title,
           content,
           imgURL,
@@ -138,7 +136,7 @@ function CreateFeed({ setNewFeed }) {
         alert('글 작성을 위해 로그인 해주세요');
       }
     } catch (error) {
-      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+      alert('저장할 수 없습니다. 관리자에게 문의하세요.');
     }
   };
   return (

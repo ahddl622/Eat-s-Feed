@@ -115,7 +115,7 @@ function Show({ menu }) {
   // -> 그래야 store에 저장된 feedList대로 화면에 뿌릴 수 있음
   useEffect(() => {
     const fetchFeedData = async () => {
-      const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, 'feedList'));
       const querySnapshot = await getDocs(q);
 
       const newFeedArr = [];
@@ -127,19 +127,6 @@ function Show({ menu }) {
     };
     fetchFeedData();
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const querySnapshot = await getDocs(collection(db, 'profile'));
-  //     const profileList = [];
-  //     querySnapshot.forEach((doc) => {
-  //       const profile = { email: doc.data().email, nickname: doc.data().nickname };
-  //       profileList.push(profile);
-  //     });
-  //     const foundProfile = profileList.find((profile) => profile.eZmail === auth.currentUser.email);
-  //   };
-  //   fetchUserData();
-  // }, []);
 
   // myPage에서 수정 및 삭제 가능하지만 MainPage에서도 나열되어있는 피드 각각을 수정 및 삭제 가능하도록 함
   // 로그인 데이터 공유되면 내 id의 feed만 수정 및 삭제 가능하도록 할 예정
@@ -196,9 +183,11 @@ function Show({ menu }) {
     }
   };
 
+  const sortedFeedList = feedList.sort((a, b) => a.createdAt - b.createdAt);
+
   return (
     <>
-      {feedList
+      {sortedFeedList
         .filter((feed) => (menu === '전체' || menu.length === 0 ? true : feed.category === menu))
         .map((feed) => (
           <FeedDiv key={feed.id}>
