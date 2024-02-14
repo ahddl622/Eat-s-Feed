@@ -6,6 +6,9 @@ import { makeNewFeed } from 'store/modules/feedListReducer';
 import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
 import FileUpload from './FileUpload';
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const StSection = styled.section``;
 
 function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
@@ -65,7 +68,7 @@ function CreateFeed({ setNewFeed }) {
     }
   };
   return (
-    <div>
+    <StSection>
       <button onClick={() => setNewFeed(false)}>x</button>
       <div>User사진</div>
       <div>
@@ -104,7 +107,7 @@ function CreateFeed({ setNewFeed }) {
       >
         저장하기
       </button>
-    </div>
+    </StSection>
   );
 }
 
