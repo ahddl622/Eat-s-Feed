@@ -1,7 +1,6 @@
 import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import CreateFeedBtn from 'common/CreateFeedBtn';
 import LogoutBtn from 'common/LogoutBtn';
 

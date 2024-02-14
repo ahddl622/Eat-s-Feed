@@ -1,6 +1,28 @@
 import React, { useRef, useState, useEffect } from 'react';
 import CreateFeed from 'components/CeateFeed';
 import { auth } from 'firebaseConfig';
+import styled from 'styled-components';
+
+const NewFeedBtnDiv = styled.div`
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+`;
+
+const NewFeedBtn = styled.button`
+  width: 230px;
+  height: 60px;
+  border: solid 4px #e0aed0;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 550;
+  color: #503178;
+  background-color: #e0aed0;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
 
 function CreateFeedBtn() {
   const newFeedArea = useRef(null);
@@ -17,8 +39,8 @@ function CreateFeedBtn() {
   });
 
   return (
-    <div ref={newFeedArea}>
-      <button
+    <NewFeedBtnDiv ref={newFeedArea}>
+      <NewFeedBtn
         onClick={() => {
           if (auth.currentUser === null) {
             alert('로그인 후 이용해주세요');
@@ -29,9 +51,9 @@ function CreateFeedBtn() {
         }}
       >
         새 글 작성하기
-      </button>
+      </NewFeedBtn>
       {newFeed ? <CreateFeed setNewFeed={setNewFeed} /> : null}
-    </div>
+    </NewFeedBtnDiv>
   );
 }
 
