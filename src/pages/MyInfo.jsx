@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StWrap = styled.div`
   text-align: center;
@@ -100,15 +100,14 @@ function MyInfo() {
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  console.log(taste);
-  console.log(loginEmail);
   useEffect(() => {
     const fetchUserData = async () => {
       const querySnapshot = await getDocs(collection(db, 'profile'));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        console.log(doc.data());
+        console.log('data', doc.data());
         if (data.email === loginEmail) setUserId(doc.id);
       });
     };
@@ -122,6 +121,7 @@ function MyInfo() {
 
     const infoRef = doc(db, 'profile', userId);
     await updateDoc(infoRef, { nickname, intro, taste });
+    navigate('/mypage');
   };
 
   return (
@@ -166,9 +166,7 @@ function MyInfo() {
             <option value="아시안">아시안</option>
             <option value="디저트">디저트</option>
           </StSelect>
-          <Link to="/mypage">
-            <StBtn type="submit">수정완료</StBtn>
-          </Link>
+          <StBtn type="submit">수정완료</StBtn>
         </StForm>
       </StArticle>
     </StWrap>

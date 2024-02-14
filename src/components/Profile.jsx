@@ -37,7 +37,6 @@ const StSection = styled.section`
 `;
 
 const StInfoDiv = styled.div`
-  font-family: 'SCoreDream';
   height: 100px;
 
   & h3 {
