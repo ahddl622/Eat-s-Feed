@@ -6,26 +6,32 @@ import { setUserEmail } from 'store/modules/userEmailReducer';
 import { useDispatch } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import styled from 'styled-components';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from 'firebaseConfig';
 
 const LoginForm = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    const userLoginStatusChange = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // 사용자가 로그인 상태인 경우
-        dispatch(setLoginStatus(true));
-        // console.log('로그인:', user);
-      } else {
-        // 사용자가 로그아웃 상태인 경우
-        dispatch(setLoginStatus(false));
-        // console.log('로그아웃');
-      }
-    }, []);
+    const userLoginStatusChange = onAuthStateChanged(
+      auth,
+      (user) => {
+        if (user) {
+          // 사용자가 로그인 상태인 경우
+          dispatch(setLoginStatus(true));
+          // console.log('로그인:', user);
+        } else {
+          // 사용자가 로그아웃 상태인 경우
+          dispatch(setLoginStatus(false));
+          // console.log('로그아웃');
+        }
+      },
+      []
+    );
 
     return () => userLoginStatusChange();
   }, [auth, dispatch]);
@@ -35,22 +41,35 @@ const LoginForm = () => {
       target: { name, value }
     } = event;
     if (name === 'email') {
-      setEmail(value);
+      setLoginEmail(value);
     }
     if (name === 'password') {
       setPassword(value);
     }
   };
 
+  const [profileInfo, setProfileInfo] = useState([]);
+
   // 로그인
   const signIn = async (event) => {
     event.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, loginEmail, password);
       console.log('user with signIn', userCredential.user);
 
-      dispatch(setUserEmail(email));
+      dispatch(setUserEmail(loginEmail));
       dispatch(setLoginStatus(true));
+
+      const querySnapshot = await getDocs(collection(db, 'profile'));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.email === loginEmail) {
+          setProfileInfo(data);
+          console.log('datadata', data);
+          console.log('w제발', profileInfo);
+        }
+      });
+
       navigate('/');
     } catch (error) {
       const errorCode = error.code;
@@ -71,7 +90,7 @@ const LoginForm = () => {
       <LoginContainer>
         <EmailInputBox>
           <label>Email </label>
-          <input type="email" value={email} name="email" onChange={onChange} required></input>
+          <input type="email" value={loginEmail} name="email" onChange={onChange} required></input>
         </EmailInputBox>
         <PasswordInputBox>
           <label>Password </label>
