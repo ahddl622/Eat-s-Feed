@@ -1,4 +1,5 @@
 import profile from 'assets/profile.png';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Stsection = styled.section`
@@ -23,9 +24,11 @@ const UserFigure = styled.figure`
 `;
 
 function User() {
+  const loginUserNickname = useSelector((state) => state.userNicknameReducer);
+
   return (
     <Stsection>
-      <p>user id</p>
+      <p>{loginUserNickname ? loginUserNickname : 'hello'}</p>
       <UserFigure>
         <img src={profile} alt="프로필 이미지" />
       </UserFigure>
