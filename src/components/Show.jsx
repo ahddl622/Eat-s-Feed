@@ -12,9 +12,10 @@ const FeedDiv = styled.div`
   width: 680px;
   margin: 10px;
   padding: 15px;
-  border: solid 3px white;
+  border: solid 2px #AC87C5;
   display: flex;
   justify-content: center;
+  border-radius: 15px;
 `;
 
 const FeedTitleP = styled.p`
@@ -30,7 +31,7 @@ const FeedContentNImg = styled.div`
 `;
 
 const FeedContentDiv = styled.div`
-  border: solid 3px #ac87c5;
+  border: solid 1px #ac87c5;
   border-radius: 8px;
   width: 300px;
   padding: 10px;
@@ -57,7 +58,8 @@ const EditNDeleteBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 3px #ac87c5;
+  background-color: white;
+  border: solid 2px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -69,8 +71,9 @@ const GoodOrBadBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 3px #756ab6;
+  border: solid 2px #756ab6;
   border-radius: 8px;
+  background-color: white;
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
@@ -223,7 +226,7 @@ function Show({ menu }) {
                   <div>
                     <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
                     <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                    ♥︎ {feed.feedCount}
+                    {feed.feedCount}
                   </div>
                 </BtnsDiv>
                 <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
@@ -294,7 +297,7 @@ function Show({ menu }) {
                     <div>
                       <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
                       <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                      ♥︎ {feed.feedCount}
+                      {feed.feedCount}
                     </div>
                   </BtnsDiv>
                   <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
