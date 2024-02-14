@@ -18,7 +18,7 @@ const RankPDiv = styled.div`
 
 const RankListDiv = styled.div`
   border: 3px solid #ac87c5;
-  border-radius: 5px;
+  border-radius: 15px;
   margin: 10px 10px;
   padding: 8px;
   height: 80px;

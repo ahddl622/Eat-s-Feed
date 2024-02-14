@@ -5,6 +5,9 @@ import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useDispatch } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
+import { useState, useEffect } from 'react';
+import { auth } from '../firebaseConfig';
+
 const StHeader = styled.header`
   height: 50px;
   padding: 0 20px;
@@ -37,6 +40,19 @@ const StLi = styled.li`
 `;
 
 function Header() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   const menus = [
     { id: 'about', info: '사이트 소개' },
     { id: 'login', info: '로그인 / 회원 가입' },
@@ -68,13 +84,13 @@ function Header() {
       </StLink>
       <nav>
         <StUl>
-          {menus.map((menu) => {
-            return (
+          {menus
+            .filter((menu) => (loggedIn ? menu.id !== 'login' : menu.id !== 'mypage'))
+            .map((menu) => (
               <StLink to={`/${menu.id}`} key={menu.id}>
                 <StLi>{menu.info}</StLi>
               </StLink>
-            );
-          })}
+            ))}
         </StUl>
       </nav>
       <User />

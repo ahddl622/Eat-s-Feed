@@ -117,6 +117,11 @@ const EmailInputBox = styled.div`
     border-radius: 15px;
     margin-top: 10px;
     border: 1px solid #e0aed0;
+<<<<<<< HEAD
+=======
+    padding-left: 15px;
+    font-size: 16px;
+>>>>>>> 17b839af74207b7ed7dd4db7418a66c01e0d9d8b
   }
 `;
 
@@ -129,7 +134,13 @@ const PasswordInputBox = styled.div`
     height: 40px;
     border-radius: 15px;
     margin-top: 10px;
+<<<<<<< HEAD
     border: 1px solid #e0aed0;
+=======
+    border: 1px solid #E0AED0;
+    padding-left: 15px;
+    font-size: 16px;
+>>>>>>> 17b839af74207b7ed7dd4db7418a66c01e0d9d8b
   }
 `;
 
@@ -142,7 +153,13 @@ const NickNameInputBox = styled.div`
     height: 40px;
     border-radius: 15px;
     margin-top: 10px;
+<<<<<<< HEAD
     border: 1px solid #e0aed0;
+=======
+    border: 1px solid #E0AED0;
+    padding-left: 15px;
+    font-size: 16px;
+>>>>>>> 17b839af74207b7ed7dd4db7418a66c01e0d9d8b
   }
 `;
 

@@ -103,14 +103,6 @@ function MyInfo() {
 
   console.log(taste);
   console.log(loginEmail);
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     setLoginUser(user.email);
-  //   });
-  // }, []);
-
-  // 로그인한 회원의 profile ID를 저장합니다.
   useEffect(() => {
     const fetchUserData = async () => {
       const querySnapshot = await getDocs(collection(db, 'profile'));
