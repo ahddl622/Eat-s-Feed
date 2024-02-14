@@ -1,20 +1,54 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
+const RankDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const RankPDiv = styled.div`
+  font-size: 27px;
+  font-weight: 550;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #503178;
+`;
+
+const RankListDiv = styled.div`
+  border: 3px solid #ac87c5;
+  border-radius: 5px;
+  margin: 10px 10px;
+  padding: 8px;
+  height: 80px;
+`;
+
+const RankMatJipTitle = styled.p`
+  font-weight: 550;
+  margin-bottom: 15px;
+`;
+
+const RankMatJipContent = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
 function Ranking() {
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const sortedFeedList = feedList.toSorted((a, b) => b.feedCount - a.feedCount);
-  const noticeList = sortedFeedList.slice(0, 3);
+  const rankingList = sortedFeedList.slice(0, 3);
   return (
-    <>
-      <p>Top 3 맛집</p>
-      {noticeList.map((notice) => (
-        <div key={notice.id} style={{ border: '1px solid black', margin: '5px 0' }}>
-          <p>{notice.title}</p>
-          <p>{notice.content}</p>
-        </div>
+    <RankDiv>
+      <RankPDiv>
+        <p>Top 3 맛집</p>
+      </RankPDiv>
+      {rankingList.map((notice) => (
+        <RankListDiv key={notice.id}>
+          <RankMatJipTitle>{notice.title}</RankMatJipTitle>
+          <RankMatJipContent>{notice.content}</RankMatJipContent>
+        </RankListDiv>
       ))}
-    </>
+    </RankDiv>
   );
 }
 
