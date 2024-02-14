@@ -1,11 +1,12 @@
 import Show from 'components/Show';
-import Banner from 'components/Banner';
+// import Banner from 'components/Banner';
 import { kindOfMenu } from 'shared/data';
 import CreateFeedBtn from 'common/CreateFeedBtn';
 import Search from 'components/Search';
 import Ranking from 'components/Ranking';
 import { useState } from 'react';
 import styled from 'styled-components';
+import MainBanner from 'components/MainBanner';
 
 const MainWrap = styled.main`
   display: flex;
@@ -67,7 +68,8 @@ function Main() {
   const [menu, setMenu] = useState('');
   return (
     <div>
-      <Banner />
+      {/* <Banner /> */}
+      <MainBanner />
       <MainWrap>
         <SideDiv>
           <div>
@@ -77,7 +79,6 @@ function Main() {
             <CreateFeedBtn />
           </div>
         </SideDiv>
-
         <MainFeedDiv>
           <Search />
           <CategoryBtnWrapperDiv>
