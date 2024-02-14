@@ -1,4 +1,4 @@
-import { db } from '../firebaseConfig';
+import { db, auth} from '../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { myTitle } from 'store/modules/titleReducer';
 import { myContent } from 'store/modules/contentReducer';
@@ -27,8 +27,9 @@ function CreateFeed({ setnewFeed }) {
   // -> db와 store 둘 다에 모두 추가가능
   const addFeed = async (event) => {
     event.preventDefault();
-    if (title && content) {
-      const newFeed = { title, content, createdAt: String(new Date()), editDone: true };
+    const user = auth.currentUser;
+    if (user && title && content) {
+      const newFeed = { title, content, createdAt: String(new Date()), editDone: true, uid:user.uid };
       const collectionRef = collection(db, 'feedList');
       await addDoc(collectionRef, newFeed);
       // **
@@ -41,6 +42,9 @@ function CreateFeed({ setnewFeed }) {
     }
     if (!content) {
       alert('내용을 입력해주세요');
+    }
+    if (user == null) {
+      alert('글 작성을 위해 로그인 해주세요')
     }
   };
   return (
