@@ -117,6 +117,8 @@ const EmailInputBox = styled.div`
     border-radius: 15px;
     margin-top: 10px;
     border: 1px solid #e0aed0;
+    padding-left: 15px;
+    font-size: 16px;
   }
 `;
 
