@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
 import styled from 'styled-components';
 
-const SearchDiv = styled.div`
+const SearchDiv = styled.form`
   background-color: #ac87c5;
   height: 40px;
   display: flex;
@@ -40,7 +40,8 @@ function Search() {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
 
-  const onSearch = () => {
+  const onSearch = (e) => {
+    e.preventDefault();
     if (searchItem) {
       const searchDoneList = feedList.filter(
         (feed) => feed.title.includes(searchItem) || feed.content.includes(searchItem)
