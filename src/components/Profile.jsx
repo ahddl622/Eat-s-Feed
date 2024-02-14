@@ -22,9 +22,10 @@ const StArticle = styled.article`
 `;
 
 const StFigure = styled.figure`
-  margin: 0 auto 10px auto;
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
+  margin: 10px auto 20px auto;
+
   & img {
     width: 100%;
     height: 100%;
@@ -37,23 +38,33 @@ const StSection = styled.section`
 `;
 
 const StInfoDiv = styled.div`
-  height: 100px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & h2 {
+    color: #ac87c5;
+  }
 
   & h3 {
-    height: 30px;
+    padding: 0 20px;
+    flex-grow: 0.6;
 
     color: #503178;
   }
   & ul {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin: 10px 0;
 
     color: #e0aed0;
   }
 `;
 
 const StH3 = styled.h3`
+  padding: 10px 0;
+
   font-size: 40px;
   color: #503178;
 `;
@@ -111,7 +122,7 @@ function Profile() {
           <img src={profile} alt="프로필 이미지" />
         </StFigure>
         <StInfoDiv>
-          <h3>{loginEmail}</h3>
+          <h2>{loginEmail}</h2>
           {intro ? (
             <>
               <h3>{intro}</h3>
