@@ -81,7 +81,7 @@ function CreateFeed({ setNewFeed }) {
   const imgURL = useSelector((state) => state.imgURLReducer);
   const dispatch = useDispatch();
   const [category, setCategory] = useState('');
-  // const loginProfile = useSelector((state) => state.loginProfileReducer);
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
 
   const fetchFeedData = async () => {
     try {
@@ -109,7 +109,7 @@ function CreateFeed({ setNewFeed }) {
       if (user && title && content) {
         const newFeed = {
           email: auth.currentUser.email,
-          // nickname: loginProfile.nickname,
+          nickname: loginProfile.nickname,
           title,
           content,
           imgURL,
