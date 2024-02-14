@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import profile from 'assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNickname } from 'store/modules/userNicknameReducer';
+import LogoutBtn from 'common/LogoutBtn';
 
 const StSection = styled.section`
   padding: 20px 0;
@@ -110,6 +111,7 @@ function Profile() {
       <Link to={`/myinfo`}>
         <StBtn>수정하기</StBtn>
       </Link>
+      <LogoutBtn />
     </StSection>
   );
 }

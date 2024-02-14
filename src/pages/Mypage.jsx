@@ -1,9 +1,7 @@
 import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import CreateFeedBtn from 'common/CreateFeedBtn';
-import LogoutBtn from 'common/LogoutBtn';
 
 const StWrap = styled.div`
   height: 80vh;
@@ -38,7 +36,6 @@ function Mypage() {
         <StText>
           <CreateFeedBtn />
         </StText>
-        <LogoutBtn />
       </StArticle>
       <MyFeed />
     </StWrap>
