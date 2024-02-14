@@ -12,9 +12,10 @@ const FeedDiv = styled.div`
   width: 680px;
   margin: 10px;
   padding: 15px;
-  border: solid 3px white;
+  border: solid 3px #AC87C5;
   display: flex;
   justify-content: center;
+  border-radius: 15px;
 `;
 
 const FeedTitleP = styled.p`

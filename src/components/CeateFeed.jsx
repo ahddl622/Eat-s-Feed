@@ -50,6 +50,7 @@ const MatjipContentTextArea = styled.textarea`
   height: ${({ title }) => (title ? '40px' : '80px')};
   border: 2px solid lightgray;
   border-radius: 5px;
+  resize: none;
 `;
 
 const SelectDiv = styled.div`
