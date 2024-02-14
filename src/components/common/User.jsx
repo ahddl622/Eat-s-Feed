@@ -23,7 +23,7 @@ const UserFigure = styled.figure`
   }
 `;
 
-function User({ loggedIn }) {
+function User() {
   const loginUserNickname = useSelector((state) => state.userNicknameReducer);
 
   return (

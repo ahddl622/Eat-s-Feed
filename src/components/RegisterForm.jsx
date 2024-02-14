@@ -35,10 +35,9 @@ const RegisterForm = () => {
   const signUp = async (event) => {
     event.preventDefault();
     try {
-
       if (password.length < 6) {
-        alert("비밀번호는 최소 6글자 이상이어야 합니다.")
-        return
+        alert('비밀번호는 최소 6글자 이상이어야 합니다.');
+        return;
       }
       // 초기 회원정보를 따로 cloude db에 저장합니다.
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -48,10 +47,10 @@ const RegisterForm = () => {
       await addDoc(collection(db, 'profile'), newProfile);
 
       dispatch(setUserUid(uid));
+      dispatch(setNickname(nickname));
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
       navigate('/login');
-
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -94,13 +93,13 @@ const SignInTitle = styled.h2`
   font-size: 35px;
   font-weight: bold;
   padding: 3rem;
-  color: #AC87C5;
+  color: #ac87c5;
 `;
 
 const SignInContainer = styled.form`
   padding: 2rem;
-  border: 1px solid #FFE5E5;
-  box-shadow: 0 0 15px #FFE5E5;
+  border: 1px solid #ffe5e5;
+  box-shadow: 0 0 15px #ffe5e5;
   display: flex;
   flex-direction: column;
   font-size: 20px;
@@ -118,8 +117,11 @@ const EmailInputBox = styled.div`
     border-radius: 15px;
     margin-top: 10px;
     border: 1px solid #e0aed0;
+<<<<<<< HEAD
+=======
     padding-left: 15px;
     font-size: 16px;
+>>>>>>> 17b839af74207b7ed7dd4db7418a66c01e0d9d8b
   }
 `;
 
@@ -132,14 +134,18 @@ const PasswordInputBox = styled.div`
     height: 40px;
     border-radius: 15px;
     margin-top: 10px;
+<<<<<<< HEAD
+    border: 1px solid #e0aed0;
+=======
     border: 1px solid #E0AED0;
     padding-left: 15px;
     font-size: 16px;
+>>>>>>> 17b839af74207b7ed7dd4db7418a66c01e0d9d8b
   }
 `;
 
 const NickNameInputBox = styled.div`
-    display: flex;
+  display: flex;
   flex-direction: column;
   padding-bottom: 1.5rem;
   & input {
@@ -147,18 +153,22 @@ const NickNameInputBox = styled.div`
     height: 40px;
     border-radius: 15px;
     margin-top: 10px;
+<<<<<<< HEAD
+    border: 1px solid #e0aed0;
+=======
     border: 1px solid #E0AED0;
     padding-left: 15px;
     font-size: 16px;
+>>>>>>> 17b839af74207b7ed7dd4db7418a66c01e0d9d8b
   }
-`
+`;
 
 const RegisterBtn = styled.button`
   height: 50px;
   border-radius: 15px;
   font-size: 22px;
-  background-color: #AC87C5;
-  border: 1px solid #AC87C5;
+  background-color: #ac87c5;
+  border: 1px solid #ac87c5;
   color: white;
   cursor: pointer;
 `;
