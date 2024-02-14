@@ -41,6 +41,24 @@ const StH3 = styled.h3`
   color: #503178;
 `;
 
+const StBtn = styled.button`
+  width: 250px;
+  height: 50px;
+
+  border: 1px solid #e0aed0;
+  background-color: #fff;
+  color: #ac87c5;
+  border-radius: 18px;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    border: none;
+    background-color: #e0aed0;
+    color: #fff;
+  }
+`;
+
 function Profile() {
   const [profileInfo, setProfileInfo] = useState([]);
   const loginEmail = useSelector((state) => state.userEmailReducer);
@@ -90,7 +108,7 @@ function Profile() {
         )}
       </StInfoDiv>
       <Link to={`/myinfo`}>
-        <button>수정하기</button>
+        <StBtn>수정하기</StBtn>
       </Link>
     </StSection>
   );

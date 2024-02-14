@@ -101,8 +101,6 @@ const GlobalStyle = createGlobalStyle`
 	}
 	body {
 		line-height: 1;
-		font-family: 'S-CoreDream-3Light';
-
 	}
 	ol, ul {
 		list-style: none;
@@ -119,9 +117,10 @@ const GlobalStyle = createGlobalStyle`
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
-
+	
 	* {
 		box-sizing: border-box;
+		font-family: 'SCoreDream';
 	}
 `;
 
