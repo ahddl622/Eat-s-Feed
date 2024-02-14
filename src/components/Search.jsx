@@ -1,14 +1,42 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
+import styled from 'styled-components';
+
+const SearchDiv = styled.div`
+  background-color: #ac87c5;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+`;
+
+const SearchInput = styled.input`
+  height: 30px;
+  width: 675px;
+
+  border-radius: 3px;
+  border: solid 2px #503178;
+`;
+
+const SearchBtn = styled.button`
+  border: solid 3px #503178;
+  background-color: #503178;
+  color: white;
+  border-radius: 3px;
+  width: 63px;
+  height: 30px;
+  margin-left: 2px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
 
 function Search() {
   const [searchItem, setSearchItem] = useState('');
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
-
-  //   const titleList = feedList.map((feed) => feed.title);
-  //   const contentList = feedList.map((feed) => feed.content);
 
   const onSearch = () => {
     if (searchItem) {
@@ -23,16 +51,16 @@ function Search() {
   };
 
   return (
-    <>
-      <input
+    <SearchDiv>
+      <SearchInput
         value={searchItem}
         placeholder="검색어를 입력해주세요"
         onChange={(e) => {
           setSearchItem(e.target.value);
         }}
-      ></input>
-      <button onClick={onSearch}>검색</button>
-    </>
+      ></SearchInput>
+      <SearchBtn onClick={onSearch}>검색</SearchBtn>
+    </SearchDiv>
   );
 }
 

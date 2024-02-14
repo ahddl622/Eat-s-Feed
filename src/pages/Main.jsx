@@ -5,40 +5,91 @@ import CreateFeedBtn from 'common/CreateFeedBtn';
 import Search from 'components/Search';
 import Ranking from 'components/Ranking';
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const MainWrap = styled.main`
+  display: flex;
+  padding: 40px;
+  justify-content: center;
+  gap: 30px;
+`;
+
+const SideDiv = styled.div`
+  width: 250px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #ffe5e5;
+  border-radius: 8px;
+`;
+
+const MainFeedDiv = styled.div`
+  background-color: #ffe5e5;
+  border-radius: 8px;
+  width: 750px;
+`;
+
+const CategoryBtnWrapperDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 5px;
+`;
+
+const CategoryBtn = styled.button`
+  border: solid 3px #503178;
+  border-radius: 3px;
+  background-color: #503178;
+  color: white;
+  width: 120px;
+  height: 35px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const ShowDiv = styled.div`
+  border: 3px solid #756ab6;
+  margin: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 720px;
+`;
 
 function Main() {
   const [menu, setMenu] = useState('');
   return (
     <div>
-      <header style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Banner />
-      </header>
-      <main style={{ display: 'flex', padding: '40px' }}>
-        <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>
-          <Ranking />
-          <CreateFeedBtn />
-        </div>
-        <div>
+      <Banner />
+      <MainWrap>
+        <SideDiv>
+          <div>
+            <Ranking />
+          </div>
+          <div>
+            <CreateFeedBtn />
+          </div>
+        </SideDiv>
+
+        <MainFeedDiv>
           <Search />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '10px 5px',
-              backgroundColor: '#E0AED0'
-            }}
-          >
+          <CategoryBtnWrapperDiv>
             {kindOfMenu.map((menu, idx) => {
               return (
-                <button key={idx} value={kindOfMenu[idx]} onClick={(e) => setMenu(e.target.value)}>
+                <CategoryBtn key={idx} value={kindOfMenu[idx]} onClick={(e) => setMenu(e.target.value)}>
                   {menu}
-                </button>
+                </CategoryBtn>
               );
             })}
-          </div>
-          <Show menu={menu} />
-        </div>
-      </main>
+          </CategoryBtnWrapperDiv>
+          <ShowDiv>
+            <Show menu={menu} />
+          </ShowDiv>
+        </MainFeedDiv>
+      </MainWrap>
     </div>
   );
 }
