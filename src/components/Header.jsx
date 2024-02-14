@@ -17,7 +17,7 @@ const StLink = styled(Link)`
 `;
 
 const StH1 = styled.h1`
-  font-weight: bold;
+  font-weight: 600;
   color: #503178;
 `;
 
