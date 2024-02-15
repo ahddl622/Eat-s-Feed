@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CreateFeed from 'components/CeateFeed';
+import CreateFeed from 'components/CreateFeed';
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
