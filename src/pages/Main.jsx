@@ -12,17 +12,25 @@ const MainWrap = styled.main`
   display: flex;
   padding: 40px;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
 `;
 
-const SideDiv = styled.div`
-  width: 250px;
-  height: 450px;
+const SideSection = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+const RankBox = styled.div`
+  width: 230px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  padding: 20px 10px;
+  margin-bottom: 15px;
+
   background-color: white;
-  border-radius: 8px;
+  border-radius: 40px;
   border: 2px solid #ffe5e5;
   box-shadow: 0 0 15px #ffe5e5;
 `;
@@ -44,7 +52,7 @@ const CategoryBtnWrapperDiv = styled.div`
 const CategoryBtn = styled.button`
   border: solid 1px #503178;
   border-radius: 10px;
-  background-color: #756AB6;
+  background-color: #756ab6;
   color: white;
   width: 120px;
   height: 35px;
@@ -57,7 +65,6 @@ const CategoryBtn = styled.button`
 `;
 
 const ShowDiv = styled.div`
-
   margin: 5px 10px;
   display: flex;
   flex-direction: column;
@@ -74,14 +81,12 @@ function Main() {
       {/* <Banner /> */}
       <MainBanner />
       <MainWrap>
-        <SideDiv>
-          <div>
+        <SideSection>
+          <RankBox>
             <Ranking />
-          </div>
-          <div>
-            <CreateFeedBtn />
-          </div>
-        </SideDiv>
+          </RankBox>
+          <CreateFeedBtn />
+        </SideSection>
         <MainFeedDiv>
           <Search />
           <CategoryBtnWrapperDiv>
