@@ -95,9 +95,9 @@ const SelectBox = styled.select`
 const SubmitBtn = styled.button`
   width: 150px;
   height: 30px;
-  background-color: #E0AED0;
+  background-color: #e0aed0;
   border-radius: 10px;
-  border: 1px solid #AC87C5;
+  border: 1px solid #ac87c5;
   margin: 0 5px 0 auto;
   cursor: pointer;
 `;
@@ -105,7 +105,7 @@ const SubmitBtn = styled.button`
 const FoodCategory = styled.label`
   font-size: 14px;
   margin-left: 8px;
-`
+`;
 
 function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
@@ -194,7 +194,7 @@ function CreateFeed({ setNewFeed }) {
         ></MatjipContentTextArea>
 
         <SelectDiv>
-          <label>음식의 카테고리를 선택해주세요</label>
+          <FoodCategory>음식의 카테고리를 선택해주세요</FoodCategory>
           <SelectBox onChange={(e) => setCategory(e.target.options[e.target.options.selectedIndex].value)}>
             <option defaultValue>메뉴</option>
             <option value="일식">일식</option>

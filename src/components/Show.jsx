@@ -53,9 +53,10 @@ const FeedImgDiv = styled.div`
 `;
 
 const FeedImg = styled.img`
-  border-radius: 5px;
   width: 300px;
   height: 280px;
+  border-radius: 5px;
+  object-fit: cover;
 `;
 
 const BtnsDiv = styled.div`
@@ -69,7 +70,7 @@ const DeleteBtn = styled.button`
   width: 80px;
   margin: 0 3px;
   color: white;
-  background-color: #AC87C5;
+  background-color: #ac87c5;
   border: solid 1px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
