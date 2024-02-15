@@ -12,7 +12,7 @@ const StArticle = styled.article`
 
   & img {
     width: 30%;
-    opacity: 0.85;
+    opacity: 0.9;
   }
   & h1 {
     margin: 0 20px;

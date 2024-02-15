@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import styled from 'styled-components';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
@@ -15,7 +15,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState('');
   const [password, setPassword] = useState('');
-  const loginprofile = useSelector((state) => state.loginProfile);
 
   useEffect(() => {
     const userLoginStatusChange = onAuthStateChanged(
@@ -24,11 +23,11 @@ const LoginForm = () => {
         if (user) {
           // 사용자가 로그인 상태인 경우
           dispatch(setLoginStatus(true));
-          // console.log('로그인:', user);
+          console.log('로그인:', user);
         } else {
           // 사용자가 로그아웃 상태인 경우
           dispatch(setLoginStatus(false));
-          // console.log('로그아웃');
+          console.log('로그아웃');
         }
       },
       []
@@ -62,15 +61,15 @@ const LoginForm = () => {
         const data = doc.data();
         if (data.email === loginEmail) {
           dispatch(loginProfileMaker(data));
-          addDoc(collection(db, 'currentUser'), data);
+          sessionStorage.setItem('currentUser', JSON.stringify(data));
         }
       });
       navigate('/');
-      await addDoc(collection(db, 'currentUser'), loginprofile);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log('error with singIn', errorCode, errorMessage);
+      sessionStorage.setItem('currentUser', null);
 
       if (errorCode === 'auth/invalid-credential') {
         alert('잘못된 이메일 또는 비밀번호입니다. 다시 시도해주세요.');

@@ -9,9 +9,11 @@ import { removeProfile } from 'store/modules/loginProfileReducer';
 const StBtn = styled.button`
   padding-top: 10px;
   border: none;
+
   background-color: #fff;
   color: #756ab6;
   font-size: 20px;
+  cursor: pointer;
 `;
 
 const LogoutBtn = () => {
@@ -22,6 +24,7 @@ const LogoutBtn = () => {
     await signOut(auth);
     dispatch(removeProfile());
     dispatch(setLoginStatus(false));
+    sessionStorage.removeItem('currentUser');
     alert('로그아웃 되었습니다.');
     navigate('/login');
   };

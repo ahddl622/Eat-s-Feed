@@ -9,16 +9,16 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { renewUrl } from 'store/modules/imgURLReducer';
 
-const BgWrap = styled.div`
-  /* width: 100vw;
-  height: 100vh; */
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #ffffff6d;
-`;
+// const BgWrap = styled.div`
+//   /* width: 100vw;
+//   height: 100vh; */
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   background-color: #ffffff6d;
+// `;
 
 const CreateFeedDiv = styled.div`
   position: fixed;
@@ -95,9 +95,9 @@ const SelectBox = styled.select`
 const SubmitBtn = styled.button`
   width: 150px;
   height: 30px;
-  background-color: #E0AED0;
+  background-color: #e0aed0;
   border-radius: 10px;
-  border: 1px solid #AC87C5;
+  border: 1px solid #ac87c5;
   margin: 0 5px 0 auto;
   cursor: pointer;
 `;
@@ -105,9 +105,10 @@ const SubmitBtn = styled.button`
 const FoodCategory = styled.label`
   font-size: 14px;
   margin-left: 8px;
-`
+`;
 
 function CreateFeed({ setNewFeed }) {
+  console.log(auth.currentUser);
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
   const imgURL = useSelector((state) => state.imgURLReducer);
@@ -122,7 +123,6 @@ function CreateFeed({ setNewFeed }) {
 
       const newFeedArr = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.id);
         const feed = { id: doc.id, ...doc.data() };
         newFeedArr.push(feed);
       });
@@ -173,53 +173,53 @@ function CreateFeed({ setNewFeed }) {
     }
   };
   return (
-    <BgWrap>
-      <CreateFeedDiv>
-        <XBtn onClick={() => setNewFeed(false)}>x</XBtn>
+    // <BgWrap>
+    <CreateFeedDiv>
+      <XBtn onClick={() => setNewFeed(false)}>x</XBtn>
 
-        <IntroUrMatJipP>여러분의 맛집을 소개해주세요!</IntroUrMatJipP>
-        <FileUpload />
+      <IntroUrMatJipP>여러분의 맛집을 소개해주세요!</IntroUrMatJipP>
+      <FileUpload />
 
-        <MatjipContent>맛집의 지역과 상호명을 기재해주세요</MatjipContent>
-        <MatjipContentTextArea
-          value={title}
-          placeholder="ex) 안국역 도토리가든"
-          onChange={(e) => dispatch(myTitle(e.target.value))}
-        ></MatjipContentTextArea>
-        <MatjipContent>어떤 점이 좋았나요?</MatjipContent>
-        <MatjipContentTextArea
-          value={content}
-          placeholder="ex ) 도토리 브레드 너무 맛있었어요."
-          onChange={(e) => dispatch(myContent(e.target.value))}
-        ></MatjipContentTextArea>
+      <MatjipContent>맛집의 지역과 상호명을 기재해주세요</MatjipContent>
+      <MatjipContentTextArea
+        value={title}
+        placeholder="ex) 안국역 도토리가든"
+        onChange={(e) => dispatch(myTitle(e.target.value))}
+      ></MatjipContentTextArea>
+      <MatjipContent>어떤 점이 좋았나요?</MatjipContent>
+      <MatjipContentTextArea
+        value={content}
+        placeholder="ex ) 도토리 브레드 너무 맛있었어요."
+        onChange={(e) => dispatch(myContent(e.target.value))}
+      ></MatjipContentTextArea>
 
-        <SelectDiv>
-          <FoodCategory>음식의 카테고리를 선택해주세요</FoodCategory>
-          <SelectBox onChange={(e) => setCategory(e.target.options[e.target.options.selectedIndex].value)}>
-            <option defaultValue>메뉴</option>
-            <option value="일식">일식</option>
-            <option value="중식">중식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="디저트">디저트</option>
-          </SelectBox>
-        </SelectDiv>
+      <SelectDiv>
+        <FoodCategory>음식의 카테고리를 선택해주세요</FoodCategory>
+        <SelectBox onChange={(e) => setCategory(e.target.options[e.target.options.selectedIndex].value)}>
+          <option defaultValue>메뉴</option>
+          <option value="일식">일식</option>
+          <option value="중식">중식</option>
+          <option value="양식">양식</option>
+          <option value="아시안">아시안</option>
+          <option value="디저트">디저트</option>
+        </SelectBox>
+      </SelectDiv>
 
-        <SubmitBtn
-          onClick={(e) => {
-            if (imgURL === '') {
-              alert('사진 첨부하기를 눌러주세요');
-              return;
-            } else {
-              addFeed(e);
-              dispatch(renewUrl());
-            }
-          }}
-        >
-          저장하기
-        </SubmitBtn>
-      </CreateFeedDiv>
-    </BgWrap>
+      <SubmitBtn
+        onClick={(e) => {
+          if (imgURL === '') {
+            alert('사진 첨부하기를 눌러주세요');
+            return;
+          } else {
+            addFeed(e);
+            dispatch(renewUrl());
+          }
+        }}
+      >
+        저장하기
+      </SubmitBtn>
+    </CreateFeedDiv>
+    // </BgWrap>
   );
 }
 
