@@ -47,12 +47,12 @@ const StArticle = styled.article`
   padding: 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 
   border: 2px solid #fff;
-  box-shadow: 3px 5px 12px 3px #ffe5e5;
   border-radius: 40px;
+  box-shadow: 3px 5px 12px 3px #ffe5e5;
 `;
 
 const StFigure = styled.figure`
@@ -108,16 +108,16 @@ const StBtn = styled.button`
   height: 50px;
   margin: 10px;
 
-  border: 1px solid #e0aed0;
-  background-color: #fff;
-  color: #ac87c5;
-  border-radius: 18px;
   font-size: 20px;
+  color: #ac87c5;
+  background-color: #fff;
+  border: 1px solid #e0aed0;
+  border-radius: 18px;
   cursor: pointer;
 
   &:hover {
-    border: none;
-    background-color: #e0aed0;
     color: #fff;
+    background-color: #e0aed0;
+    border: none;
   }
 `;

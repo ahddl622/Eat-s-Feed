@@ -43,8 +43,8 @@ export default function FileUpload() {
 }
 
 const UploadImgDiv = styled.div`
-  display: flex;
   width: 450px;
+  display: flex;
   justify-content: space-between;
 `;
 
@@ -52,6 +52,7 @@ const UploadImgInput = styled.input`
   border: 2px solid lightgray;
   border-radius: 5px;
 `;
+
 const UploadImgBtn = styled.button`
   border: 2px solid lightgray;
   border-radius: 5px;

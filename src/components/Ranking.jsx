@@ -29,33 +29,37 @@ const RankDiv = styled.div`
 `;
 
 const RankPDiv = styled.div`
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+
   font-size: 27px;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 10px;
   color: #503178;
-  padding-bottom: 20px;
 `;
 
 const RankListDiv = styled.div`
-  border-bottom: 1px solid #e0aed0;
-  margin: 10px 0;
   height: 60px;
+  margin: 10px 0;
+
+  border-bottom: 1px solid #e0aed0;
+
   &:hover {
     transform: scale(1.02);
   }
 `;
 
 const RankMatJipTitle = styled.p`
-  font-weight: 550;
   margin-bottom: 15px;
+
+  font-weight: 550;
   color: #ac87c5;
 `;
 
 const RankMatJipContent = styled.p`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   font-size: 14px;
+  text-overflow: ellipsis;
   color: #e0aed0;
+  white-space: nowrap;
+  overflow: hidden;
 `;

@@ -133,6 +133,7 @@ export default function CreateFeed({ setNewFeed }) {
 //   left: 0;
 //   bottom: 0;
 //   right: 0;
+//
 //   background-color: #ffffff6d;
 // `;
 
@@ -148,10 +149,10 @@ const CreateFeedDiv = styled.div`
   flex-direction: column;
   justify-content: space-around;
 
-  border-radius: 40px;
   color: #503178;
   background-color: #fff;
   border: 2px solid #e0aed0;
+  border-radius: 40px;
   /* box-shadow: 3px 5px 30px 10px #ffe5e5; */
 `;
 
@@ -161,9 +162,9 @@ const XBtn = styled.button`
   margin: 0 5px 0 auto;
 
   font-size: 20px;
-  border: none;
   color: #fff;
   background-color: #e0aed0;
+  border: none;
   border-radius: 15px;
   cursor: pointer;
 `;
@@ -177,21 +178,22 @@ const IntroUrMatJipP = styled.p`
 `;
 
 const MatjipContent = styled.p`
-  font-size: 16px;
-  font-weight: 600;
   margin-top: 10px;
   margin-left: 6px;
+
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 const MatjipContentTextArea = styled.textarea`
   width: 450px;
   height: ${({ title }) => (title ? '40px' : '80px')};
-  margin: 0 auto;
   padding: 10px;
+  margin: 0 auto;
   resize: none;
 
-  border-radius: 10px;
   border: 1px solid #e0aed0;
+  border-radius: 10px;
 `;
 
 const SelectDiv = styled.div`
@@ -203,22 +205,25 @@ const SelectDiv = styled.div`
 const SelectBox = styled.select`
   width: 140px;
   height: 30px;
-  border-radius: px;
+
   border: 3px solid lightgray;
+  border-radius: px;
   cursor: pointer;
 `;
 
 const SubmitBtn = styled.button`
   width: 150px;
   height: 30px;
-  background-color: #e0aed0;
-  border-radius: 10px;
-  border: 1px solid #ac87c5;
   margin: 0 5px 0 auto;
+
+  background-color: #e0aed0;
+  border: 1px solid #ac87c5;
+  border-radius: 10px;
   cursor: pointer;
 `;
 
 const FoodCategory = styled.label`
-  font-size: 14px;
   margin-left: 8px;
+
+  font-size: 14px;
 `;

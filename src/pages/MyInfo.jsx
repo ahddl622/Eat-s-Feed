@@ -98,22 +98,22 @@ const StWrap = styled.div`
 const StArticle = styled.article`
   width: 35vw;
   height: 70vh;
-  margin: 0 auto;
   padding: 20px 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   border: 2px solid #fff;
-  box-shadow: 3px 5px 12px 3px #ffe5e5;
   border-radius: 35px;
+  box-shadow: 3px 5px 12px 3px #ffe5e5;
 `;
 
 const StH1 = styled.h1`
   height: 15vh;
-  line-height: 15vh;
 
   font-size: 40px;
+  line-height: 15vh;
   color: #503178;
 `;
 
@@ -123,9 +123,10 @@ const StH3 = styled.h3`
 `;
 
 const StFigure = styled.figure`
-  margin: 0 auto 10px auto;
   width: 150px;
   height: 150px;
+  margin: 0 auto 10px auto;
+
   & img {
     width: 100%;
     height: 100%;
@@ -133,22 +134,22 @@ const StFigure = styled.figure`
 `;
 
 const StP = styled.p`
-  color: #ac87c5;
   font-size: 17px;
+  color: #ac87c5;
 `;
 
 const StForm = styled.form`
-  flex-grow: 0.4;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 0.4;
 `;
 
 const StInput = styled.input`
   width: 80%;
   height: 38px;
-  margin: 0 auto;
   padding-left: 10px;
+  margin: 0 auto;
 
   border: 1px solid #e0aed0;
   border-radius: 15px;
@@ -157,8 +158,8 @@ const StInput = styled.input`
 const StSelect = styled.select`
   width: 80%;
   height: 38px;
-  margin: 0 auto;
   padding-left: 10px;
+  margin: 0 auto;
 
   border: 1px solid #e0aed0;
   border-radius: 15px;
@@ -169,10 +170,10 @@ const StBtn = styled.button`
   height: 50px;
   margin: 0 auto;
 
-  border: none;
-  background-color: #e0aed0;
-  border-radius: 18px;
-  color: #fff;
-  cursor: pointer;
   font-size: 20px;
+  color: #fff;
+  background-color: #e0aed0;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
 `;

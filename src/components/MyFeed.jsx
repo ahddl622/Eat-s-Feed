@@ -105,20 +105,20 @@ const StArticle = styled.article`
   height: 85vh;
 
   border: 2px solid #fff;
-  box-shadow: 3px 5px 12px 3px #ffe5e5;
   border-radius: 40px;
+  box-shadow: 3px 5px 12px 3px #ffe5e5;
   overflow: auto;
 `;
 
 const StSection = styled.section`
   width: 90%;
   height: 200px;
-  margin: 30px auto;
   padding: 30px;
+  margin: 30px auto;
   display: flex;
-  align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
   border: 1px solid #e0aed0;
   border-radius: 35px;
@@ -131,6 +131,7 @@ const StFigure = styled.figure`
   & img {
     width: 100%;
     height: 100%;
+
     border-radius: 40px;
     object-fit: cover;
   }
@@ -143,8 +144,9 @@ const StDiv = styled.div`
   color: #503178;
 
   & h4 {
-    color: #e0aed0;
     padding-bottom: 5px;
+
+    color: #e0aed0;
   }
   & h1 {
     font-size: 20px;
@@ -155,8 +157,8 @@ const StDiv = styled.div`
   & h5 {
     padding-top: 10px;
 
-    text-align: right;
     font-size: 12px;
+    text-align: right;
   }
 `;
 
@@ -165,8 +167,8 @@ const StBtn = styled.button`
   height: 30px;
   margin: 10px 5px;
 
-  border: none;
-  background-color: #e0aed0;
   color: #fff;
+  background-color: #e0aed0;
+  border: none;
   border-radius: 10px;
 `;

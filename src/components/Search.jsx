@@ -37,18 +37,20 @@ export default function Search() {
 
 const SearchDiv = styled.form`
   height: 40px;
-  display: flex;
-  border-radius: 10px;
-  align-items: center;
   padding: 0 5px;
+  display: flex;
+  align-items: center;
+
+  border-radius: 10px;
 `;
 
 const SearchInput = styled.input`
   height: 30px;
   width: 660px;
   padding-left: 10px;
-  border-radius: 10px;
+
   border: solid 1px #e0aed0;
+  border-radius: 10px;
 `;
 
 const SearchBtn = styled.button`
@@ -56,11 +58,12 @@ const SearchBtn = styled.button`
   height: 30px;
   margin-left: 5px;
 
+  color: white;
   background-color: #e0aed0;
   border: none;
-  color: white;
   border-radius: 10px;
   cursor: pointer;
+
   &:hover {
     transform: scale(1.02);
   }

@@ -60,6 +60,7 @@ export default function SocialLogin() {
 const LoginBtn = styled.button`
   padding: 0 1rem;
   background: transparent;
+
   border: none;
   cursor: pointer;
 `;

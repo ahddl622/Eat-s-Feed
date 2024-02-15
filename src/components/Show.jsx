@@ -176,8 +176,8 @@ export default function Show({ menu }) {
 
 const FeedDiv = styled.div`
   width: 680px;
-  margin: 10px;
   padding: 20px 15px;
+  margin: 10px;
   display: flex;
   justify-content: center;
 
@@ -192,14 +192,14 @@ const FeedTitleP = styled.p`
 `;
 
 const FeednicknameP = styled.p`
-  text-align: end;
   color: #503178;
+  text-align: end;
 `;
 
 const FeedContentNImg = styled.div`
+  margin: 10px 0;
   display: flex;
   gap: 15px;
-  margin: 10px 0;
 `;
 
 const FeedContentDiv = styled.div`
@@ -223,14 +223,15 @@ const FeedFigure = styled.figure`
 const FeedImg = styled.img`
   width: 100%;
   height: 100%;
+
   border-radius: 30px;
   object-fit: cover;
 `;
 
 const BtnsDiv = styled.div`
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
 `;
 
 const DeleteBtn = styled.button`
@@ -258,11 +259,12 @@ const EditBtn = styled.button`
   width: 80px;
   margin: 0 3px;
 
+  color: #e0aed0;
   background-color: white;
   border: solid 1px #e0aed0;
-  color: #e0aed0;
   border-radius: 8px;
   cursor: pointer;
+
   &:hover {
     transform: scale(1.02);
   }
@@ -273,29 +275,30 @@ const CountSection = styled.section`
 `;
 
 const GoodOrBadBtn = styled.button`
-  height: 30px;
   width: 80px;
+  height: 30px;
   margin: 0 3px;
 
   color: #e0aed0;
+  background-color: white;
   border: solid 1px #e0aed0;
   border-radius: 8px;
-  background-color: white;
-
   cursor: pointer;
+
   &:hover {
     transform: scale(1.02);
   }
 `;
 
 const CountP = styled.p`
-  line-height: 30px;
   padding-left: 5px;
+
+  line-height: 30px;
   color: #e0aed0;
 `;
 
 const LatestDateP = styled.p`
-  text-align: end;
   font-size: 14px;
+  text-align: end;
   color: #ac87c5;
 `;

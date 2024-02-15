@@ -79,9 +79,9 @@ const StInfoSection = styled.section`
 `;
 
 const StMemberSection = styled.section`
+  padding-top: 35px;
   display: flex;
   justify-content: space-around;
-  padding-top: 35px;
 `;
 
 const StMemberDiv = styled.div`

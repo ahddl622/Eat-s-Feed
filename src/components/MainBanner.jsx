@@ -22,15 +22,16 @@ const StArticle = styled.article`
 
   & img {
     width: 30%;
+
     opacity: 0.9;
   }
   & h1 {
     margin: 0 20px;
 
-    letter-spacing: 5px;
     font-size: 50px;
     font-weight: 600;
-    color: #fff4f5;
+    letter-spacing: 5px;
     text-shadow: 1px 1px 10px #e0aed0;
+    color: #fff4f5;
   }
 `;

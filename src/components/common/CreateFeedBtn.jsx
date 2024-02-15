@@ -50,24 +50,25 @@ export default function CreateFeedBtn() {
   );
 }
 
+const StBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const StBtn = styled.button`
   width: 230px;
   height: 50px;
 
-  border: 1px solid #ac87c5;
-  background-color: #fff;
-  color: #ac87c5;
-  border-radius: 18px;
   font-size: 20px;
+  color: #ac87c5;
+  background-color: #fff;
+  border: 1px solid #ac87c5;
+  border-radius: 18px;
   cursor: pointer;
-  &:hover {
-    border: none;
-    background-color: #e0aed0;
-    color: #fff;
-  }
-`;
 
-const StBtnBox = styled.div`
-  display: flex;
-  justify-content: center;
+  &:hover {
+    color: #fff;
+    background-color: #e0aed0;
+    border: none;
+  }
 `;

@@ -20,6 +20,7 @@ const Stsection = styled.section`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+
   & p {
     color: #756ab6;
   }
@@ -28,9 +29,11 @@ const Stsection = styled.section`
 const UserFigure = styled.figure`
   width: 35x;
   height: 35px;
+
   & img {
     width: 100%;
     height: 100%;
+
     border-radius: 50%;
     cursor: pointer;
   }

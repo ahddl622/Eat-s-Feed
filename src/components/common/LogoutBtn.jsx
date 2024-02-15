@@ -30,10 +30,10 @@ export default function LogoutBtn() {
 
 const StBtn = styled.button`
   padding-top: 10px;
-  border: none;
 
-  background-color: #fff;
-  color: #756ab6;
   font-size: 20px;
+  color: #756ab6;
+  background-color: #fff;
+  border: none;
   cursor: pointer;
 `;
