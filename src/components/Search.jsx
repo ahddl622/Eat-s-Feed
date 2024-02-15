@@ -4,7 +4,6 @@ import { makeNewFeed } from 'store/modules/feedListReducer';
 import styled from 'styled-components';
 
 const SearchDiv = styled.form`
-  background-color: #ac87c5;
   height: 40px;
   display: flex;
   border-radius: 10px;
@@ -14,20 +13,20 @@ const SearchDiv = styled.form`
 
 const SearchInput = styled.input`
   height: 30px;
-  width: 675px;
+  width: 660px;
   padding-left: 10px;
   border-radius: 10px;
-  border: solid 1px #503178;
+  border: solid 1px #e0aed0;
 `;
 
 const SearchBtn = styled.button`
-  border: solid 3px #503178;
-  background-color: #503178;
-  color: white;
-  border-radius: 3px;
   width: 63px;
   height: 30px;
-  margin-left: 2px;
+  margin-left: 5px;
+
+  background-color: #e0aed0;
+  border: none;
+  color: white;
   border-radius: 10px;
   cursor: pointer;
   &:hover {

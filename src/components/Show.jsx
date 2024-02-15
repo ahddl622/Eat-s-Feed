@@ -17,21 +17,23 @@ import styled from 'styled-components';
 const FeedDiv = styled.div`
   width: 680px;
   margin: 10px;
-  padding: 15px;
-  border: solid 2px #ac87c5;
+  padding: 20px 15px;
   display: flex;
   justify-content: center;
-  border-radius: 15px;
+
+  border: solid 1px #e0aed0;
+  border-radius: 30px;
 `;
 
 const FeedTitleP = styled.p`
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 10px;
+  color: #503178;
 `;
 
 const FeednicknameP = styled.p`
   text-align: end;
+  color: #503178;
 `;
 
 const FeedContentNImg = styled.div`
@@ -41,25 +43,27 @@ const FeedContentNImg = styled.div`
 `;
 
 const FeedContentDiv = styled.div`
-  border: solid 1px #ac87c5;
-  border-radius: 8px;
   width: 300px;
-  padding: 10px;
+  padding: 15px;
+
+  background-color: #fff4f5;
+  border-radius: 30px;
 
   & p {
     line-height: 25px;
+    color: #503178;
   }
 `;
 
-const FeedImgDiv = styled.div`
+const FeedFigure = styled.figure`
   width: 300px;
   height: 280px;
 `;
 
 const FeedImg = styled.img`
-  width: 300px;
-  height: 280px;
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
   object-fit: cover;
 `;
 
@@ -73,10 +77,12 @@ const DeleteBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
+
   color: white;
-  background-color: #ac87c5;
-  border: solid 1px #ac87c5;
+  background-color: #e0aed0;
+  border: solid 1px #e0aed0;
   border-radius: 8px;
+
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
@@ -87,35 +93,51 @@ const EditTextArea = styled.textarea`
   resize: none;
 `;
 
-const EditNDeleteBtn = styled.button`
+const EditBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
+
   background-color: white;
-  border: solid 1px #ac87c5;
+  border: solid 1px #e0aed0;
+  color: #e0aed0;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
   }
+`;
+
+const CountSection = styled.section`
+  display: flex;
 `;
 
 const GoodOrBadBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 1px #756ab6;
+
+  color: #e0aed0;
+  border: solid 1px #e0aed0;
   border-radius: 8px;
   background-color: white;
+
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
   }
 `;
 
+const CountP = styled.p`
+  line-height: 30px;
+  padding-left: 5px;
+  color: #e0aed0;
+`;
+
 const LatestDateP = styled.p`
   text-align: end;
   font-size: 14px;
+  color: #ac87c5;
 `;
 
 function Show({ menu }) {
@@ -209,14 +231,14 @@ function Show({ menu }) {
                 <FeedContentDiv>
                   <p>{feed.content}</p>
                 </FeedContentDiv>
-                <FeedImgDiv>
+                <FeedFigure>
                   <FeedImg src={feed.imgURL} alt="맛집소개사진"></FeedImg>
-                </FeedImgDiv>
+                </FeedFigure>
               </FeedContentNImg>
               <BtnsDiv>
                 <div>
                   {feed.editDone ? (
-                    <EditNDeleteBtn
+                    <EditBtn
                       onClick={() => {
                         if (auth.currentUser) {
                           if (auth.currentUser.email === feed.email) {
@@ -232,16 +254,16 @@ function Show({ menu }) {
                       }}
                     >
                       수정하기
-                    </EditNDeleteBtn>
+                    </EditBtn>
                   ) : (
                     <>
-                      <EditNDeleteBtn
+                      <EditBtn
                         onClick={() => {
                           editFeed(feed.id);
                         }}
                       >
                         수정완료
-                      </EditNDeleteBtn>
+                      </EditBtn>
                       <EditTextArea
                         value={editedContent}
                         onChange={(e) => {
@@ -267,11 +289,11 @@ function Show({ menu }) {
                     삭제하기
                   </DeleteBtn>
                 </div>
-
-                <div>
+                <CountSection>
                   <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
-                  <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>♥ {feed.feedCount}
-                </div>
+                  <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
+                  <CountP>♥ {feed.feedCount}</CountP>
+                </CountSection>
               </BtnsDiv>
               <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
             </div>
