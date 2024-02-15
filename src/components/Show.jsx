@@ -69,12 +69,14 @@ const DeleteBtn = styled.button`
   width: 80px;
   margin: 0 3px;
   color: white;
-  background-color: #AC87C5;
-  border: solid 1px #ac87c5;
+  background-color: #E0AED0;
+  border: solid 1px #E0AED0;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
+    background-color: #AC87C5;
+    border: 1px solid #AC87C5;
   }
 `;
 

@@ -42,9 +42,9 @@ const CategoryBtnWrapperDiv = styled.div`
 `;
 
 const CategoryBtn = styled.button`
-  border: solid 1px #503178;
+  border: solid 1px #e0aed0;
   border-radius: 10px;
-  background-color: #756AB6;
+  background-color: #e0aed0;
   color: white;
   width: 120px;
   height: 35px;
@@ -52,12 +52,12 @@ const CategoryBtn = styled.button`
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
-    background-color: #503178;
+    background-color: #ac87c5;
+    border: solid 1px #ac87c5;
   }
 `;
 
 const ShowDiv = styled.div`
-
   margin: 5px 10px;
   display: flex;
   flex-direction: column;

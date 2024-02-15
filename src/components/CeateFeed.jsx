@@ -194,7 +194,7 @@ function CreateFeed({ setNewFeed }) {
         ></MatjipContentTextArea>
 
         <SelectDiv>
-          <label>음식의 카테고리를 선택해주세요</label>
+          <FoodCategory>음식의 카테고리를 선택해주세요</FoodCategory>
           <SelectBox onChange={(e) => setCategory(e.target.options[e.target.options.selectedIndex].value)}>
             <option defaultValue>메뉴</option>
             <option value="일식">일식</option>
