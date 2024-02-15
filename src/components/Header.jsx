@@ -5,8 +5,6 @@ import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import { useEffect } from 'react';
-import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 const StHeader = styled.header`
   height: 50px;
@@ -42,27 +40,6 @@ const StLi = styled.li`
 function Header() {
   const dispatch = useDispatch();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const currentUserString = sessionStorage.getItem('currentUser');
-      const currentUser = JSON.parse(currentUserString);
-      try {
-        const querySnapshot = await getDocs(collection(db, 'profile'));
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.email === currentUser.email) {
-            dispatch(loginProfileMaker(data));
-          }
-        });
-      } catch (error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log('error with singIn', errorCode, errorMessage);
-      }
-    };
-    fetchProfile();
-  }, [dispatch]);
 
   const menus = [
     { id: 'about', info: '사이트 소개' },

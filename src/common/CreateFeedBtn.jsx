@@ -43,7 +43,6 @@ function CreateFeedBtn() {
 
   // Add: 모달창 끄기(x 버튼 or 새 글 등록하기 버튼 or 모달창 이외의 구역 클릭 시)
   const goBack = (e) => {
-    console.log(e.target);
     return !newFeedArea.current.contains(e.target) ? setNewFeed(false) : null;
   };
 
