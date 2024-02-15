@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import User from './common/User';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import { useState, useEffect } from 'react';
-import { auth } from '../firebaseConfig';
+import { useEffect } from 'react';
+import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 const StHeader = styled.header`
   height: 50px;
@@ -40,18 +40,29 @@ const StLi = styled.li`
 `;
 
 function Header() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
+    const fetchProfile = async () => {
+      const currentUserString = sessionStorage.getItem('currentUser');
+      const currentUser = JSON.parse(currentUserString);
+      try {
+        const querySnapshot = await getDocs(collection(db, 'profile'));
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.email === currentUser.email) {
+            dispatch(loginProfileMaker(data));
+          }
+        });
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('error with singIn', errorCode, errorMessage);
       }
-    });
-    return unsubscribe;
-  }, []);
+    };
+    fetchProfile();
+  }, [dispatch]);
 
   const menus = [
     { id: 'about', info: '사이트 소개' },
@@ -59,7 +70,6 @@ function Header() {
     { id: 'mypage', info: '마이 페이지' }
   ];
 
-  const dispatch = useDispatch();
   const fetchFeedData = async () => {
     try {
       const q = query(collection(db, 'feedList'), orderBy('createdAt', 'desc'));
@@ -84,7 +94,7 @@ function Header() {
       <nav>
         <StUl>
           {menus
-            .filter((menu) => (loggedIn ? menu.id !== 'login' : menu.id !== 'mypage'))
+            .filter((menu) => (loginProfile.email ? menu.id !== 'login' : menu.id !== 'mypage'))
             .map((menu) => (
               <StLink to={`/${menu.id}`} key={menu.id}>
                 <StLi>{menu.info}</StLi>

@@ -5,21 +5,25 @@ import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { useDispatch, useSelector } from 'react-redux';
 
 const StBtn = styled.button`
-  width: 250px;
+  width: 230px;
   height: 50px;
 
-  border: 1px solid #e0aed0;
+  border: 1px solid #ac87c5;
   background-color: #fff;
   color: #ac87c5;
   border-radius: 18px;
   font-size: 20px;
   cursor: pointer;
-
   &:hover {
     border: none;
     background-color: #e0aed0;
     color: #fff;
   }
+`;
+
+const StBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 function CreateFeedBtn() {
@@ -39,6 +43,7 @@ function CreateFeedBtn() {
 
   // Add: 모달창 끄기(x 버튼 or 새 글 등록하기 버튼 or 모달창 이외의 구역 클릭 시)
   const goBack = (e) => {
+    console.log(e.target);
     return !newFeedArea.current.contains(e.target) ? setNewFeed(false) : null;
   };
 
@@ -50,7 +55,7 @@ function CreateFeedBtn() {
   });
 
   return (
-    <div ref={newFeedArea}>
+    <StBtnBox ref={newFeedArea}>
       <StBtn
         onClick={() => {
           if (!isLogin) {
@@ -64,7 +69,7 @@ function CreateFeedBtn() {
         새 글 작성하기
       </StBtn>
       {newFeed ? <CreateFeed setNewFeed={setNewFeed} /> : null}
-    </div>
+    </StBtnBox>
   );
 }
 

@@ -66,7 +66,7 @@ const StH3 = styled.h3`
 `;
 
 const StBtn = styled.button`
-  width: 250px;
+  width: 230px;
   height: 50px;
   margin: 10px;
 
