@@ -1,10 +1,10 @@
 import Layout from 'components/Layout';
-import LoginNout from 'pages/LoginNout';
 import Main from 'pages/Main';
-import MyInfo from 'pages/MyInfo';
-import Mypage from 'pages/Mypage';
-import OurTeam from 'pages/OurTeam';
+import About from 'pages/About';
+import Login from 'pages/Login';
 import Register from 'pages/Register';
+import Mypage from 'pages/Mypage';
+import MyInfo from 'pages/MyInfo';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 import { db } from 'firebaseConfig';
 
-function Router() {
+export default function Router() {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchProfile = async () => {
@@ -39,8 +39,9 @@ function Router() {
       <Layout>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/about" element={<OurTeam />} />
-          <Route path="/login" element={<LoginNout />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/myinfo" element={<MyInfo />} />
           <Route path="*" element={<Navigate replace to="/" />} />
@@ -50,5 +51,3 @@ function Router() {
     </BrowserRouter>
   );
 }
-
-export default Router;

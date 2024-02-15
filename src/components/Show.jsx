@@ -1,9 +1,11 @@
+import styled from 'styled-components';
+import { getformattedDate } from 'components/common/util';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getformattedDate } from 'common/util';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import { collection, query, getDocs, orderBy, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
+import { estimateGood, estimateBad } from 'store/modules/loginProfileReducer';
 import {
   changeEditDone,
   editFeedList,
@@ -11,122 +13,8 @@ import {
   minusFeedCount,
   plusFeedCount
 } from 'store/modules/feedListReducer';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
-import styled from 'styled-components';
-import { estimateGood, estimateBad } from 'store/modules/loginProfileReducer';
 
-const FeedDiv = styled.div`
-  width: 680px;
-  margin: 10px;
-  padding: 15px;
-  border: solid 2px #ac87c5;
-  display: flex;
-  justify-content: center;
-  border-radius: 15px;
-`;
-
-const FeedTitleP = styled.p`
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 10px;
-`;
-
-const FeednicknameP = styled.p`
-  text-align: end;
-`;
-
-const FeedContentNImg = styled.div`
-  display: flex;
-  gap: 15px;
-  margin: 10px 0;
-`;
-
-const FeedContentDiv = styled.div`
-  border: solid 1px #ac87c5;
-  border-radius: 8px;
-  width: 300px;
-  padding: 10px;
-`;
-
-const FeedImgDiv = styled.div`
-  width: 300px;
-  height: 280px;
-`;
-
-const FeedImg = styled.img`
-  border-radius: 5px;
-  width: 300px;
-  height: 280px;
-`;
-
-const BtnsDiv = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin: 5px 0;
-`;
-
-const DeleteBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-  color: white;
-  background-color: #ac87c5;
-  border: solid 2px #ac87c5;
-  border-radius: 8px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const EditTextArea = styled.textarea`
-  resize: none;
-`;
-
-const EditNDeleteBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-  background-color: white;
-  border: solid 2px #ac87c5;
-  border-radius: 8px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const GoodBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-  border: solid 2px #756ab6;
-  border-radius: 8px;
-  background-color: ${({ click }) => (click === 'T' ? '#756AB6' : 'white')};
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const BadBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-  border: solid 2px #756ab6;
-  border-radius: 8px;
-  background-color: ${({ click }) => (click === 'F' ? '#756AB6' : 'white')};
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const LatestDateP = styled.p`
-  text-align: end;
-`;
-
-function Show({ menu }) {
+export default function Show({ menu }) {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
@@ -293,31 +181,31 @@ function Show({ menu }) {
                 <FeedContentDiv>
                   <p>{feed.content}</p>
                 </FeedContentDiv>
-                <FeedImgDiv>
+                <FeedFigure>
                   <FeedImg src={feed.imgURL} alt="맛집소개사진"></FeedImg>
-                </FeedImgDiv>
+                </FeedFigure>
               </FeedContentNImg>
               <BtnsDiv>
                 {loginProfile.email === feed.email ? (
                   <div>
                     {feed.editDone ? (
-                      <EditNDeleteBtn
+                      <EditBtn
                         onClick={() => {
                           dispatch(editContentHandeler(feed.content));
                           dispatch(changeEditDone(feed.id));
                         }}
                       >
                         수정하기
-                      </EditNDeleteBtn>
+                      </EditBtn>
                     ) : (
                       <>
-                        <EditNDeleteBtn
+                        <EditBtn
                           onClick={() => {
                             editFeed(feed.id);
                           }}
                         >
                           수정완료
-                        </EditNDeleteBtn>
+                        </EditBtn>
                         <EditTextArea
                           value={editedContent}
                           onChange={(e) => {
@@ -355,4 +243,146 @@ function Show({ menu }) {
   );
 }
 
-export default Show;
+const FeedDiv = styled.div`
+  width: 680px;
+  padding: 20px 15px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+
+  border: solid 1px #e0aed0;
+  border-radius: 30px;
+`;
+
+const FeedTitleP = styled.p`
+  font-size: 24px;
+  font-weight: 600;
+  color: #503178;
+`;
+
+const FeednicknameP = styled.p`
+  color: #503178;
+  text-align: end;
+`;
+
+const FeedContentNImg = styled.div`
+  margin: 10px 0;
+  display: flex;
+  gap: 15px;
+`;
+
+const FeedContentDiv = styled.div`
+  width: 300px;
+  padding: 15px;
+
+  background-color: #fff4f5;
+  border-radius: 30px;
+
+  & p {
+    line-height: 25px;
+    color: #503178;
+  }
+`;
+
+const FeedFigure = styled.figure`
+  width: 300px;
+  height: 280px;
+`;
+
+const FeedImg = styled.img`
+  width: 100%;
+  height: 100%;
+
+  border-radius: 30px;
+  object-fit: cover;
+`;
+
+const BtnsDiv = styled.div`
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DeleteBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+
+  color: white;
+  background-color: #e0aed0;
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const EditTextArea = styled.textarea`
+  resize: none;
+`;
+
+const EditBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+
+  color: #e0aed0;
+  background-color: white;
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const CountSection = styled.section`
+  display: flex;
+`;
+
+const GoodBtn = styled.button`
+  width: 80px;
+  height: 30px;
+  margin: 0 3px;
+
+  color: #e0aed0;
+  background-color: ${({ click }) => (click === 'T' ? '#756AB6' : 'white')};
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+const BadBtn = styled.button`
+  width: 80px;
+  height: 30px;
+  margin: 0 3px;
+
+  color: #e0aed0;
+  background-color: ${({ click }) => (click === 'F' ? '#756AB6' : 'white')};
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const CountP = styled.p`
+  padding-left: 5px;
+
+  line-height: 30px;
+  color: #e0aed0;
+`;
+
+const LatestDateP = styled.p`
+  font-size: 14px;
+  text-align: end;
+  color: #ac87c5;
+`;

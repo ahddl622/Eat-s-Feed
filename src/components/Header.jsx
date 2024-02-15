@@ -1,43 +1,12 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import User from './common/User';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { db } from '../firebaseConfig';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { makeNewFeed } from 'store/modules/feedListReducer';
 
-const StHeader = styled.header`
-  height: 50px;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  border-bottom: 1px solid #ffe5e5;
-`;
-
-const StLink = styled(Link)`
-  text-decoration: none;
-`;
-
-const StH1 = styled.h1`
-  font-weight: 600;
-  color: #503178;
-`;
-
-const StUl = styled.ul`
-  width: 400px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const StLi = styled.li`
-  font-size: 13px;
-  color: #ac87c5;
-`;
-
-function Header() {
+export default function Header() {
   const dispatch = useDispatch();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
 
@@ -84,4 +53,33 @@ function Header() {
   );
 }
 
-export default Header;
+const StHeader = styled.header`
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid #ffe5e5;
+`;
+
+const StLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StH1 = styled.h1`
+  font-weight: 600;
+  color: #503178;
+`;
+
+const StUl = styled.ul`
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StLi = styled.li`
+  font-size: 13px;
+  color: #ac87c5;
+`;

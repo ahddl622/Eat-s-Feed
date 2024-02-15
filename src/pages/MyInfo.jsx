@@ -1,106 +1,20 @@
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import { db } from 'firebaseConfig';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import profile from 'assets/profile.png';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { db } from 'firebaseConfig';
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { editedProfileMaker } from 'store/modules/loginProfileReducer';
 
-const StWrap = styled.div`
-  text-align: center;
-`;
-
-const StArticle = styled.article`
-  width: 35vw;
-  height: 70vh;
-  margin: 0 auto;
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  border: 2px solid #fff;
-  box-shadow: 3px 5px 12px 3px #ffe5e5;
-  border-radius: 35px;
-`;
-
-const StH1 = styled.h1`
-  height: 15vh;
-  line-height: 15vh;
-
-  font-size: 40px;
-  color: #503178;
-`;
-
-const StH3 = styled.h3`
-  font-weight: bold;
-  color: #ac87c5;
-`;
-
-const StFigure = styled.figure`
-  margin: 0 auto 10px auto;
-  width: 150px;
-  height: 150px;
-  & img {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const StP = styled.p`
-  color: #ac87c5;
-  font-size: 17px;
-`;
-
-const StForm = styled.form`
-  flex-grow: 0.4;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const StInput = styled.input`
-  width: 80%;
-  height: 38px;
-  margin: 0 auto;
-  padding-left: 10px;
-
-  border: 1px solid #e0aed0;
-  border-radius: 15px;
-`;
-
-const StSelect = styled.select`
-  width: 80%;
-  height: 38px;
-  margin: 0 auto;
-  padding-left: 10px;
-
-  border: 1px solid #e0aed0;
-  border-radius: 15px;
-`;
-
-const StBtn = styled.button`
-  width: 80%;
-  height: 50px;
-  margin: 0 auto;
-
-  border: none;
-  background-color: #e0aed0;
-  border-radius: 18px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 20px;
-`;
-
-function MyInfo() {
+export default function MyInfo() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
   const [userId, setUserId] = useState('');
   const [nickname, setNickname] = useState('');
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   console.log(loginProfile);
 
   useEffect(() => {
@@ -177,4 +91,89 @@ function MyInfo() {
   );
 }
 
-export default MyInfo;
+const StWrap = styled.div`
+  text-align: center;
+`;
+
+const StArticle = styled.article`
+  width: 35vw;
+  height: 70vh;
+  padding: 20px 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border: 2px solid #fff;
+  border-radius: 35px;
+  box-shadow: 3px 5px 12px 3px #ffe5e5;
+`;
+
+const StH1 = styled.h1`
+  height: 15vh;
+
+  font-size: 40px;
+  line-height: 15vh;
+  color: #503178;
+`;
+
+const StH3 = styled.h3`
+  font-weight: bold;
+  color: #ac87c5;
+`;
+
+const StFigure = styled.figure`
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 10px auto;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const StP = styled.p`
+  font-size: 17px;
+  color: #ac87c5;
+`;
+
+const StForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 0.4;
+`;
+
+const StInput = styled.input`
+  width: 80%;
+  height: 38px;
+  padding-left: 10px;
+  margin: 0 auto;
+
+  border: 1px solid #e0aed0;
+  border-radius: 15px;
+`;
+
+const StSelect = styled.select`
+  width: 80%;
+  height: 38px;
+  padding-left: 10px;
+  margin: 0 auto;
+
+  border: 1px solid #e0aed0;
+  border-radius: 15px;
+`;
+
+const StBtn = styled.button`
+  width: 80%;
+  height: 50px;
+  margin: 0 auto;
+
+  font-size: 20px;
+  color: #fff;
+  background-color: #e0aed0;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+`;

@@ -11,7 +11,7 @@ const initialState = {
   isLogin: false
 };
 
-const userLoginStatus = (state = initialState, action) => {
+export const userLoginStatus = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_STATUS:
       return action.payload;
@@ -19,5 +19,3 @@ const userLoginStatus = (state = initialState, action) => {
       return state;
   }
 };
-
-export default userLoginStatus;
