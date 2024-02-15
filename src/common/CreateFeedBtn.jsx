@@ -7,7 +7,7 @@ const StBtn = styled.button`
   width: 230px;
   height: 50px;
 
-  border: 2px solid #AC87C5;
+  border: 1px solid #ac87c5;
   background-color: #fff;
   color: #ac87c5;
   border-radius: 18px;

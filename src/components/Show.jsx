@@ -45,6 +45,10 @@ const FeedContentDiv = styled.div`
   border-radius: 8px;
   width: 300px;
   padding: 10px;
+
+  & p {
+    line-height: 25px;
+  }
 `;
 
 const FeedImgDiv = styled.div`
