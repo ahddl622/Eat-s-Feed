@@ -1,6 +1,6 @@
 import profile from 'assets/profile.png';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const Stsection = styled.section`
   display: flex;

@@ -1,9 +1,9 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from 'firebaseConfig';
-import styled from 'styled-components';
+import { addDoc, collection } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
 const RegisterForm = () => {
   const auth = getAuth();

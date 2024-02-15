@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import User from './common/User';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeNewFeed } from 'store/modules/feedListReducer';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { db } from '../firebaseConfig';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+import { makeNewFeed } from 'store/modules/feedListReducer';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 const StHeader = styled.header`

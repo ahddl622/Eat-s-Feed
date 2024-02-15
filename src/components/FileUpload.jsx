@@ -1,9 +1,9 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, storage } from 'firebaseConfig';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addUrl } from 'store/modules/imgURLReducer';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth, storage } from 'firebaseConfig';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { addUrl } from 'store/modules/imgURLReducer';
 
 const UploadImgDiv = styled.div`
   display: flex;

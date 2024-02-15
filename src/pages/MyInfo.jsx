@@ -1,10 +1,10 @@
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import { db } from 'firebaseConfig';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import profile from 'assets/profile.png';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { db } from 'firebaseConfig';
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { editedProfileMaker } from 'store/modules/loginProfileReducer';
 
 const StWrap = styled.div`

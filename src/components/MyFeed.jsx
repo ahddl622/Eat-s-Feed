@@ -1,10 +1,10 @@
-import { auth, db } from 'firebaseConfig';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getformattedDate } from 'components/common/util';
+import { auth, db } from 'firebaseConfig';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { changeEditDone, makeNewFeed } from 'store/modules/feedListReducer';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
-import styled from 'styled-components';
+import { getformattedDate } from 'components/common/util';
 
 const StArticle = styled.article`
   height: 85vh;

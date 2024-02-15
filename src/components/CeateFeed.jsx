@@ -1,13 +1,13 @@
-import { auth, db } from '../firebaseConfig';
+import styled from 'styled-components';
+import FileUpload from './FileUpload';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { auth, db } from '../firebaseConfig';
+import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
+import { renewUrl } from 'store/modules/imgURLReducer';
 import { myTitle } from 'store/modules/titleReducer';
 import { myContent } from 'store/modules/contentReducer';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
-import FileUpload from './FileUpload';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { renewUrl } from 'store/modules/imgURLReducer';
 
 // const BgWrap = styled.div`
 //   /* width: 100vw;

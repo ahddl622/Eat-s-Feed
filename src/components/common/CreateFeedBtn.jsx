@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
-import CreateFeed from 'components/CeateFeed';
 import styled from 'styled-components';
-import { setLoginStatus } from 'store/modules/userLoginStatus';
+import CreateFeed from 'components/CeateFeed';
+import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setLoginStatus } from 'store/modules/userLoginStatus';
 
 const StBtn = styled.button`
   width: 230px;

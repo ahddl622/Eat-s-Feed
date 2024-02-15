@@ -1,8 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import styled from 'styled-components';
 import { getformattedDate } from 'components/common/util';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { auth, db } from '../firebaseConfig';
+import { collection, query, getDocs, orderBy, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import {
   changeEditDone,
@@ -11,8 +12,6 @@ import {
   minusFeedCount,
   plusFeedCount
 } from 'store/modules/feedListReducer';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
-import styled from 'styled-components';
 
 const FeedDiv = styled.div`
   width: 680px;

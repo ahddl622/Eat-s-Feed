@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import SocialLogin from './SocialLogin';
-import { useDispatch } from 'react-redux';
-import { setLoginStatus } from 'store/modules/userLoginStatus';
 import styled from 'styled-components';
-import { collection, getDocs } from 'firebase/firestore';
+import SocialLogin from './SocialLogin';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { db } from 'firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 const LoginForm = () => {

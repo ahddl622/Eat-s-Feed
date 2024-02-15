@@ -1,9 +1,9 @@
+import styled from 'styled-components';
 import { signOut } from 'firebase/auth';
 import { auth } from 'firebaseConfig';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
-import styled from 'styled-components';
 import { removeProfile } from 'store/modules/loginProfileReducer';
 
 const StBtn = styled.button`

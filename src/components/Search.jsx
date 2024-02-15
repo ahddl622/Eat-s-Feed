@@ -1,7 +1,7 @@
+import styled from 'styled-components';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import styled from 'styled-components';
 
 const SearchDiv = styled.form`
   height: 40px;

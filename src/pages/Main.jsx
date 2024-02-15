@@ -1,12 +1,12 @@
+import styled from 'styled-components';
 import Show from 'components/Show';
-import { kindOfMenu } from 'shared/data';
-import CreateFeedBtn from 'components/common/CreateFeedBtn';
 import Search from 'components/Search';
 import Ranking from 'components/Ranking';
-import { useState } from 'react';
-import styled from 'styled-components';
 import MainBanner from 'components/MainBanner';
+import CreateFeedBtn from 'components/common/CreateFeedBtn';
+import { useState } from 'react';
 import { auth } from 'firebaseConfig';
+import { kindOfMenu } from 'shared/data';
 
 const MainWrap = styled.main`
   display: flex;

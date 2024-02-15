@@ -1,7 +1,7 @@
 const LOGIN_PROFILE = 'profile/login_profile';
 const EDIT_PROFILE = 'profile/edit_profile';
-const REMOVE_PROFILE = 'profile/remove_profile';
 const SOCIAL_PROFILE = 'profile/social_profile';
+const REMOVE_PROFILE = 'profile/remove_profile';
 
 export const loginProfileMaker = (payload) => {
   return {

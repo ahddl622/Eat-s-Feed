@@ -1,6 +1,6 @@
+import styled from 'styled-components';
 import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
-import styled from 'styled-components';
 
 const StWrap = styled.div`
   height: 80vh;
@@ -14,7 +14,6 @@ const StWrap = styled.div`
 `;
 
 function Mypage() {
-
   return (
     <StWrap>
       <Profile />
