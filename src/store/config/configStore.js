@@ -1,13 +1,11 @@
 import { createStore, combineReducers } from 'redux';
-import userUidReducer from 'store/modules/userUidReducer';
 import { feedListReducer } from '../modules/feedListReducer';
 import { titleReducer } from '../modules/titleReducer';
 import { contentReducer } from '../modules/contentReducer';
 import { editedContentReducer } from '../modules/editedContentReducer';
 import { imgURLReducer } from '../modules/imgURLReducer';
-import userNicknameReducer from 'store/modules/userNicknameReducer';
-import userEmailReducer from 'store/modules/userEmailReducer';
 import userLoginStatus from 'store/modules/userLoginStatus';
+import { loginProfileReducer } from 'store/modules/loginProfileReducer';
 
 const rootReducer = combineReducers({
   feedListReducer,
@@ -15,10 +13,8 @@ const rootReducer = combineReducers({
   contentReducer,
   editedContentReducer,
   imgURLReducer,
-  userUidReducer,
-  userNicknameReducer,
-  userEmailReducer,
-  userLoginStatus
+  userLoginStatus,
+  loginProfileReducer
 });
 
 const store = createStore(rootReducer);

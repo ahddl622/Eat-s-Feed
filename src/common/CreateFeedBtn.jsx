@@ -28,10 +28,12 @@ const StBtnBox = styled.div`
 function CreateFeedBtn() {
   const newFeedArea = useRef(null);
   const [newFeed, setNewFeed] = useState(false);
+
   // Add: 모달창 끄기(x 버튼 or 새 글 등록하기 버튼 or 모달창 이외의 구역 클릭 시)
   const goBack = (e) => {
     return !newFeedArea.current.contains(e.target) ? setNewFeed(false) : null;
   };
+
   useEffect(() => {
     document.addEventListener('click', goBack);
     return () => {

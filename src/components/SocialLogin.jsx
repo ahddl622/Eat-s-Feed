@@ -1,28 +1,26 @@
 import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from 'firebaseConfig';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setUserEmail } from 'store/modules/userEmailReducer';
-import { setNickname } from 'store/modules/userNicknameReducer';
-import googleLogin from "assets/googleLoginImg.png"
-import githubLogin from "assets/githubLoginImg.png"
+import googleLogin from 'assets/googleLoginImg.png';
+import githubLogin from 'assets/githubLoginImg.png';
 import styled from 'styled-components';
-
+import { socialProfile } from 'store/modules/loginProfileReducer';
 
 const SocialLogin = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const [userData, setUserData] = useState('');
+  const dispatch = useDispatch();
+  // const [userData, setUserData] = useState('');
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
 
     try {
       const data = await signInWithPopup(auth, provider);
-      setUserData(data.user);
-      dispatch(setUserEmail(data.user.email))
-      dispatch(setNickname(data.user.displayName))
+
+      const socialEmail = data.user.email;
+      const socialNickname = data.user.displayName;
+      dispatch(socialProfile({ socialEmail, socialNickname }));
       console.log(data.user.email);
       alert('로그인 되었습니다.');
       navigate('/');
@@ -32,28 +30,28 @@ const SocialLogin = () => {
   };
 
   const handleGithubLogin = async () => {
-    const provider = new GithubAuthProvider()
+    const provider = new GithubAuthProvider();
 
     try {
-      const data = await signInWithPopup(auth, provider)
-      setUserData(data.user);
-      dispatch(setUserEmail(data.user.email))
-      dispatch(setNickname(data.user.displayName))
+      const data = await signInWithPopup(auth, provider);
+      const socialEmail = data.user.email;
+      const socialNickname = data.user.displayName;
+      dispatch(socialProfile({ socialEmail, socialNickname }));
       console.log(data);
       alert('로그인 되었습니다.');
       navigate('/');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div>
       <LoginBtn onClick={handleGoogleLogin}>
-        <Image src={googleLogin} alt="googleLogin"/>
+        <Image src={googleLogin} alt="googleLogin" />
       </LoginBtn>
       <LoginBtn onClick={handleGithubLogin}>
-        <Image src={githubLogin} alt='githubLogin'/>
+        <Image src={githubLogin} alt="githubLogin" />
       </LoginBtn>
     </div>
   );
@@ -66,8 +64,8 @@ const LoginBtn = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-`
+`;
 const Image = styled.img`
   width: 50px;
   height: 50px;
-`
+`;

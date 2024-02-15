@@ -67,7 +67,6 @@ function Header() {
 
       const newFeedArr = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.id);
         const feed = { id: doc.id, ...doc.data() };
         newFeedArr.push(feed);
       });

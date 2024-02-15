@@ -1,15 +1,15 @@
-const SET_LOGIN_STATUS = "SET_LOGIN_STATUS"
+const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
 
 export const setLoginStatus = (payload) => {
   return {
     type: SET_LOGIN_STATUS,
     payload
-  }
-}
+  };
+};
 
 const initialState = {
   isLogin: false
-}
+};
 
 const userLoginStatus = (state = initialState, action) => {
   switch (action.type) {
@@ -20,4 +20,4 @@ const userLoginStatus = (state = initialState, action) => {
   }
 };
 
-export default userLoginStatus
+export default userLoginStatus;

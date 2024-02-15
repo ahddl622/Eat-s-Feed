@@ -2,31 +2,37 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
-import { setUserEmail } from 'store/modules/userEmailReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import styled from 'styled-components';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { db } from 'firebaseConfig';
+import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 const LoginForm = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
   const [password, setPassword] = useState('');
+  const loginprofile = useSelector((state) => state.loginProfile);
 
   useEffect(() => {
-    const userLoginStatusChange = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // 사용자가 로그인 상태인 경우
-        dispatch(setLoginStatus(true));
-        // console.log('로그인:', user);
-      } else {
-        // 사용자가 로그아웃 상태인 경우
-        dispatch(setLoginStatus(false));
-        // console.log('로그아웃');
-      }
-    }, []);
-
+    const userLoginStatusChange = onAuthStateChanged(
+      auth,
+      (user) => {
+        if (user) {
+          // 사용자가 로그인 상태인 경우
+          dispatch(setLoginStatus(true));
+          // console.log('로그인:', user);
+        } else {
+          // 사용자가 로그아웃 상태인 경우
+          dispatch(setLoginStatus(false));
+          // console.log('로그아웃');
+        }
+      },
+      []
+    );
     return () => userLoginStatusChange();
   }, [auth, dispatch]);
 
@@ -35,7 +41,7 @@ const LoginForm = () => {
       target: { name, value }
     } = event;
     if (name === 'email') {
-      setEmail(value);
+      setLoginEmail(value);
     }
     if (name === 'password') {
       setPassword(value);
@@ -46,11 +52,21 @@ const LoginForm = () => {
   const signIn = async (event) => {
     event.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // console.log('user with signIn', userCredential.user);
-      dispatch(setUserEmail(email));
+      const userCredential = await signInWithEmailAndPassword(auth, loginEmail, password);
+      console.log('user with signIn', userCredential.user);
+
       dispatch(setLoginStatus(true));
+
+      const querySnapshot = await getDocs(collection(db, 'profile'));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.email === loginEmail) {
+          dispatch(loginProfileMaker(data));
+          addDoc(collection(db, 'currentUser'), data);
+        }
+      });
       navigate('/');
+      await addDoc(collection(db, 'currentUser'), loginprofile);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -74,14 +90,20 @@ const LoginForm = () => {
       <LoginContainer>
         <EmailInputBox>
           <label>Email </label>
-          <input type="email" value={email} name="email" onChange={onChange} required></input>
+          <input type="email" value={loginEmail} name="email" onChange={onChange} required></input>
         </EmailInputBox>
         <PasswordInputBox>
           <label>Password </label>
           <input type="password" value={password} name="password" onChange={onChange} required></input>
         </PasswordInputBox>
         <LoginNRegisterBox>
-          <LoginBtn onClick={signIn}>로그인</LoginBtn>
+          <LoginBtn
+            onClick={(event) => {
+              signIn(event);
+            }}
+          >
+            로그인
+          </LoginBtn>
           <RegisterBtn onClick={goToRegister}>회원가입</RegisterBtn>
         </LoginNRegisterBox>
       </LoginContainer>
