@@ -42,6 +42,8 @@ const RegisterForm = () => {
       const newProfile = { uid, password, email, nickname, taste: [], intro: '' };
       await addDoc(collection(db, 'profile'), newProfile);
 
+      // dispatch(setUserUid(uid));
+      // dispatch(setNickname(nickname));
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
       navigate('/login');

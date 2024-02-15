@@ -61,10 +61,10 @@ const IntroUrMatJipP = styled.p`
 `;
 
 const MatjipContent = styled.p`
-  margin-bottom: 5px;
-
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
+  margin-top: 10px;
+  margin-left: 6px;
 `;
 
 const MatjipContentTextArea = styled.textarea`
@@ -89,15 +89,23 @@ const SelectBox = styled.select`
   height: 30px;
   border-radius: px;
   border: 3px solid lightgray;
+  cursor: pointer;
 `;
 
 const SubmitBtn = styled.button`
   width: 150px;
   height: 30px;
+  background-color: #E0AED0;
   border-radius: 10px;
-  border: 3px solid lightgray;
+  border: 1px solid #AC87C5;
   margin: 0 5px 0 auto;
+  cursor: pointer;
 `;
+
+const FoodCategory = styled.label`
+  font-size: 14px;
+  margin-left: 8px;
+`
 
 function CreateFeed({ setNewFeed }) {
   const title = useSelector((state) => state.titleReducer.title);
@@ -143,6 +151,7 @@ function CreateFeed({ setNewFeed }) {
           uid: user.uid,
           category
         };
+        setNewFeed(false);
         const collectionRef = collection(db, 'feedList');
         await addDoc(collectionRef, newFeed);
         // **

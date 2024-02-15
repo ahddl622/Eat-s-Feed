@@ -17,10 +17,10 @@ const RankPDiv = styled.div`
 `;
 
 const RankListDiv = styled.div`
-  border: 3px solid #ac87c5;
+  border: 2px solid #ac87c5;
   border-radius: 15px;
   margin: 10px 10px;
-  padding: 8px;
+  padding: 10px;
   height: 80px;
   &:hover {
     transform: scale(1.02);
@@ -36,6 +36,8 @@ const RankMatJipContent = styled.p`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding-top: 10px;
+  font-size: 14px;
 `;
 function Ranking() {
   const feedList = useSelector((state) => state.feedListReducer.feedList);

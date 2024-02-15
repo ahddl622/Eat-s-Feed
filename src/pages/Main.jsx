@@ -23,13 +23,14 @@ const SideDiv = styled.div`
   justify-content: space-evenly;
   background-color: white;
   border-radius: 8px;
-  border: 1px solid #ffe5e5;
+  border: 2px solid #ffe5e5;
   box-shadow: 0 0 15px #ffe5e5;
 `;
 
 const MainFeedDiv = styled.div`
   background-color: white;
   box-shadow: 0 0 20px #ffe5e5;
+  border: 2px solid #ffe5e5;
   border-radius: 8px;
   width: 750px;
 `;
@@ -41,9 +42,9 @@ const CategoryBtnWrapperDiv = styled.div`
 `;
 
 const CategoryBtn = styled.button`
-  border: solid 3px #503178;
-  border-radius: 3px;
-  background-color: #503178;
+  border: solid 1px #503178;
+  border-radius: 10px;
+  background-color: #756AB6;
   color: white;
   width: 120px;
   height: 35px;
@@ -51,11 +52,12 @@ const CategoryBtn = styled.button`
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
+    background-color: #503178;
   }
 `;
 
 const ShowDiv = styled.div`
-  border: 3px solid #756ab6;
+
   margin: 5px 10px;
   display: flex;
   flex-direction: column;

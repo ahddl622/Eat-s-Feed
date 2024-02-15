@@ -61,7 +61,7 @@ const FeedImg = styled.img`
 const BtnsDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
+  margin-bottom: 15px;
 `;
 
 const DeleteBtn = styled.button`
@@ -69,8 +69,8 @@ const DeleteBtn = styled.button`
   width: 80px;
   margin: 0 3px;
   color: white;
-  background-color: #ac87c5;
-  border: solid 2px #ac87c5;
+  background-color: #AC87C5;
+  border: solid 1px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -87,7 +87,7 @@ const EditNDeleteBtn = styled.button`
   width: 80px;
   margin: 0 3px;
   background-color: white;
-  border: solid 2px #ac87c5;
+  border: solid 1px #ac87c5;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -99,7 +99,7 @@ const GoodOrBadBtn = styled.button`
   height: 30px;
   width: 80px;
   margin: 0 3px;
-  border: solid 2px #756ab6;
+  border: solid 1px #756ab6;
   border-radius: 8px;
   background-color: white;
   cursor: pointer;
@@ -110,6 +110,7 @@ const GoodOrBadBtn = styled.button`
 
 const LatestDateP = styled.p`
   text-align: end;
+  font-size: 14px;
 `;
 
 function Show({ menu }) {

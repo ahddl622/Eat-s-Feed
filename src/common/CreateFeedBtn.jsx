@@ -4,21 +4,25 @@ import { auth } from 'firebaseConfig';
 import styled from 'styled-components';
 
 const StBtn = styled.button`
-  width: 250px;
+  width: 230px;
   height: 50px;
 
-  border: 1px solid #e0aed0;
+  border: 2px solid #AC87C5;
   background-color: #fff;
   color: #ac87c5;
   border-radius: 18px;
   font-size: 20px;
   cursor: pointer;
-
   &:hover {
     border: none;
     background-color: #e0aed0;
     color: #fff;
   }
+`;
+
+const StBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 function CreateFeedBtn() {
@@ -38,7 +42,7 @@ function CreateFeedBtn() {
   });
 
   return (
-    <div ref={newFeedArea}>
+    <StBtnBox ref={newFeedArea}>
       <StBtn
         onClick={() => {
           if (auth.currentUser === null) {
@@ -52,7 +56,7 @@ function CreateFeedBtn() {
         새 글 작성하기
       </StBtn>
       {newFeed ? <CreateFeed setNewFeed={setNewFeed} /> : null}
-    </div>
+    </StBtnBox>
   );
 }
 

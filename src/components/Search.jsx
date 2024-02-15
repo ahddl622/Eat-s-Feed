@@ -15,9 +15,9 @@ const SearchDiv = styled.form`
 const SearchInput = styled.input`
   height: 30px;
   width: 675px;
-
+  padding-left: 10px;
   border-radius: 10px;
-  border: solid 2px #503178;
+  border: solid 1px #503178;
 `;
 
 const SearchBtn = styled.button`

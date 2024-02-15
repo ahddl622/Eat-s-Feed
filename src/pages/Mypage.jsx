@@ -14,6 +14,7 @@ const StWrap = styled.div`
 `;
 
 function Mypage() {
+
   return (
     <StWrap>
       <Profile />

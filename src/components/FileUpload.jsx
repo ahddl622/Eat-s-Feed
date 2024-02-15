@@ -18,6 +18,7 @@ const UploadImgInput = styled.input`
 const UploadImgBtn = styled.button`
   border: 2px solid lightgray;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 function FileUpload() {
