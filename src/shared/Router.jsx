@@ -7,7 +7,7 @@ import Mypage from 'pages/Mypage';
 import MyInfo from 'pages/MyInfo';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-function Router() {
+export default function Router() {
   return (
     <BrowserRouter>
       <Layout>
@@ -24,5 +24,3 @@ function Router() {
     </BrowserRouter>
   );
 }
-
-export default Router;

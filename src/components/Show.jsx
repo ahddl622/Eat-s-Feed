@@ -13,133 +13,7 @@ import {
   plusFeedCount
 } from 'store/modules/feedListReducer';
 
-const FeedDiv = styled.div`
-  width: 680px;
-  margin: 10px;
-  padding: 20px 15px;
-  display: flex;
-  justify-content: center;
-
-  border: solid 1px #e0aed0;
-  border-radius: 30px;
-`;
-
-const FeedTitleP = styled.p`
-  font-size: 24px;
-  font-weight: 600;
-  color: #503178;
-`;
-
-const FeednicknameP = styled.p`
-  text-align: end;
-  color: #503178;
-`;
-
-const FeedContentNImg = styled.div`
-  display: flex;
-  gap: 15px;
-  margin: 10px 0;
-`;
-
-const FeedContentDiv = styled.div`
-  width: 300px;
-  padding: 15px;
-
-  background-color: #fff4f5;
-  border-radius: 30px;
-
-  & p {
-    line-height: 25px;
-    color: #503178;
-  }
-`;
-
-const FeedFigure = styled.figure`
-  width: 300px;
-  height: 280px;
-`;
-
-const FeedImg = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 30px;
-  object-fit: cover;
-`;
-
-const BtnsDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-`;
-
-const DeleteBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-
-  color: white;
-  background-color: #e0aed0;
-  border: solid 1px #e0aed0;
-  border-radius: 8px;
-
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const EditTextArea = styled.textarea`
-  resize: none;
-`;
-
-const EditBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-
-  background-color: white;
-  border: solid 1px #e0aed0;
-  color: #e0aed0;
-  border-radius: 8px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const CountSection = styled.section`
-  display: flex;
-`;
-
-const GoodOrBadBtn = styled.button`
-  height: 30px;
-  width: 80px;
-  margin: 0 3px;
-
-  color: #e0aed0;
-  border: solid 1px #e0aed0;
-  border-radius: 8px;
-  background-color: white;
-
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const CountP = styled.p`
-  line-height: 30px;
-  padding-left: 5px;
-  color: #e0aed0;
-`;
-
-const LatestDateP = styled.p`
-  text-align: end;
-  font-size: 14px;
-  color: #ac87c5;
-`;
-
-function Show({ menu }) {
+export default function Show({ menu }) {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
@@ -300,4 +174,128 @@ function Show({ menu }) {
   );
 }
 
-export default Show;
+const FeedDiv = styled.div`
+  width: 680px;
+  margin: 10px;
+  padding: 20px 15px;
+  display: flex;
+  justify-content: center;
+
+  border: solid 1px #e0aed0;
+  border-radius: 30px;
+`;
+
+const FeedTitleP = styled.p`
+  font-size: 24px;
+  font-weight: 600;
+  color: #503178;
+`;
+
+const FeednicknameP = styled.p`
+  text-align: end;
+  color: #503178;
+`;
+
+const FeedContentNImg = styled.div`
+  display: flex;
+  gap: 15px;
+  margin: 10px 0;
+`;
+
+const FeedContentDiv = styled.div`
+  width: 300px;
+  padding: 15px;
+
+  background-color: #fff4f5;
+  border-radius: 30px;
+
+  & p {
+    line-height: 25px;
+    color: #503178;
+  }
+`;
+
+const FeedFigure = styled.figure`
+  width: 300px;
+  height: 280px;
+`;
+
+const FeedImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  object-fit: cover;
+`;
+
+const BtnsDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+
+const DeleteBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+
+  color: white;
+  background-color: #e0aed0;
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const EditTextArea = styled.textarea`
+  resize: none;
+`;
+
+const EditBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+
+  background-color: white;
+  border: solid 1px #e0aed0;
+  color: #e0aed0;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const CountSection = styled.section`
+  display: flex;
+`;
+
+const GoodOrBadBtn = styled.button`
+  height: 30px;
+  width: 80px;
+  margin: 0 3px;
+
+  color: #e0aed0;
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+  background-color: white;
+
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const CountP = styled.p`
+  line-height: 30px;
+  padding-left: 5px;
+  color: #e0aed0;
+`;
+
+const LatestDateP = styled.p`
+  text-align: end;
+  font-size: 14px;
+  color: #ac87c5;
+`;

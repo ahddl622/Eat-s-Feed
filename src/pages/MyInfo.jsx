@@ -7,6 +7,90 @@ import { db } from 'firebaseConfig';
 import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { editedProfileMaker } from 'store/modules/loginProfileReducer';
 
+export default function MyInfo() {
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
+  const [userId, setUserId] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [intro, setIntro] = useState('');
+  const [taste, setTaste] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log(loginProfile);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'profile'));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        console.log('data', doc.data());
+        if (data.email === loginProfile.email) setUserId(doc.id);
+      });
+    };
+
+    fetchUserData();
+  }, [loginProfile.email]);
+
+  // 저장했던 profile ID와 일치하는 profile 정보를 수정합니다.
+  const editProfile = async (e) => {
+    e.preventDefault();
+
+    const infoRef = doc(db, 'profile', userId);
+    await updateDoc(infoRef, { nickname, intro, taste });
+
+    dispatch(editedProfileMaker({ nickname, intro, taste }));
+    console.log(loginProfile);
+    navigate('/mypage');
+  };
+
+  return (
+    <StWrap>
+      <StH1>프로필을 완성해 주세요!</StH1>
+      <StArticle>
+        <StH3>Profile</StH3>
+        <StFigure>
+          <img src={profile} alt="프로필 이미지" />
+        </StFigure>
+        <StP>{loginProfile.email}</StP>
+        <StForm onSubmit={editProfile}>
+          <StInput
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="닉네임을 입력해 주세요."
+          />
+          <StInput
+            valu={intro}
+            onChange={(e) => {
+              setIntro(e.target.value);
+            }}
+            placeholder="한 줄 소개를 입력해 주세요."
+          />
+          <StSelect
+            defaultValue="base"
+            onChange={(e) =>
+              setTaste((prev) => {
+                // 중복 메뉴 추가를 방지합니다.
+                if (!prev.includes(e.target.value)) {
+                  return [...prev, e.target.value];
+                } else {
+                  return prev;
+                }
+              })
+            }
+          >
+            <option value="base">choose your taste</option>
+            <option value="일식">일식</option>
+            <option value="중식">중식</option>
+            <option value="양식">양식</option>
+            <option value="아시안">아시안</option>
+            <option value="디저트">디저트</option>
+          </StSelect>
+          <StBtn type="submit">수정완료</StBtn>
+        </StForm>
+      </StArticle>
+    </StWrap>
+  );
+}
+
 const StWrap = styled.div`
   text-align: center;
 `;
@@ -92,89 +176,3 @@ const StBtn = styled.button`
   cursor: pointer;
   font-size: 20px;
 `;
-
-function MyInfo() {
-  const loginProfile = useSelector((state) => state.loginProfileReducer);
-  const [userId, setUserId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [intro, setIntro] = useState('');
-  const [taste, setTaste] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  console.log(loginProfile);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'profile'));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        console.log('data', doc.data());
-        if (data.email === loginProfile.email) setUserId(doc.id);
-      });
-    };
-
-    fetchUserData();
-  }, [loginProfile.email]);
-
-  // 저장했던 profile ID와 일치하는 profile 정보를 수정합니다.
-  const editProfile = async (e) => {
-    e.preventDefault();
-
-    const infoRef = doc(db, 'profile', userId);
-    await updateDoc(infoRef, { nickname, intro, taste });
-
-    dispatch(editedProfileMaker({ nickname, intro, taste }));
-    console.log(loginProfile);
-    navigate('/mypage');
-  };
-
-  return (
-    <StWrap>
-      <StH1>프로필을 완성해 주세요!</StH1>
-      <StArticle>
-        <StH3>Profile</StH3>
-        <StFigure>
-          <img src={profile} alt="프로필 이미지" />
-        </StFigure>
-        <StP>{loginProfile.email}</StP>
-        <StForm onSubmit={editProfile}>
-          <StInput
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            placeholder="닉네임을 입력해 주세요."
-          />
-          <StInput
-            valu={intro}
-            onChange={(e) => {
-              setIntro(e.target.value);
-            }}
-            placeholder="한 줄 소개를 입력해 주세요."
-          />
-          <StSelect
-            defaultValue="base"
-            onChange={(e) =>
-              setTaste((prev) => {
-                // 중복 메뉴 추가를 방지합니다.
-                if (!prev.includes(e.target.value)) {
-                  return [...prev, e.target.value];
-                } else {
-                  return prev;
-                }
-              })
-            }
-          >
-            <option value="base">choose your taste</option>
-            <option value="일식">일식</option>
-            <option value="중식">중식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="디저트">디저트</option>
-          </StSelect>
-          <StBtn type="submit">수정완료</StBtn>
-        </StForm>
-      </StArticle>
-    </StWrap>
-  );
-}
-
-export default MyInfo;

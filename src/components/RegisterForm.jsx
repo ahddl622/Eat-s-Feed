@@ -5,7 +5,7 @@ import { db } from 'firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
-const RegisterForm = () => {
+export default function RegisterForm() {
   const auth = getAuth();
   const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
@@ -74,9 +74,7 @@ const RegisterForm = () => {
       </SignInContainer>
     </Container>
   );
-};
-
-export default RegisterForm;
+}
 
 const Container = styled.div`
   display: flex;

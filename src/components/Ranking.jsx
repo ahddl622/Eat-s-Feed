@@ -1,6 +1,27 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+export default function Ranking() {
+  const feedList = useSelector((state) => state.feedListReducer.feedList);
+  console.log(feedList);
+
+  const sortedFeedList = [...feedList].toSorted((a, b) => b.feedCount - a.feedCount);
+  const rankingList = sortedFeedList.slice(0, 3);
+  return (
+    <RankDiv>
+      <RankPDiv>
+        <p>Top 3 맛집</p>
+      </RankPDiv>
+      {rankingList.map((notice) => (
+        <RankListDiv key={notice.id}>
+          <RankMatJipTitle>{notice.title}</RankMatJipTitle>
+          <RankMatJipContent>{notice.content}</RankMatJipContent>
+        </RankListDiv>
+      ))}
+    </RankDiv>
+  );
+}
+
 const RankDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,25 +59,3 @@ const RankMatJipContent = styled.p`
   font-size: 14px;
   color: #e0aed0;
 `;
-function Ranking() {
-  const feedList = useSelector((state) => state.feedListReducer.feedList);
-  console.log(feedList);
-
-  const sortedFeedList = [...feedList].toSorted((a, b) => b.feedCount - a.feedCount);
-  const rankingList = sortedFeedList.slice(0, 3);
-  return (
-    <RankDiv>
-      <RankPDiv>
-        <p>Top 3 맛집</p>
-      </RankPDiv>
-      {rankingList.map((notice) => (
-        <RankListDiv key={notice.id}>
-          <RankMatJipTitle>{notice.title}</RankMatJipTitle>
-          <RankMatJipContent>{notice.content}</RankMatJipContent>
-        </RankListDiv>
-      ))}
-    </RankDiv>
-  );
-}
-
-export default Ranking;

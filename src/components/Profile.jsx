@@ -5,6 +5,44 @@ import CreateFeedBtn from 'components/common/CreateFeedBtn';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+export default function Profile() {
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
+
+  const { nickname, email, taste, intro } = loginProfile;
+  console.log(loginProfile);
+
+  return (
+    <StArticle>
+      <StSection>
+        <StH3>"{nickname ? nickname : 'hello'}"</StH3>
+        <StFigure>
+          <img src={profile} alt="프로필 이미지" />
+        </StFigure>
+        <StInfoDiv>
+          <h3>{email}</h3>
+          {intro ? (
+            <>
+              <h3>{intro}</h3>
+              <ul>
+                {taste.map((item) => (
+                  <li key={item}>#{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            '프로필을 완성해 주세요!'
+          )}
+        </StInfoDiv>
+        <Link to={`/myinfo`}>
+          <StBtn>수정하기</StBtn>
+        </Link>
+        <CreateFeedBtn />
+      </StSection>
+      <LogoutBtn />
+    </StArticle>
+  );
+}
+
 const StArticle = styled.article`
   padding: 20px 0;
   display: flex;
@@ -83,43 +121,3 @@ const StBtn = styled.button`
     color: #fff;
   }
 `;
-
-function Profile() {
-  const loginProfile = useSelector((state) => state.loginProfileReducer);
-
-  const { nickname, email, taste, intro } = loginProfile;
-  console.log(loginProfile);
-
-  return (
-    <StArticle>
-      <StSection>
-        <StH3>"{nickname ? nickname : 'hello'}"</StH3>
-        <StFigure>
-          <img src={profile} alt="프로필 이미지" />
-        </StFigure>
-        <StInfoDiv>
-          <h3>{email}</h3>
-          {intro ? (
-            <>
-              <h3>{intro}</h3>
-              <ul>
-                {taste.map((item) => (
-                  <li key={item}>#{item}</li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            '프로필을 완성해 주세요!'
-          )}
-        </StInfoDiv>
-        <Link to={`/myinfo`}>
-          <StBtn>수정하기</StBtn>
-        </Link>
-        <CreateFeedBtn />
-      </StSection>
-      <LogoutBtn />
-    </StArticle>
-  );
-}
-
-export default Profile;

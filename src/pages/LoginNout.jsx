@@ -1,11 +1,9 @@
 import LoginForm from 'components/LoginForm';
 
-function LoginNout() {
+export default function LoginNout() {
   return (
     <div>
       <LoginForm />
     </div>
   );
 }
-
-export default LoginNout;

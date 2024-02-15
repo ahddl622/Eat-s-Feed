@@ -1,9 +1,9 @@
-import RegisterForm from "components/RegisterForm"
+import RegisterForm from 'components/RegisterForm';
 
-const Register = () => {
+export default function Register() {
   return (
-    <div><RegisterForm/></div>
-  )
+    <div>
+      <RegisterForm />
+    </div>
+  );
 }
-
-export default Register

@@ -7,7 +7,7 @@ import { auth } from 'firebaseConfig';
 import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { socialProfile } from 'store/modules/loginProfileReducer';
 
-const SocialLogin = () => {
+export default function SocialLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [userData, setUserData] = useState('');
@@ -55,9 +55,7 @@ const SocialLogin = () => {
       </LoginBtn>
     </div>
   );
-};
-
-export default SocialLogin;
+}
 
 const LoginBtn = styled.button`
   padding: 0 1rem;

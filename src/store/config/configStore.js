@@ -17,6 +17,4 @@ const rootReducer = combineReducers({
   userLoginStatus
 });
 
-const store = createStore(rootReducer);
-
-export default store;
+export const store = createStore(rootReducer);

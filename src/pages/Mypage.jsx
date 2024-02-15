@@ -2,6 +2,15 @@ import styled from 'styled-components';
 import MyFeed from 'components/MyFeed';
 import Profile from 'components/Profile';
 
+export default function Mypage() {
+  return (
+    <StWrap>
+      <Profile />
+      <MyFeed />
+    </StWrap>
+  );
+}
+
 const StWrap = styled.div`
   height: 80vh;
   width: 70%;
@@ -12,14 +21,3 @@ const StWrap = styled.div`
 
   text-align: center;
 `;
-
-function Mypage() {
-  return (
-    <StWrap>
-      <Profile />
-      <MyFeed />
-    </StWrap>
-  );
-}
-
-export default Mypage;

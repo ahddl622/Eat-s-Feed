@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebas
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
-const LoginForm = () => {
+export default function LoginForm() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -116,9 +116,7 @@ const LoginForm = () => {
       </SocialLoginBox>
     </Container>
   );
-};
-
-export default LoginForm;
+}
 
 const Container = styled.div`
   display: flex;

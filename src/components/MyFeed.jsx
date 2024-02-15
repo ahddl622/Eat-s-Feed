@@ -6,77 +6,7 @@ import { changeEditDone, makeNewFeed } from 'store/modules/feedListReducer';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import { getformattedDate } from 'components/common/util';
 
-const StArticle = styled.article`
-  height: 85vh;
-
-  border: 2px solid #fff;
-  box-shadow: 3px 5px 12px 3px #ffe5e5;
-  border-radius: 40px;
-  overflow: auto;
-`;
-
-const StSection = styled.section`
-  width: 90%;
-  height: 200px;
-  margin: 30px auto;
-  padding: 30px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-
-  border: 1px solid #e0aed0;
-  border-radius: 35px;
-`;
-
-const StFigure = styled.figure`
-  width: 160px;
-  height: 160px;
-
-  & img {
-    width: 100%;
-    height: 100%;
-    border-radius: 40px;
-    object-fit: cover;
-  }
-`;
-
-const StDiv = styled.div`
-  width: 70%;
-  padding-left: 20px;
-
-  color: #503178;
-
-  & h4 {
-    color: #e0aed0;
-    padding-bottom: 5px;
-  }
-  & h1 {
-    font-size: 20px;
-  }
-  & p {
-    text-align: left;
-  }
-  & h5 {
-    padding-top: 10px;
-
-    text-align: right;
-    font-size: 12px;
-  }
-`;
-
-const StBtn = styled.button`
-  width: 100px;
-  height: 30px;
-  margin: 10px 5px;
-
-  border: none;
-  background-color: #e0aed0;
-  color: #fff;
-  border-radius: 10px;
-`;
-
-function MyFeed() {
+export default function MyFeed() {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
@@ -171,4 +101,72 @@ function MyFeed() {
   );
 }
 
-export default MyFeed;
+const StArticle = styled.article`
+  height: 85vh;
+
+  border: 2px solid #fff;
+  box-shadow: 3px 5px 12px 3px #ffe5e5;
+  border-radius: 40px;
+  overflow: auto;
+`;
+
+const StSection = styled.section`
+  width: 90%;
+  height: 200px;
+  margin: 30px auto;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+
+  border: 1px solid #e0aed0;
+  border-radius: 35px;
+`;
+
+const StFigure = styled.figure`
+  width: 160px;
+  height: 160px;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    object-fit: cover;
+  }
+`;
+
+const StDiv = styled.div`
+  width: 70%;
+  padding-left: 20px;
+
+  color: #503178;
+
+  & h4 {
+    color: #e0aed0;
+    padding-bottom: 5px;
+  }
+  & h1 {
+    font-size: 20px;
+  }
+  & p {
+    text-align: left;
+  }
+  & h5 {
+    padding-top: 10px;
+
+    text-align: right;
+    font-size: 12px;
+  }
+`;
+
+const StBtn = styled.button`
+  width: 100px;
+  height: 30px;
+  margin: 10px 5px;
+
+  border: none;
+  background-color: #e0aed0;
+  color: #fff;
+  border-radius: 10px;
+`;

@@ -6,17 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { removeProfile } from 'store/modules/loginProfileReducer';
 
-const StBtn = styled.button`
-  padding-top: 10px;
-  border: none;
-
-  background-color: #fff;
-  color: #756ab6;
-  font-size: 20px;
-  cursor: pointer;
-`;
-
-const LogoutBtn = () => {
+export default function LogoutBtn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,6 +26,14 @@ const LogoutBtn = () => {
       </StBtn>
     </div>
   );
-};
+}
 
-export default LogoutBtn;
+const StBtn = styled.button`
+  padding-top: 10px;
+  border: none;
+
+  background-color: #fff;
+  color: #756ab6;
+  font-size: 20px;
+  cursor: pointer;
+`;

@@ -4,30 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 
-const StBtn = styled.button`
-  width: 230px;
-  height: 50px;
-
-  border: 1px solid #ac87c5;
-  background-color: #fff;
-  color: #ac87c5;
-  border-radius: 18px;
-  font-size: 20px;
-  cursor: pointer;
-  &:hover {
-    border: none;
-    background-color: #e0aed0;
-    color: #fff;
-  }
-`;
-
-const StBtnBox = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-function CreateFeedBtn() {
-  // const [currentUser, ]
+export default function CreateFeedBtn() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.userLoginStatus);
   const newFeedArea = useRef(null);
@@ -73,4 +50,24 @@ function CreateFeedBtn() {
   );
 }
 
-export default CreateFeedBtn;
+const StBtn = styled.button`
+  width: 230px;
+  height: 50px;
+
+  border: 1px solid #ac87c5;
+  background-color: #fff;
+  color: #ac87c5;
+  border-radius: 18px;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover {
+    border: none;
+    background-color: #e0aed0;
+    color: #fff;
+  }
+`;
+
+const StBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
