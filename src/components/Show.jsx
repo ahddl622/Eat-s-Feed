@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebaseConfig';
+import { db } from '../firebaseConfig';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import {
   changeEditDone,
@@ -61,7 +61,7 @@ const FeedImg = styled.img`
 
 const BtnsDiv = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 5px 0;
 `;
 
@@ -335,16 +335,17 @@ function Show({ menu }) {
                     </DeleteBtn>
                   </div>
                 ) : null}
-
-                <div>
-                  <GoodBtn click={click[feed.id] && click[feed.id].good} onClick={() => clickGood(feed.id)}>
-                    추천
-                  </GoodBtn>
-                  <BadBtn click={click[feed.id] && click[feed.id].bad} onClick={() => clickBad(feed.id)}>
-                    비추천
-                  </BadBtn>
-                  ♥ {feed.feedCount}
-                </div>
+                {loginProfile.email !== feed.email ? (
+                  <div>
+                    <GoodBtn click={click[feed.id] && click[feed.id].good} onClick={() => clickGood(feed.id)}>
+                      추천
+                    </GoodBtn>
+                    <BadBtn click={click[feed.id] && click[feed.id].bad} onClick={() => clickBad(feed.id)}>
+                      비추천
+                    </BadBtn>
+                    ♥ {feed.feedCount}
+                  </div>
+                ) : null}
               </BtnsDiv>
               <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
             </div>
