@@ -10,7 +10,6 @@ import { socialProfile } from 'store/modules/loginProfileReducer';
 export default function SocialLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [userData, setUserData] = useState('');
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();

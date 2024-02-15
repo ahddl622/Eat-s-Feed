@@ -10,6 +10,7 @@ export default function MyFeed() {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
+
   const editFeed = async (feedId) => {
     try {
       const foundFeed = feedList.find((feed) => feed.id === feedId);

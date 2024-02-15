@@ -11,6 +11,11 @@ import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 export default function Header() {
   const dispatch = useDispatch();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
+  const menus = [
+    { id: 'about', info: '사이트 소개' },
+    { id: 'login', info: '로그인 / 회원 가입' },
+    { id: 'mypage', info: '마이 페이지' }
+  ];
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -32,12 +37,6 @@ export default function Header() {
     };
     fetchProfile();
   }, [dispatch]);
-
-  const menus = [
-    { id: 'about', info: '사이트 소개' },
-    { id: 'login', info: '로그인 / 회원 가입' },
-    { id: 'mypage', info: '마이 페이지' }
-  ];
 
   const fetchFeedData = async () => {
     try {

@@ -11,6 +11,7 @@ import { kindOfMenu } from 'shared/data';
 export default function Main() {
   const [menu, setMenu] = useState('');
   console.log(auth.currentUser);
+
   return (
     <div>
       <MainBanner />

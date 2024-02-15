@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function Profile() {
   const loginProfile = useSelector((state) => state.loginProfileReducer);
-
   const { nickname, email, taste, intro } = loginProfile;
-  console.log(loginProfile);
 
   return (
     <StArticle>

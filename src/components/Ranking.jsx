@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 
 export default function Ranking() {
   const feedList = useSelector((state) => state.feedListReducer.feedList);
-  console.log(feedList);
-
   const sortedFeedList = [...feedList].toSorted((a, b) => b.feedCount - a.feedCount);
   const rankingList = sortedFeedList.slice(0, 3);
+
   return (
     <RankDiv>
       <RankPDiv>

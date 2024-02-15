@@ -11,6 +11,13 @@ export default function CreateFeedBtn() {
   const [newFeed, setNewFeed] = useState(false);
 
   useEffect(() => {
+    document.addEventListener('click', goBack);
+    return () => {
+      document.removeEventListener('click', goBack);
+    };
+  });
+
+  useEffect(() => {
     const currentUserString = sessionStorage.getItem('currentUser');
     const currentUser = JSON.parse(currentUserString);
     if (currentUser) {
@@ -23,13 +30,6 @@ export default function CreateFeedBtn() {
     console.log(e.target);
     return !newFeedArea.current.contains(e.target) ? setNewFeed(false) : null;
   };
-
-  useEffect(() => {
-    document.addEventListener('click', goBack);
-    return () => {
-      document.removeEventListener('click', goBack);
-    };
-  });
 
   return (
     <StBtnBox ref={newFeedArea}>

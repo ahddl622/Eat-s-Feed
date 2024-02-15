@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
 
 export default function Search() {
-  const [searchItem, setSearchItem] = useState('');
   const dispatch = useDispatch();
+  const [searchItem, setSearchItem] = useState('');
   const feedList = useSelector((state) => state.feedListReducer.feedList);
 
   const onSearch = (e) => {

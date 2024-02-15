@@ -8,13 +8,13 @@ import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { editedProfileMaker } from 'store/modules/loginProfileReducer';
 
 export default function MyInfo() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
   const [userId, setUserId] = useState('');
   const [nickname, setNickname] = useState('');
   const [intro, setIntro] = useState('');
   const [taste, setTaste] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   console.log(loginProfile);
 
   useEffect(() => {

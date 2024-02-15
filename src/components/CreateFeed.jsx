@@ -74,6 +74,7 @@ export default function CreateFeed({ setNewFeed }) {
       alert('저장할 수 없습니다. 관리자에게 문의하세요.');
     }
   };
+
   return (
     // <BgWrap>
     <CreateFeedDiv>
