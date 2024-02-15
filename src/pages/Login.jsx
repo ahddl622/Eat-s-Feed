@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebas
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
-export default function LoginNout() {
+export default function Login() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
