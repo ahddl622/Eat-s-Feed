@@ -1,16 +1,15 @@
-import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from 'firebaseConfig';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import googleLogin from 'assets/googleLoginImg.png';
 import githubLogin from 'assets/githubLoginImg.png';
-import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { auth } from 'firebaseConfig';
+import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { socialProfile } from 'store/modules/loginProfileReducer';
 
-const SocialLogin = () => {
+export default function SocialLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [userData, setUserData] = useState('');
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
@@ -55,13 +54,12 @@ const SocialLogin = () => {
       </LoginBtn>
     </div>
   );
-};
-
-export default SocialLogin;
+}
 
 const LoginBtn = styled.button`
   padding: 0 1rem;
   background: transparent;
+
   border: none;
   cursor: pointer;
 `;

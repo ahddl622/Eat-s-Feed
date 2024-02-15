@@ -1,42 +1,11 @@
+import styled from 'styled-components';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import styled from 'styled-components';
 
-const SearchDiv = styled.form`
-  height: 40px;
-  display: flex;
-  border-radius: 10px;
-  align-items: center;
-  padding: 0 5px;
-`;
-
-const SearchInput = styled.input`
-  height: 30px;
-  width: 660px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: solid 1px #e0aed0;
-`;
-
-const SearchBtn = styled.button`
-  width: 63px;
-  height: 30px;
-  margin-left: 5px;
-
-  background-color: #e0aed0;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-function Search() {
-  const [searchItem, setSearchItem] = useState('');
+export default function Search() {
   const dispatch = useDispatch();
+  const [searchItem, setSearchItem] = useState('');
   const feedList = useSelector((state) => state.feedListReducer.feedList);
 
   const onSearch = (e) => {
@@ -66,4 +35,36 @@ function Search() {
   );
 }
 
-export default Search;
+const SearchDiv = styled.form`
+  height: 40px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+
+  border-radius: 10px;
+`;
+
+const SearchInput = styled.input`
+  height: 30px;
+  width: 660px;
+  padding-left: 10px;
+
+  border: solid 1px #e0aed0;
+  border-radius: 10px;
+`;
+
+const SearchBtn = styled.button`
+  width: 63px;
+  height: 30px;
+  margin-left: 5px;
+
+  color: white;
+  background-color: #e0aed0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+`;

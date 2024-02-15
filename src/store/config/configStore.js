@@ -1,22 +1,20 @@
 import { createStore, combineReducers } from 'redux';
-import { feedListReducer } from '../modules/feedListReducer';
-import { titleReducer } from '../modules/titleReducer';
-import { contentReducer } from '../modules/contentReducer';
-import { editedContentReducer } from '../modules/editedContentReducer';
-import { imgURLReducer } from '../modules/imgURLReducer';
-import userLoginStatus from 'store/modules/userLoginStatus';
+import { contentReducer } from 'store/modules/contentReducer';
+import { editedContentReducer } from 'store/modules/editedContentReducer';
+import { feedListReducer } from 'store/modules/feedListReducer';
+import { imgURLReducer } from 'store/modules/imgURLReducer';
 import { loginProfileReducer } from 'store/modules/loginProfileReducer';
+import { titleReducer } from 'store/modules/titleReducer';
+import { userLoginStatus } from 'store/modules/userLoginStatus';
 
 const rootReducer = combineReducers({
-  feedListReducer,
-  titleReducer,
   contentReducer,
   editedContentReducer,
+  feedListReducer,
   imgURLReducer,
-  userLoginStatus,
-  loginProfileReducer
+  loginProfileReducer,
+  titleReducer,
+  userLoginStatus
 });
 
-const store = createStore(rootReducer);
-
-export default store;
+export const store = createStore(rootReducer);
