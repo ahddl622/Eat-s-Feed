@@ -286,7 +286,9 @@ function Show({ menu }) {
           <FeedDiv key={feed.id}>
             <div>
               <FeedTitleP>{feed.title}</FeedTitleP>
-              <FeednicknameP>{feed.nickname}님이 알려주신 맛집</FeednicknameP>
+              <FeednicknameP>
+                #{feed.category} "{feed.nickname}"님이 알려주신 맛집
+              </FeednicknameP>
               <FeedContentNImg>
                 <FeedContentDiv>
                   <p>{feed.content}</p>
