@@ -32,14 +32,17 @@ function User() {
   const dispatch = useDispatch();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
 
-  // 새로고침을 하더라도 해당유저의 데이터가 store에 저장될 수 있게
+  // 새로고침을 하더라도 해당유저의 데이터를 DB에 저장하고 다시 store에 저장될 수 있게
   useEffect(() => {
+    const currentUserString = sessionStorage.getItem('currentUser');
+    const currentUser = JSON.parse(currentUserString);
+
     const fetchProfile = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'currentUser'));
+        const querySnapshot = await getDocs(collection(db, 'profile'));
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          if (data.email !== '0') {
+          if (data.email === currentUser.email) {
             dispatch(loginProfileMaker(data));
           }
         });
@@ -54,7 +57,7 @@ function User() {
 
   return (
     <Stsection>
-      <p>{loginProfile ? loginProfile.nickname : 'hello'}</p>
+      <p>{loginProfile.nickname ? loginProfile.nickname : 'hello'}</p>
       <UserFigure>
         <img src={profile} alt="프로필 이미지" />
       </UserFigure>

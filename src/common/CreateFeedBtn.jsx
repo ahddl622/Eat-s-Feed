@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import CreateFeed from 'components/CeateFeed';
-import { auth } from 'firebaseConfig';
 import styled from 'styled-components';
+import { setLoginStatus } from 'store/modules/userLoginStatus';
+import { useDispatch, useSelector } from 'react-redux';
 
 const StBtn = styled.button`
   width: 250px;
@@ -22,8 +23,19 @@ const StBtn = styled.button`
 `;
 
 function CreateFeedBtn() {
+  // const [currentUser, ]
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.userLoginStatus);
   const newFeedArea = useRef(null);
   const [newFeed, setNewFeed] = useState(false);
+
+  useEffect(() => {
+    const currentUserString = sessionStorage.getItem('currentUser');
+    const currentUser = JSON.parse(currentUserString);
+    if (currentUser) {
+      dispatch(setLoginStatus(true));
+    }
+  }, [dispatch]);
 
   // Add: 모달창 끄기(x 버튼 or 새 글 등록하기 버튼 or 모달창 이외의 구역 클릭 시)
   const goBack = (e) => {
@@ -41,7 +53,7 @@ function CreateFeedBtn() {
     <div ref={newFeedArea}>
       <StBtn
         onClick={() => {
-          if (auth.currentUser === null) {
+          if (!isLogin) {
             alert('로그인 후 이용해주세요');
             return;
           } else {

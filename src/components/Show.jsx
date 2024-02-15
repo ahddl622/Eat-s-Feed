@@ -188,8 +188,6 @@ function Show({ menu }) {
     }
   };
 
-  console.log(feedList);
-
   return (
     <>
       {feedList

@@ -1,5 +1,4 @@
 import Show from 'components/Show';
-// import Banner from 'components/Banner';
 import { kindOfMenu } from 'shared/data';
 import CreateFeedBtn from 'common/CreateFeedBtn';
 import Search from 'components/Search';
@@ -7,6 +6,7 @@ import Ranking from 'components/Ranking';
 import { useState } from 'react';
 import styled from 'styled-components';
 import MainBanner from 'components/MainBanner';
+import { auth } from 'firebaseConfig';
 
 const MainWrap = styled.main`
   display: flex;
@@ -66,10 +66,9 @@ const ShowDiv = styled.div`
 
 function Main() {
   const [menu, setMenu] = useState('');
-
+  console.log(auth.currentUser);
   return (
     <div>
-      {/* <Banner /> */}
       <MainBanner />
       <MainWrap>
         <SideDiv>

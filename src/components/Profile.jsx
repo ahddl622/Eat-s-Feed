@@ -85,37 +85,10 @@ const StBtn = styled.button`
 `;
 
 function Profile() {
-  // const [profileInfo, setProfileInfo] = useState([]);
-  // const loginEmail = useSelector((state) => state.userEmailReducer);
-  // const loginUserNickname = useSelector((state) => state.userNicknameReducer);
-  // const dispatch = useDispatch();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
 
   const { nickname, email, taste, intro } = loginProfile;
   console.log(loginProfile);
-
-  // console.log(nickname, taste, intro);
-
-  // 현재 로그인한 유저의 프로필을 가져옵니다.
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const querySnapshot = await getDocs(collection(db, 'profile'));
-  //     querySnapshot.forEach((doc) => {
-  //       const data = doc.data();
-  //       if (data.email === loginEmail) {
-  //         setProfileInfo(data);
-  //         dispatch(setNickname(data.nickname));
-
-  //         // console.log(data);
-  //       }
-  //     });
-  //   };
-  //   fetchUserData();
-  // }, [loginEmail, dispatch]);
-
-  // console.log('profile', profileInfo);
-  // console.log('email', loginEmail);
-  // console.log('nickname', loginUserNickname);
 
   return (
     <StArticle>

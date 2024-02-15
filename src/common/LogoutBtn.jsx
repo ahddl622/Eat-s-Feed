@@ -22,6 +22,7 @@ const LogoutBtn = () => {
     await signOut(auth);
     dispatch(removeProfile());
     dispatch(setLoginStatus(false));
+    sessionStorage.removeItem('currentUser');
     alert('로그아웃 되었습니다.');
     navigate('/login');
   };
