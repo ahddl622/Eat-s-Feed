@@ -16,7 +16,7 @@ const StInfoSection = styled.section`
     padding-top: 45px;
 
     font-size: 120px;
-    color: #503178;
+    color: #e0aed0;
   }
   & h4 {
     padding-top: 30px;

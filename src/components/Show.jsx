@@ -1,10 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getformattedDate } from 'common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
-import { changeEditDone, makeNewFeed, minusFeedCount, plusFeedCount } from 'store/modules/feedListReducer';
+import {
+  changeEditDone,
+  editFeedList,
+  makeNewFeed,
+  minusFeedCount,
+  plusFeedCount
+} from 'store/modules/feedListReducer';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import styled from 'styled-components';
 
@@ -110,7 +116,6 @@ function Show({ menu }) {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
-  const [feedNickname, setFeedNickname] = useState('');
 
   // 페이지가 mount 되자마자 db에 저장되어 있는 feedList 가져와서 자동생성된 id 부여하여 store에 저장
   // -> 그래야 store에 저장된 feedList대로 화면에 뿌릴 수 있음
@@ -127,33 +132,7 @@ function Show({ menu }) {
       dispatch(makeNewFeed(newFeedArr));
     };
     fetchFeedData();
-    // const fetchUserData = async () => {
-    //   const querySnapshot = await getDocs(collection(db, 'profile'));
-    //   const profileList = [];
-    //   querySnapshot.forEach((doc) => {
-    //     const profile = { email: doc.data().email, nickname: doc.data().nickname };
-    //     profileList.push(profile);
-    //   });
-    //   console.log(profileList);
-    //   const foundProfile = profileList.find((profile) => profile.nickname === feedList);
-    //   console.log(foundProfile);
-    //   setFeedNickname(foundProfile.nickname);
-    // };
-    // fetchUserData();
   }, [dispatch]);
-
-  // useEffect(() => {
-  // const fetchUserData = async () => {
-  //   const querySnapshot = await getDocs(collection(db, 'profile'));
-  //   const profileList = [];
-  //   querySnapshot.forEach((doc) => {
-  //     const profile = { email: doc.data().email, nickname: doc.data().nickname };
-  //     profileList.push(profile);
-  //   });
-  //   const foundProfile = profileList.find((profile) => profile.email === auth.currentUser.email);
-  // };
-  // fetchUserData();
-  // }, []);
 
   // myPage에서 수정 및 삭제 가능하지만 MainPage에서도 나열되어있는 피드 각각을 수정 및 삭제 가능하도록 함
   // 로그인 데이터 공유되면 내 id의 feed만 수정 및 삭제 가능하도록 할 예정
@@ -165,8 +144,7 @@ function Show({ menu }) {
       const feedRef = doc(db, 'feedList', foundFeed.id);
       await updateDoc(feedRef, editDoneFeed);
 
-      const editDoneList = feedList.map((feed) => (feed.id === foundFeed.id ? editDoneFeed : feed));
-      dispatch(makeNewFeed(editDoneList));
+      dispatch(editFeedList(editDoneFeed));
     } catch (error) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
@@ -209,6 +187,8 @@ function Show({ menu }) {
       alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
     }
   };
+
+  console.log(feedList);
 
   return (
     <>

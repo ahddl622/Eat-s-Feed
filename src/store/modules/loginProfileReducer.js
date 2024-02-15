@@ -36,8 +36,10 @@ export const loginProfileReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_PROFILE:
       return action.payload;
+
     case EDIT_PROFILE:
       return { ...state, nickname: action.payload.nickname, intro: action.payload.intro, taste: action.payload.taste };
+
     case SOCIAL_PROFILE:
       return {
         ...state,

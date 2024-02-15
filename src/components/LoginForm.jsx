@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import styled from 'styled-components';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
@@ -15,6 +15,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState('');
   const [password, setPassword] = useState('');
+  const loginprofile = useSelector((state) => state.loginProfile);
 
   useEffect(() => {
     const userLoginStatusChange = onAuthStateChanged(
@@ -32,7 +33,6 @@ const LoginForm = () => {
       },
       []
     );
-
     return () => userLoginStatusChange();
   }, [auth, dispatch]);
 
@@ -48,8 +48,6 @@ const LoginForm = () => {
     }
   };
 
-  // const [profileInfo, setProfileInfo] = useState([]);
-
   // 로그인
   const signIn = async (event) => {
     event.preventDefault();
@@ -64,12 +62,11 @@ const LoginForm = () => {
         const data = doc.data();
         if (data.email === loginEmail) {
           dispatch(loginProfileMaker(data));
-          // console.log('datadata', data);
-          // console.log('w제발', profileInfo);
+          addDoc(collection(db, 'currentUser'), data);
         }
       });
-
       navigate('/');
+      await addDoc(collection(db, 'currentUser'), loginprofile);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -96,7 +93,13 @@ const LoginForm = () => {
           <input type="password" value={password} name="password" onChange={onChange} required></input>
         </PasswordInputBox>
         <LoginNRegisterBox>
-          <LoginBtn onClick={signIn}>로그인</LoginBtn>
+          <LoginBtn
+            onClick={(event) => {
+              signIn(event);
+            }}
+          >
+            로그인
+          </LoginBtn>
           <RegisterBtn onClick={goToRegister}>회원가입</RegisterBtn>
         </LoginNRegisterBox>
       </LoginContainer>
