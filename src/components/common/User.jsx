@@ -1,10 +1,9 @@
 import profile from 'assets/profile.png';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
-import { getDocs, collection, addDoc } from '@firebase/firestore';
-import { auth, db } from 'firebaseConfig';
+import { getDocs, collection } from '@firebase/firestore';
+import { db } from 'firebaseConfig';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
