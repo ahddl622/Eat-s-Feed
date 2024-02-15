@@ -1,6 +1,6 @@
 import Layout from 'components/Layout';
 import Main from 'pages/Main';
-import OurTeam from 'pages/OurTeam';
+import About from 'pages/About';
 import LoginNout from 'pages/LoginNout';
 import Register from 'pages/Register';
 import Mypage from 'pages/Mypage';
@@ -13,7 +13,7 @@ export default function Router() {
       <Layout>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/about" element={<OurTeam />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginNout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/mypage" element={<Mypage />} />

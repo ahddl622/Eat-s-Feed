@@ -5,7 +5,7 @@ import member3 from 'assets/member3.png';
 import member4 from 'assets/member4.png';
 import { Link } from 'react-router-dom';
 
-export default function OurTeam() {
+export default function About() {
   return (
     <StArticle>
       <StInfoSection>
