@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import profile from 'assets/profile.png';
 import { useSelector } from 'react-redux';
-import LogoutBtn from 'common/LogoutBtn';
-import CreateFeedBtn from 'common/CreateFeedBtn';
+import LogoutBtn from 'components/common/LogoutBtn';
+import CreateFeedBtn from 'components/common/CreateFeedBtn';
 
 const StArticle = styled.article`
   padding: 20px 0;

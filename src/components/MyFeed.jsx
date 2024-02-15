@@ -1,6 +1,6 @@
 import { auth, db } from 'firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
-import { getformattedDate } from 'common/util';
+import { getformattedDate } from 'components/common/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { changeEditDone, makeNewFeed } from 'store/modules/feedListReducer';
 import { editContentHandeler } from 'store/modules/editedContentReducer';

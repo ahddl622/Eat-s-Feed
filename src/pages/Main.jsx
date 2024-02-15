@@ -1,6 +1,6 @@
 import Show from 'components/Show';
 import { kindOfMenu } from 'shared/data';
-import CreateFeedBtn from 'common/CreateFeedBtn';
+import CreateFeedBtn from 'components/common/CreateFeedBtn';
 import Search from 'components/Search';
 import Ranking from 'components/Ranking';
 import { useState } from 'react';
