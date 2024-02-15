@@ -56,6 +56,7 @@ const CategoryBtn = styled.button`
 `;
 
 const ShowDiv = styled.div`
+
   margin: 5px 10px;
   display: flex;
   flex-direction: column;
