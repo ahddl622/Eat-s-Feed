@@ -1,27 +1,11 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, storage } from 'firebaseConfig';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addUrl } from 'store/modules/imgURLReducer';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth, storage } from 'firebaseConfig';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { addUrl } from 'store/modules/imgURLReducer';
 
-const UploadImgDiv = styled.div`
-  display: flex;
-  width: 450px;
-  justify-content: space-between;
-`;
-
-const UploadImgInput = styled.input`
-  border: 2px solid lightgray;
-  border-radius: 5px;
-`;
-const UploadImgBtn = styled.button`
-  border: 2px solid lightgray;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
-function FileUpload() {
+export default function FileUpload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
 
@@ -58,4 +42,19 @@ function FileUpload() {
   );
 }
 
-export default FileUpload;
+const UploadImgDiv = styled.div`
+  width: 450px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const UploadImgInput = styled.input`
+  border: 2px solid lightgray;
+  border-radius: 5px;
+`;
+
+const UploadImgBtn = styled.button`
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  cursor: pointer;
+`;

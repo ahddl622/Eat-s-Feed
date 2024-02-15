@@ -1,12 +1,46 @@
+import styled from 'styled-components';
 import Show from 'components/Show';
-import { kindOfMenu } from 'shared/data';
-import CreateFeedBtn from 'common/CreateFeedBtn';
 import Search from 'components/Search';
 import Ranking from 'components/Ranking';
-import { useState } from 'react';
-import styled from 'styled-components';
 import MainBanner from 'components/MainBanner';
+import CreateFeedBtn from 'components/common/CreateFeedBtn';
+import { useState } from 'react';
 import { auth } from 'firebaseConfig';
+import { kindOfMenu } from 'shared/data';
+
+export default function Main() {
+  const [menu, setMenu] = useState('');
+  console.log(auth.currentUser);
+
+  return (
+    <div>
+      <MainBanner />
+      <MainWrap>
+        <SideSection>
+          <RankBox>
+            <Ranking />
+          </RankBox>
+          <CreateFeedBtn />
+        </SideSection>
+        <MainFeedDiv>
+          <Search />
+          <CategoryBtnWrapperDiv>
+            {kindOfMenu.map((menu, idx) => {
+              return (
+                <CategoryBtn key={idx} value={kindOfMenu[idx]} onClick={(e) => setMenu(e.target.value)}>
+                  #{menu}
+                </CategoryBtn>
+              );
+            })}
+          </CategoryBtnWrapperDiv>
+          <ShowDiv>
+            <Show menu={menu} />
+          </ShowDiv>
+        </MainFeedDiv>
+      </MainWrap>
+    </div>
+  );
+}
 
 const MainWrap = styled.main`
   display: flex;
@@ -79,38 +113,3 @@ const ShowDiv = styled.div`
   box-shadow: 3px 5px 12px 3px #ffe5e5;
   border-radius: 40px;
 `;
-
-function Main() {
-  const [menu, setMenu] = useState('');
-  console.log(auth.currentUser);
-  return (
-    <div>
-      <MainBanner />
-      <MainWrap>
-        <SideSection>
-          <RankBox>
-            <Ranking />
-          </RankBox>
-          <CreateFeedBtn />
-        </SideSection>
-        <MainFeedDiv>
-          <Search />
-          <CategoryBtnWrapperDiv>
-            {kindOfMenu.map((menu, idx) => {
-              return (
-                <CategoryBtn key={idx} value={kindOfMenu[idx]} onClick={(e) => setMenu(e.target.value)}>
-                  #{menu}
-                </CategoryBtn>
-              );
-            })}
-          </CategoryBtnWrapperDiv>
-          <ShowDiv>
-            <Show menu={menu} />
-          </ShowDiv>
-        </MainFeedDiv>
-      </MainWrap>
-    </div>
-  );
-}
-
-export default Main;

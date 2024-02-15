@@ -1,113 +1,15 @@
-import { auth, db } from '../firebaseConfig';
+import styled from 'styled-components';
+import FileUpload from './FileUpload';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { auth, db } from '../firebaseConfig';
+import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
+import { renewUrl } from 'store/modules/imgURLReducer';
 import { myTitle } from 'store/modules/titleReducer';
 import { myContent } from 'store/modules/contentReducer';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import { collection, query, getDocs, addDoc, orderBy } from 'firebase/firestore';
-import FileUpload from './FileUpload';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { renewUrl } from 'store/modules/imgURLReducer';
 
-// const BgWrap = styled.div`
-//   /* width: 100vw;
-//   height: 100vh; */
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   background-color: #ffffff6d;
-// `;
-
-const CreateFeedDiv = styled.div`
-  position: fixed;
-  top: 20%;
-  left: 35%;
-  width: 500px;
-  height: 470px;
-  padding: 20px;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: space-around;
-
-  border-radius: 40px;
-  color: #503178;
-  background-color: #fff;
-  border: 2px solid #e0aed0;
-  /* box-shadow: 3px 5px 30px 10px #ffe5e5; */
-`;
-
-const XBtn = styled.button`
-  width: 50px;
-  height: 30px;
-  margin: 0 5px 0 auto;
-
-  font-size: 20px;
-  border: none;
-  color: #fff;
-  background-color: #e0aed0;
-  border-radius: 15px;
-  cursor: pointer;
-`;
-
-const IntroUrMatJipP = styled.p`
-  height: 30px;
-  margin-bottom: 5px;
-
-  font-size: 24px;
-  font-weight: 600;
-`;
-
-const MatjipContent = styled.p`
-  font-size: 16px;
-  font-weight: 600;
-  margin-top: 10px;
-  margin-left: 6px;
-`;
-
-const MatjipContentTextArea = styled.textarea`
-  width: 450px;
-  height: ${({ title }) => (title ? '40px' : '80px')};
-  margin: 0 auto;
-  padding: 10px;
-  resize: none;
-
-  border-radius: 10px;
-  border: 1px solid #e0aed0;
-`;
-
-const SelectDiv = styled.div`
-  width: 450px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const SelectBox = styled.select`
-  width: 140px;
-  height: 30px;
-  border-radius: px;
-  border: 3px solid lightgray;
-  cursor: pointer;
-`;
-
-const SubmitBtn = styled.button`
-  width: 150px;
-  height: 30px;
-  background-color: #e0aed0;
-  border-radius: 10px;
-  border: 1px solid #ac87c5;
-  margin: 0 5px 0 auto;
-  cursor: pointer;
-`;
-
-const FoodCategory = styled.label`
-  font-size: 14px;
-  margin-left: 8px;
-`;
-
-function CreateFeed({ setNewFeed }) {
+export default function CreateFeed({ setNewFeed }) {
   console.log(auth.currentUser);
   const title = useSelector((state) => state.titleReducer.title);
   const content = useSelector((state) => state.contentReducer.content);
@@ -172,6 +74,7 @@ function CreateFeed({ setNewFeed }) {
       alert('저장할 수 없습니다. 관리자에게 문의하세요.');
     }
   };
+
   return (
     // <BgWrap>
     <CreateFeedDiv>
@@ -223,4 +126,105 @@ function CreateFeed({ setNewFeed }) {
   );
 }
 
-export default CreateFeed;
+// const BgWrap = styled.div`
+//   /* width: 100vw;
+//   height: 100vh; */
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//
+//   background-color: #ffffff6d;
+// `;
+
+const CreateFeedDiv = styled.div`
+  position: fixed;
+  top: 20%;
+  left: 35%;
+  width: 500px;
+  height: 470px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-around;
+
+  color: #503178;
+  background-color: #fff;
+  border: 2px solid #e0aed0;
+  border-radius: 40px;
+  /* box-shadow: 3px 5px 30px 10px #ffe5e5; */
+`;
+
+const XBtn = styled.button`
+  width: 50px;
+  height: 30px;
+  margin: 0 5px 0 auto;
+
+  font-size: 20px;
+  color: #fff;
+  background-color: #e0aed0;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+`;
+
+const IntroUrMatJipP = styled.p`
+  height: 30px;
+  margin-bottom: 5px;
+
+  font-size: 24px;
+  font-weight: 600;
+`;
+
+const MatjipContent = styled.p`
+  margin-top: 10px;
+  margin-left: 6px;
+
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+const MatjipContentTextArea = styled.textarea`
+  width: 450px;
+  height: ${({ title }) => (title ? '40px' : '80px')};
+  padding: 10px;
+  margin: 0 auto;
+  resize: none;
+
+  border: 1px solid #e0aed0;
+  border-radius: 10px;
+`;
+
+const SelectDiv = styled.div`
+  width: 450px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SelectBox = styled.select`
+  width: 140px;
+  height: 30px;
+
+  border: 3px solid lightgray;
+  border-radius: px;
+  cursor: pointer;
+`;
+
+const SubmitBtn = styled.button`
+  width: 150px;
+  height: 30px;
+  margin: 0 5px 0 auto;
+
+  background-color: #e0aed0;
+  border: 1px solid #ac87c5;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+
+const FoodCategory = styled.label`
+  margin-left: 8px;
+
+  font-size: 14px;
+`;

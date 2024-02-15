@@ -1,6 +1,6 @@
-import "../style/BannerStyle.css"
+import '../style/BannerStyle.css';
 
-function Banner() {
+export default function Banner() {
   return (
     <div className="my-container">
       <div>
@@ -11,9 +11,5 @@ function Banner() {
         <h6 className="sub">여러분의 맛집을 공유해 주세요!</h6>
       </div>
     </div>
-  )
+  );
 }
-
-export default Banner;
-
-

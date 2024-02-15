@@ -1,37 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react';
-import CreateFeed from 'components/CeateFeed';
 import styled from 'styled-components';
-import { setLoginStatus } from 'store/modules/userLoginStatus';
+import CreateFeed from 'components/CreateFeed';
+import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setLoginStatus } from 'store/modules/userLoginStatus';
 
-const StBtn = styled.button`
-  width: 230px;
-  height: 50px;
-
-  border: 1px solid #ac87c5;
-  background-color: #fff;
-  color: #ac87c5;
-  border-radius: 18px;
-  font-size: 20px;
-  cursor: pointer;
-  &:hover {
-    border: none;
-    background-color: #e0aed0;
-    color: #fff;
-  }
-`;
-
-const StBtnBox = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-function CreateFeedBtn() {
-  // const [currentUser, ]
+export default function CreateFeedBtn() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.userLoginStatus);
   const newFeedArea = useRef(null);
   const [newFeed, setNewFeed] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener('click', goBack);
+    return () => {
+      document.removeEventListener('click', goBack);
+    };
+  });
 
   useEffect(() => {
     const currentUserString = sessionStorage.getItem('currentUser');
@@ -46,13 +30,6 @@ function CreateFeedBtn() {
     console.log(e.target);
     return !newFeedArea.current.contains(e.target) ? setNewFeed(false) : null;
   };
-
-  useEffect(() => {
-    document.addEventListener('click', goBack);
-    return () => {
-      document.removeEventListener('click', goBack);
-    };
-  });
 
   return (
     <StBtnBox ref={newFeedArea}>
@@ -73,4 +50,25 @@ function CreateFeedBtn() {
   );
 }
 
-export default CreateFeedBtn;
+const StBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const StBtn = styled.button`
+  width: 230px;
+  height: 50px;
+
+  font-size: 20px;
+  color: #ac87c5;
+  background-color: #fff;
+  border: 1px solid #ac87c5;
+  border-radius: 18px;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background-color: #e0aed0;
+    border: none;
+  }
+`;
