@@ -3,14 +3,13 @@ import SocialLogin from 'components/SocialLogin';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { db } from 'firebaseConfig';
+import { db, auth } from 'firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { setLoginStatus } from 'store/modules/userLoginStatus';
 import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 export default function Login() {
-  const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState('');

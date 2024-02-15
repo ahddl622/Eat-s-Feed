@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from 'firebaseConfig';
+import { db, auth } from 'firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Register() {
-  const auth = getAuth();
   const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const onChange = (event) => {
     const {
@@ -18,12 +19,35 @@ export default function Register() {
     } = event;
     if (name === 'email') {
       setEmail(value);
+      validateEmail(value);
     }
     if (name === 'password') {
       setPassword(value);
+      validatePassword(value);
     }
     if (name === 'nickname') {
       setNickname(value);
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email === '') {
+      setEmailError('');
+    } else if (!emailRegex.test(email)) {
+      setEmailError('이메일 형식이 올바르지 않습니다.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const validatePassword = (password) => {
+    if (password === '') {
+      setPasswordError('');
+    } else if (password.length < 6) {
+      setPasswordError('비밀번호는 최소 6글자 이상이어야 합니다.');
+    } else {
+      setPasswordError('');
     }
   };
 
@@ -31,8 +55,8 @@ export default function Register() {
   const signUp = async (event) => {
     event.preventDefault();
     try {
-      if (password.length < 6) {
-        alert('비밀번호는 최소 6글자 이상이어야 합니다.');
+      if (password.length < 6 || emailError) {
+        alert('비밀번호 혹은 이메일 형식이 올바르지 않습니다.');
         return;
       }
       // 초기 회원정보를 따로 cloude db에 저장합니다.
@@ -61,10 +85,12 @@ export default function Register() {
         <EmailInputBox>
           <label>Email</label>
           <input type="email" value={email} name="email" onChange={onChange} required></input>
+          {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
         </EmailInputBox>
         <PasswordInputBox>
           <label>Password</label>
           <input type="password" value={password} name="password" onChange={onChange} required></input>
+          {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
         </PasswordInputBox>
         <NickNameInputBox>
           <label>Nickname</label>
@@ -104,7 +130,7 @@ const SignInContainer = styled.form`
 `;
 
 const EmailInputBox = styled.div`
-  padding-bottom: 1.5rem;
+  height: 100px;
   display: flex;
   flex-direction: column;
 
@@ -121,7 +147,7 @@ const EmailInputBox = styled.div`
 `;
 
 const PasswordInputBox = styled.div`
-  padding-bottom: 1.5rem;
+  height: 100px;
   display: flex;
   flex-direction: column;
 
@@ -138,7 +164,7 @@ const PasswordInputBox = styled.div`
 `;
 
 const NickNameInputBox = styled.div`
-  padding-bottom: 1.5rem;
+  height: 100px;
   display: flex;
   flex-direction: column;
 
@@ -163,4 +189,11 @@ const RegisterBtn = styled.button`
   border: 1px solid #ac87c5;
   border-radius: 15px;
   cursor: pointer;
+`;
+
+const ErrorMessage = styled.div`
+  margin-top: 5px;
+
+  color: red;
+  font-size: 14px;
 `;
