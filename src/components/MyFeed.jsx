@@ -22,29 +22,46 @@ const StSection = styled.section`
   padding: 30px;
   display: flex;
   align-items: center;
+  flex-direction: row;
   justify-content: space-between;
 
-  border: 1px solid #ac87c5;
+  border: 1px solid #e0aed0;
   border-radius: 35px;
 `;
 
 const StFigure = styled.figure`
   width: 160px;
   height: 160px;
+
   & img {
     width: 100%;
     height: 100%;
     border-radius: 40px;
+    object-fit: cover;
   }
 `;
 
 const StDiv = styled.div`
-  width: 80%;
+  width: 70%;
+  padding-left: 20px;
 
   color: #503178;
 
+  & h4 {
+    color: #e0aed0;
+    padding-bottom: 5px;
+  }
   & h1 {
     font-size: 20px;
+  }
+  & p {
+    text-align: left;
+  }
+  & h5 {
+    padding-top: 10px;
+
+    text-align: right;
+    font-size: 12px;
   }
 `;
 
@@ -55,6 +72,7 @@ const StBtn = styled.button`
 
   border: none;
   background-color: #e0aed0;
+  color: #fff;
   border-radius: 10px;
 `;
 
@@ -113,9 +131,10 @@ function MyFeed() {
               </StFigure>
 
               <StDiv>
-                <div>♥︎ {feed.feedCount}</div>
+                <h4>♥︎ {feed.feedCount}</h4>
                 <h1>{feed.title}</h1> <br />
                 <p>{feed.content}</p>
+                <h5>{getformattedDate(feed.createdAt)}</h5>
                 {feed.editDone ? (
                   <>
                     <StBtn
@@ -145,7 +164,6 @@ function MyFeed() {
                   </>
                 )}
                 <StBtn onClick={() => deleteFeed(feed.id)}>삭제하기</StBtn>
-                <p>{getformattedDate(feed.createdAt)}</p>
               </StDiv>
             </StSection>
           ))}
