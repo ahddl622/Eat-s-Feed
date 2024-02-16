@@ -4,7 +4,7 @@ import { auth, db } from 'firebaseConfig';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { changeEditDone, makeNewFeed } from 'store/modules/feedListReducer';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
-import { getformattedDate } from 'components/common/util';
+import { getformattedDate } from './common/util';
 
 export default function MyFeed() {
   const dispatch = useDispatch();
@@ -86,12 +86,12 @@ export default function MyFeed() {
                     >
                       수정완료
                     </StBtn>
-                    <textarea
+                    <TextArea
                       value={editedContent}
                       onChange={(e) => {
                         dispatch(editContentHandeler(e.target.value));
                       }}
-                    ></textarea>
+                    ></TextArea>
                   </>
                 )}
                 <StBtn onClick={() => deleteFeed(feed.id)}>삭제하기</StBtn>
@@ -173,3 +173,8 @@ const StBtn = styled.button`
   border: none;
   border-radius: 10px;
 `;
+
+
+const TextArea = styled.textarea`
+  resize: none;
+`

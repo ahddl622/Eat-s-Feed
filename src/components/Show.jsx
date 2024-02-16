@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { getformattedDate } from 'components/common/util';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { db } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
 import { collection, query, getDocs, orderBy, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
 import { estimateGood, estimateBad } from 'store/modules/loginProfileReducer';
@@ -113,6 +113,13 @@ export default function Show({ menu }) {
   };
 
   const clickGood = (feedId) => {
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert('로그인이 필요한 기능입니다.');
+      return;
+    }
+  
     if (loginProfile.goodFeed.includes(feedId)) {
       alert('이미 추천하셨습니다.');
     } else if (loginProfile.badFeed.includes(feedId)) {
@@ -125,9 +132,17 @@ export default function Show({ menu }) {
       plusCountFeed(feedId);
       setClick((prev) => ({ ...prev, [feedId]: { good: 'T', bad: 'T' } }));
     }
+    
   };
 
   const clickBad = (feedId) => {
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert('로그인이 필요한 기능입니다.');
+      return;
+    }
+
     if (loginProfile.badFeed.includes(feedId)) {
       alert('이미 비추천하셨습니다.');
     } else if (loginProfile.goodFeed.includes(feedId)) {
