@@ -2,7 +2,7 @@ import Layout from 'components/Layout';
 import Main from 'pages/Main';
 import About from 'pages/About';
 import Login from 'pages/Login';
-import Register from 'pages/Register';
+import Register from 'pages/CreateAccount';
 import Mypage from 'pages/Mypage';
 import MyInfo from 'pages/MyInfo';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';

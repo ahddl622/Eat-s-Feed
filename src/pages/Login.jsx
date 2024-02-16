@@ -16,21 +16,17 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    const userLoginStatusChange = onAuthStateChanged(
-      auth,
-      (user) => {
-        if (user) {
-          // 사용자가 로그인 상태인 경우
-          dispatch(setLoginStatus(true));
-          console.log('로그인:', user);
-        } else {
-          // 사용자가 로그아웃 상태인 경우
-          dispatch(setLoginStatus(false));
-          console.log('로그아웃');
-        }
-      },
-      []
-    );
+    const userLoginStatusChange = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // 사용자가 로그인 상태인 경우
+        dispatch(setLoginStatus(true));
+        console.log('로그인:', user);
+      } else {
+        // 사용자가 로그아웃 상태인 경우
+        dispatch(setLoginStatus(false));
+        console.log('로그아웃');
+      }
+    });
     return () => userLoginStatusChange();
   }, [auth, dispatch]);
 
