@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { getformattedDate } from 'components/common/util';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { auth, db } from '../firebaseConfig';
+import { db } from '../firebaseConfig';
 import { collection, query, getDocs, orderBy, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { editContentHandeler } from 'store/modules/editedContentReducer';
+import { estimateGood, estimateBad } from 'store/modules/loginProfileReducer';
 import {
   changeEditDone,
   editFeedList,
@@ -17,6 +18,8 @@ export default function Show({ menu }) {
   const dispatch = useDispatch();
   const feedList = useSelector((state) => state.feedListReducer.feedList);
   const editedContent = useSelector((state) => state.editedContentReducer.editedContent);
+  const loginProfile = useSelector((state) => state.loginProfileReducer);
+  const [click, setClick] = useState({});
 
   // 페이지가 mount 되자마자 db에 저장되어 있는 feedList 가져와서 자동생성된 id 부여하여 store에 저장
   // -> 그래야 store에 저장된 feedList대로 화면에 뿌릴 수 있음
@@ -31,6 +34,14 @@ export default function Show({ menu }) {
         newFeedArr.push(feed);
       });
       dispatch(makeNewFeed(newFeedArr));
+
+      const initialClick = newFeedArr.reduce((acc, feed) => {
+        return {
+          ...acc,
+          [feed.id]: { good: 'F', bad: 'T' }
+        };
+      });
+      setClick(initialClick);
     };
     fetchFeedData();
   }, [dispatch]);
@@ -62,6 +73,72 @@ export default function Show({ menu }) {
       } catch (error) {
         alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
       }
+    }
+  };
+
+  const editGoodFeed = async (feedId) => {
+    const profileRef = doc(db, 'profile', loginProfile.id);
+    try {
+      if (loginProfile.goodFeed.includes(feedId)) {
+        console.log(loginProfile.goodFeed);
+        const removedGoodFeed = loginProfile.goodFeed.filter((id) => id !== feedId);
+        console.log(removedGoodFeed);
+        await updateDoc(profileRef, { ...loginProfile, goodFeed: removedGoodFeed });
+        dispatch(estimateGood(removedGoodFeed));
+      } else {
+        const addedGoodFeed = [...loginProfile.goodFeed, feedId];
+        await updateDoc(profileRef, { ...loginProfile, goodFeed: addedGoodFeed });
+        dispatch(estimateGood(addedGoodFeed));
+      }
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
+  };
+
+  const editBadFeed = async (feedId) => {
+    const profileRef = doc(db, 'profile', loginProfile.id);
+    try {
+      if (loginProfile.badFeed.includes(feedId)) {
+        const removedBadFeed = loginProfile.badFeed.filter((id) => id !== feedId);
+        await updateDoc(profileRef, { ...loginProfile, goodFeed: removedBadFeed });
+        dispatch(estimateBad(removedBadFeed));
+      } else {
+        const addedBadFeed = [...loginProfile.badFeed, feedId];
+        await updateDoc(profileRef, { ...loginProfile, badFeed: addedBadFeed });
+        dispatch(estimateBad(addedBadFeed));
+      }
+    } catch (error) {
+      alert('데이터를 불러오지 못했습니다. 관리자에게 문의하세요.');
+    }
+  };
+
+  const clickGood = (feedId) => {
+    if (loginProfile.goodFeed.includes(feedId)) {
+      alert('이미 추천하셨습니다.');
+    } else if (loginProfile.badFeed.includes(feedId)) {
+      editGoodFeed(feedId);
+      editBadFeed(feedId);
+      plusCountFeed(feedId);
+      setClick((prev) => ({ ...prev, [feedId]: { good: 'T', bad: 'T' } }));
+    } else {
+      editGoodFeed(feedId);
+      plusCountFeed(feedId);
+      setClick((prev) => ({ ...prev, [feedId]: { good: 'T', bad: 'T' } }));
+    }
+  };
+
+  const clickBad = (feedId) => {
+    if (loginProfile.badFeed.includes(feedId)) {
+      alert('이미 비추천하셨습니다.');
+    } else if (loginProfile.goodFeed.includes(feedId)) {
+      editGoodFeed(feedId);
+      editBadFeed(feedId);
+      minusCountFeed(feedId);
+      setClick((prev) => ({ ...prev, [feedId]: { good: 'F', bad: 'F' } }));
+    } else {
+      editBadFeed(feedId);
+      minusCountFeed(feedId);
+      setClick((prev) => ({ ...prev, [feedId]: { good: 'F', bad: 'F' } }));
     }
   };
 
@@ -97,7 +174,9 @@ export default function Show({ menu }) {
           <FeedDiv key={feed.id}>
             <div>
               <FeedTitleP>{feed.title}</FeedTitleP>
-              <FeednicknameP>{feed.nickname}님이 알려주신 맛집</FeednicknameP>
+              <FeednicknameP>
+                #{feed.category} "{feed.nickname}"님이 알려주신 맛집
+              </FeednicknameP>
               <FeedContentNImg>
                 <FeedContentDiv>
                   <p>{feed.content}</p>
@@ -107,64 +186,54 @@ export default function Show({ menu }) {
                 </FeedFigure>
               </FeedContentNImg>
               <BtnsDiv>
-                <div>
-                  {feed.editDone ? (
-                    <EditBtn
-                      onClick={() => {
-                        if (auth.currentUser) {
-                          if (auth.currentUser.email === feed.email) {
-                            dispatch(editContentHandeler(feed.content));
-                            dispatch(changeEditDone(feed.id));
-                          } else {
-                            alert('본인의 게시글만 수정할 수 있습니다.');
-                            return;
-                          }
-                        } else {
-                          alert('로그인 후 이용해주세요');
-                        }
-                      }}
-                    >
-                      수정하기
-                    </EditBtn>
-                  ) : (
-                    <>
+                {loginProfile.email === feed.email ? (
+                  <div>
+                    {feed.editDone ? (
                       <EditBtn
                         onClick={() => {
-                          editFeed(feed.id);
+                          dispatch(editContentHandeler(feed.content));
+                          dispatch(changeEditDone(feed.id));
                         }}
                       >
-                        수정완료
+                        수정하기
                       </EditBtn>
-                      <EditTextArea
-                        value={editedContent}
-                        onChange={(e) => {
-                          dispatch(editContentHandeler(e.target.value));
-                        }}
-                      ></EditTextArea>
-                    </>
-                  )}
-                  <DeleteBtn
-                    onClick={() => {
-                      if (auth.currentUser) {
-                        if (auth.currentUser.email === feed.email) {
-                          deleteFeed(feed.id);
-                        } else {
-                          alert('본인의 게시글만 삭제할 수 있습니다.');
-                          return;
-                        }
-                      } else {
-                        alert('로그인 후 이용해주세요');
-                      }
-                    }}
-                  >
-                    삭제하기
-                  </DeleteBtn>
-                </div>
-                <CountSection>
-                  <GoodOrBadBtn onClick={() => plusCountFeed(feed.id)}>추천</GoodOrBadBtn>
-                  <GoodOrBadBtn onClick={() => minusCountFeed(feed.id)}>비추천</GoodOrBadBtn>
-                  <CountP>♥ {feed.feedCount}</CountP>
-                </CountSection>
+                    ) : (
+                      <>
+                        <EditBtn
+                          onClick={() => {
+                            editFeed(feed.id);
+                          }}
+                        >
+                          수정완료
+                        </EditBtn>
+                        <EditTextArea
+                          value={editedContent}
+                          onChange={(e) => {
+                            dispatch(editContentHandeler(e.target.value));
+                          }}
+                        ></EditTextArea>
+                      </>
+                    )}
+                    <DeleteBtn
+                      onClick={() => {
+                        deleteFeed(feed.id);
+                      }}
+                    >
+                      삭제하기
+                    </DeleteBtn>
+                  </div>
+                ) : null}
+                {loginProfile.email !== feed.email ? (
+                  <div>
+                    <GoodBtn click={click[feed.id] && click[feed.id].good} onClick={() => clickGood(feed.id)}>
+                      추천
+                    </GoodBtn>
+                    <BadBtn click={click[feed.id] && click[feed.id].bad} onClick={() => clickBad(feed.id)}>
+                      비추천
+                    </BadBtn>
+                    ♥ {feed.feedCount}
+                  </div>
+                ) : null}
               </BtnsDiv>
               <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
             </div>
@@ -274,13 +343,28 @@ const CountSection = styled.section`
   display: flex;
 `;
 
-const GoodOrBadBtn = styled.button`
+const GoodBtn = styled.button`
   width: 80px;
   height: 30px;
   margin: 0 3px;
 
   color: #e0aed0;
-  background-color: white;
+  background-color: ${({ click }) => (click === 'T' ? '#756AB6' : 'white')};
+  border: solid 1px #e0aed0;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+const BadBtn = styled.button`
+  width: 80px;
+  height: 30px;
+  margin: 0 3px;
+
+  color: #e0aed0;
+  background-color: ${({ click }) => (click === 'F' ? '#756AB6' : 'white')};
   border: solid 1px #e0aed0;
   border-radius: 8px;
   cursor: pointer;

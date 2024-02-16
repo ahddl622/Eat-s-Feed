@@ -55,7 +55,7 @@ export default function Login() {
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (data.email === loginEmail) {
-          dispatch(loginProfileMaker(data));
+          dispatch(loginProfileMaker({ ...data, id: doc.id }));
           sessionStorage.setItem('currentUser', JSON.stringify(data));
         }
       });
@@ -65,10 +65,6 @@ export default function Login() {
       const errorMessage = error.message;
       console.log('error with singIn', errorCode, errorMessage);
       sessionStorage.setItem('currentUser', null);
-
-      if (errorCode === 'auth/invalid-credential') {
-        alert('잘못된 이메일 또는 비밀번호입니다. 다시 시도해주세요.');
-      }
     }
   };
 

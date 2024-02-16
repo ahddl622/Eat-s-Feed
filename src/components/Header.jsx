@@ -1,42 +1,20 @@
 import styled from 'styled-components';
 import User from './common/User';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { makeNewFeed } from 'store/modules/feedListReducer';
-import { loginProfileMaker } from 'store/modules/loginProfileReducer';
 
 export default function Header() {
   const dispatch = useDispatch();
   const loginProfile = useSelector((state) => state.loginProfileReducer);
+
   const menus = [
     { id: 'about', info: '사이트 소개' },
     { id: 'login', info: '로그인 / 회원 가입' },
     { id: 'mypage', info: '마이 페이지' }
   ];
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const currentUserString = sessionStorage.getItem('currentUser');
-      const currentUser = JSON.parse(currentUserString);
-      try {
-        const querySnapshot = await getDocs(collection(db, 'profile'));
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.email === currentUser.email) {
-            dispatch(loginProfileMaker(data));
-          }
-        });
-      } catch (error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log('error with singIn', errorCode, errorMessage);
-      }
-    };
-    fetchProfile();
-  }, [dispatch]);
 
   const fetchFeedData = async () => {
     try {
