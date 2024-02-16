@@ -19,12 +19,18 @@ export default function MyInfo() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'profile'));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        console.log('data', doc.data());
-        if (data.email === loginProfile.email) setUserId(doc.id);
-      });
+      try {
+        const querySnapshot = await getDocs(collection(db, 'profile'));
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          console.log('data', doc.data());
+          if (data.email === loginProfile.email) setUserId(doc.id);
+        });
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('error with fetchUserData', errorCode, errorMessage);
+      }
     };
 
     fetchUserData();
@@ -32,14 +38,20 @@ export default function MyInfo() {
 
   // 저장했던 profile ID와 일치하는 profile 정보를 수정합니다.
   const editProfile = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const infoRef = doc(db, 'profile', userId);
-    await updateDoc(infoRef, { nickname, intro, taste });
+      const infoRef = doc(db, 'profile', userId);
+      await updateDoc(infoRef, { nickname, intro, taste });
 
-    dispatch(editedProfileMaker({ nickname, intro, taste }));
-    console.log(loginProfile);
-    navigate('/mypage');
+      dispatch(editedProfileMaker({ nickname, intro, taste }));
+      console.log(loginProfile);
+      navigate('/mypage');
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('error with editProfile', errorCode, errorMessage);
+    }
   };
 
   return (

@@ -40,6 +40,7 @@ const RegisterForm = () => {
       // await sendEmailVerification(auth.currentUser);
       const uid = userCredential.user.uid;
       const newProfile = { uid, password, email, nickname, taste: [], intro: '', goodFeed: [], badFeed: [] };
+
       await addDoc(collection(db, 'profile'), newProfile);
       alert('회원가입이 완료 되었습니다.');
       console.log('user singUp', userCredential);
