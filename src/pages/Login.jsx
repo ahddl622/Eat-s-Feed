@@ -32,7 +32,7 @@ export default function Login() {
       []
     );
     return () => userLoginStatusChange();
-  }, [auth, dispatch]);
+  }, [dispatch]);
 
   const onChange = (event) => {
     const {
@@ -63,6 +63,7 @@ export default function Login() {
           sessionStorage.setItem('currentUser', JSON.stringify(data));
         }
       });
+
       navigate('/');
     } catch (error) {
       const errorCode = error.code;

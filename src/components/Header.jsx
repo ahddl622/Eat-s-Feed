@@ -12,6 +12,7 @@ export default function Header() {
 
   const menus = [
     { id: 'about', info: '사이트 소개' },
+    { id: 'map', info: "Eat's Feed 맵" },
     { id: 'login', info: '로그인 / 회원 가입' },
     { id: 'mypage', info: '마이 페이지' }
   ];
