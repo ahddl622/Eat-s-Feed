@@ -33,7 +33,6 @@ export default function SocialLogin() {
 
       await addDoc(collection(db, 'profile'), newProfile);
       dispatch(socialProfile({ socialEmail, socialNickname }));
-      console.log(data.user.email);
       navigate('/');
     } catch (error) {
       console.error(error);
