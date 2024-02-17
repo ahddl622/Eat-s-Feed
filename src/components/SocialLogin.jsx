@@ -3,7 +3,8 @@ import googleLogin from 'assets/googleLoginImg.png';
 import githubLogin from 'assets/githubLoginImg.png';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { auth } from 'firebaseConfig';
+import { auth, db } from 'firebaseConfig';
+import { addDoc, collection } from 'firebase/firestore';
 import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { socialProfile } from 'store/modules/loginProfileReducer';
 
@@ -16,12 +17,23 @@ export default function SocialLogin() {
 
     try {
       const data = await signInWithPopup(auth, provider);
-
       const socialEmail = data.user.email;
       const socialNickname = data.user.displayName;
+      const uid = data.user.uid;
+
+      const newProfile = {
+        uid,
+        email: socialEmail,
+        nickname: socialNickname,
+        taste: [],
+        intro: '',
+        goodFeed: [],
+        badFeed: []
+      };
+
+      await addDoc(collection(db, 'profile'), newProfile);
       dispatch(socialProfile({ socialEmail, socialNickname }));
       console.log(data.user.email);
-      alert('로그인 되었습니다.');
       navigate('/');
     } catch (error) {
       console.error(error);
@@ -35,9 +47,20 @@ export default function SocialLogin() {
       const data = await signInWithPopup(auth, provider);
       const socialEmail = data.user.email;
       const socialNickname = data.user.displayName;
+      const uid = data.user.uid;
+
+      const newProfile = {
+        uid,
+        email: socialEmail,
+        nickname: socialNickname,
+        taste: [],
+        intro: '',
+        goodFeed: [],
+        badFeed: []
+      };
+
+      await addDoc(collection(db, 'profile'), newProfile);
       dispatch(socialProfile({ socialEmail, socialNickname }));
-      console.log(data);
-      alert('로그인 되었습니다.');
       navigate('/');
     } catch (error) {
       console.error(error);
