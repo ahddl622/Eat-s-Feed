@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getformattedDate } from 'components/common/util';
+import { getformattedDate } from './common/util';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth, db } from '../firebaseConfig';
@@ -239,15 +239,15 @@ export default function Show({ menu }) {
                   </div>
                 ) : null}
                 {loginProfile.email !== feed.email ? (
-                  <div>
+                  <CountSection>
                     <GoodBtn click={click[feed.id] && click[feed.id].good} onClick={() => clickGood(feed.id)}>
                       추천
                     </GoodBtn>
                     <BadBtn click={click[feed.id] && click[feed.id].bad} onClick={() => clickBad(feed.id)}>
                       비추천
                     </BadBtn>
-                    ♥ {feed.feedCount}
-                  </div>
+                    <CountP>♥ {feed.feedCount}</CountP>
+                  </CountSection>
                 ) : null}
               </BtnsDiv>
               <LatestDateP>최근 수정날짜 {getformattedDate(feed.createdAt)}</LatestDateP>
@@ -393,7 +393,7 @@ const CountP = styled.p`
   padding-left: 5px;
 
   line-height: 30px;
-  color: #e0aed0;
+  color: #ac87c5;
 `;
 
 const LatestDateP = styled.p`

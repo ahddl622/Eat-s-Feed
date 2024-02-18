@@ -5,7 +5,7 @@ import { db, auth } from 'firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-export default function Register() {
+export default function CreateAccount() {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -63,7 +63,7 @@ export default function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // await sendEmailVerification(auth.currentUser);
       const uid = userCredential.user.uid;
-      const newProfile = { uid, password, email, nickname, taste: [], intro: '' };
+      const newProfile = { uid, password, email, nickname, taste: [], intro: '', goodFeed: [], badFeed: [] };
       await addDoc(collection(db, 'profile'), newProfile);
 
       // dispatch(setUserUid(uid));
