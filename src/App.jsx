@@ -1,9 +1,11 @@
-import React from 'react'
+import Router from 'shared/Router';
 
 function App() {
   return (
-    <div>App</div>
-  )
+    <div>
+      <Router />
+    </div>
+  );
 }
 
-export default App
+export default App;
